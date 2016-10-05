@@ -5,7 +5,8 @@ references<-c("Reference1","Reference2","Reference3","Reference4")
 shinyServer(function(input,output){
   output$Ref<-renderText({BuildRef(input)})
   num<-reactive({as.numeric(input$resultNum)})
-  output$SRef<-SRef<-renderPrint({Results()[num(),"Reference"]})
+  output$SRef<-renderPrint({SRef()})
+  SRef<-reactive({Results()[num(),"Reference"]})
   output$Tags<-output$Tags2<-renderText({Tags(input)})
   
   WriteBib<-eventReactive(input$Write_B,{WriteBibliography(input,SRef())})
