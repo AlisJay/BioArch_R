@@ -1,0 +1,5 @@
+"Author" "Date" "Title" "Reference" "Tags" "Location"
+"author,1" "2000" "artical title" "Author,1 and Author,2.(2000).Artical Title.Journal Title1(1).pp10-13." "PP:Metabolic:Scurvy:General Stress Model" "mycompter/directory/file.pdf"
+"author,3" "2001" "online artical title" "Author,3; Author,4 and Author,2.(2001).Online artical Title.Journal Title1(1).pp10-13.JSTOR[Online].DOI:(Acessed:5/10/2016)." "BP:Stature:Weight/Mass" "mycompter/directory/file.pdf"
+"author,1" "2010" "book title" "Author,1; Author,3; Author,4 and Author,5.(2010).Book Title.London:Publishing company ltd.." "TR:B:Fracture:Trepanation:Medical treatment" "mycompter/directory/file.pdf"
+"author,3" "2011" "Conference on stuff" "Author,3; Author,1; Author,3 and Author,4.(2011).Conference on stuff.Somewhere,2010.London:Publishing ltd" "B:Compassion:Cooking" "mycompuer/directory/file.pdf"

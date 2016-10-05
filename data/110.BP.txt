@@ -1,0 +1,11 @@
+#Biological profile
+#Pop ID=110:Pop Name=Test:Investigator=AJNicholson
+#Date Created= 2016-09-21 22:42:22 :Program=BioProfileV2.0
+#Fields:ID,Investigator,date,known,ancestry,sex,age,range,AncestryScore,SexScore,Todd,Suchey-Brooks,Lovejoy,Vault,lateral-anterior
+#K:Ancestry,Sex,Age:1,0
+#AnS:Asian,African,European,Undetermined:Count
+#SS:Male,Probable Male,Unknown,Female,probable Female,Unrecorded:Count
+#T,SB,L,V,LA:Phase,min,max,average:seeB&U94,numeric,numeric,numeric
+"ID" "In" "D" "K" "An" "S" "Ag" "R" "AnS" "SS" "T" "SB" "L" "V" "LA"
+"001" "AJN" "2016-09-21_22:43:17" "0:0:0" "European" "unknown" "SubAdult" "14.5  -  19.5" "4:2:9:0" "NA:NA:NA:NA:NA:17" "NA" "NA" "NA" "NA" "NA"
+"002" "AJN" "2016-09-21_22:44:14" "1:1:1" "african" "female" "Adult" "56 - 58" "NA" "NA" "NA" "NA" "NA" "NA" "NA"

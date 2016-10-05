@@ -1,0 +1,11 @@
+mergeAJM<-function(AJM1,AJM2,x=2){
+  names<-c(names(AJM1),names(AJM2))
+  names[duplicated(names)==T]<-paste(names[duplicated(names)==T],x,sep="")
+  names(AJM2)<-names[(length(names(AJM1))+1):length(names)]
+  row.names(AJM2)<-names[(length(names(AJM1))+1):length(names)]
+  A1<-AJM1;A2<-AJM2
+  A1[names(AJM2),]<-0
+  A2[names(AJM1),]<-0
+  A2<-rbind(A2[names(AJM1),],A2[names(AJM2),])
+  cbind(A1,A2)
+}

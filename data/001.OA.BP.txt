@@ -1,0 +1,21 @@
+#Osteological assement:Biological Profile
+#Pop ID=001:Pop Name=TestPop:Investigator=AJNicholson
+#Date Created= 2016-09-06 14:54:26 :Program=BioProfileV2.0
+#Fields:ID,Investigator,date,Ancestry3, Ancestry2,Epiphysis Score,Phase Score,Sutures,Pelvic non-metric traits,Preauricular sulcus,Cranial non-metric traits,Pelvis metrics,Post-cranial metrics,Cranial metrics
+#AN3:orbit,nRoot,LNB,palate,profile,nwidth:Eu,Af,As,U
+AN2:BR,VS,PBD,SI,nBridge,LEB,nSpine,fShape,mMarks,Jaw:T,F,U
+#EScore:pRadius,dFibula,dTibia,dFemur,pFibula,acromion,iliac,hHead,fHead,lTrochanter,pTibia,gTrochanter,dradius,s3s5,s2s3,s1s2,clavicle,SOS:hex
+#PScore:Todd,Suchey-Brookes,Lovejoy:seeB$U94
+#S:ML,L,O,AS,B,P,MC,SF,IST,SST:NA,0,1,2,3
+#PNM:VA,SPC,IPR,SN:0-3,0-3,0-3,0-5
+#PAS:PAS:NA,T,F
+#CNM:NC,MP,SOM,G,ME:0-5
+#PM:pLength,pLength2,iLength,iLength2,aWidth:numeric
+#PCM:sHeight,gHeight,hHead,rHead,FHead:numeric
+#CM:mxLength,mxBreadth,BaBr,BaNa,zBreadth,BaPr,NaAl,pBreadth,mLength:numeric
+"ID" "In" "D" "AN3" "AN2" "EScore" "PScore" "S" "PNM" "PAS" "CNM" "PM" "PCM" "CM"
+"002" "AJN" "2016-09-06_14:59:03" "Af:Eu:Af:As:As:Eu" "T:T:F:U:T:U:F:T:T:T" "00000" "p4:NA:p4" "2:3:1:2:NA:NA:NA:NA:NA:NA" "2:3:1:2" "F" "2:0:2:1:4" "NA:NA:NA:NA:NA" "150:36:45:29:46" "NA:NA:NA:NA:NA:NA:NA:NA:NA"
+"003" "AJN" "2016-09-06_15:00:47" "NA" "NA" "00000" "p2:NA:p1" "0:2:1:1:1:1:1:1:0:1" "NA" "NA" "NA" "NA" "NA" "NA"
+"004" "AJN" "2016-09-06_15:02:52" "NA" "NA" "03c00" "p2:NA:p1" "0:2:1:1:1:1:1:1:0:1" "2:1:2:5" "F" "2:5:3:4:4" "NA:NA:NA:NA:NA" "172:37:45:29:47" "NA:NA:NA:NA:NA:NA:NA:NA:NA"
+"005" "AJN" "2016-09-06_15:03:56" "NA" "NA" "00000" "p5:p6:p7" "3:2:3:3:2:3:3:3:2:3" "2:1:2:5" "F" "2:5:3:4:4" "NA:NA:NA:NA:NA" "172:37:45:29:47" "NA:NA:NA:NA:NA:NA:NA:NA:NA"
+"006" "AJN" "2016-09-06_15:06:38" "Af:Eu:Af:Af:Af:Af" "T:F:T:F:T:F:F:T:T:T" "NA" "NA" "NA" "1:1:1:1" "T" "1:1:3:3:2" "NA:NA:NA:NA:NA" "139:35:41:21:45" "NA:NA:NA:NA:NA:NA:NA:NA:NA"

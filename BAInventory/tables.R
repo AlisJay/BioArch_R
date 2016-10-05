@@ -1,0 +1,32 @@
+Skull<-data.frame(element=c("rI","lI","rM","lM","rS","lS","V","rINC","lINC","rPl","lPl",
+                            "E","rN","lN","rL","lL","rPr","lPr","rZ","lZ","FS","FPO","FSO",
+                            "rTS","rTM","rTP","rTZ","lTS","lTM","lTP","lTZ","OS","OB","rOC",
+                            "lOC","SB","rSP","lSP","rSW","lSW","MC","rMR","lMR","rMA","rMP","rMF","lMA","lMP","lMF"),present=0,complete=0)
+Vert<-data.frame(element=c("H","C1","C2","C2O","C3b","C3a","C4b","C4a","C5b","C5a","C6b","C6a","C7b","C7a",
+                           "T1b","T1a","T2b","T2a","T3b","T3a","T4b","T4a","T5b","T5a","T6b","T6a","T7b","T7a","T8b","T8a",
+                           "T9b","T9a","T10b","T10a","T11b","T11a","T12b","T12a",
+                           "L1b","L1a","L2b","L2a","L3b","L3a","L4b","L4a","L5b","L5a","CO","TO","LO"),present=0,complete=0)
+Thorax<-data.frame(element=c("M","CS","X","r1","l1","r2","l2","r12","l12","r11","l11",
+                             "r3","r4","r5","r6","r7","r8","r9","r10",
+                             "l3","l4","l5","l6","l7","l8","l9","l10","O","S"),present=0,complete=0)
+Shoulder<-data.frame(element=c("rC","lC","rSB","rG","rSS","rCC","rA","lSB","lG","lSS","lCC","lA"),present=0,complete=0)
+Pelvis<-data.frame(element=c("rASS","lASS","rAl","lAL","Sa","S1b","S2b","LSb","C","rIL","rIS","rp",
+                             "rAC","rPS","rASOS","lIL","lIS","lp","lAC","lPS","lASOS"),present=0,complete=0)
+Arm<-data.frame(element=c("rHH","rHP","rHS","rHD","lHH","lHP","lHS","lHD","rRH","rRP","rRS","rRD",
+                          "lRH","lRP","lRS","lRD","rO","rC","rUP","rUS","rUH","lO","lC","lUP","lUS","lUH"),present=0,complete=0)
+Hand<-data.frame(element=c("rS","rL","rTQ","rP","rTM","rTD","rC","rH","lS","lL","lTQ","lP","lTM","lTD","lC","lH",
+                           "rM1","rM2","rM3","rM4","rM5","lM1","lM2","lM3","lM4","lM5",
+                           "rPP1","rPP2","rPP3","rPP4","rPP5","rIP2","rIP3","rIP4","rIP5","rDP1","rDP2","rDP3","rDP4","rDP5",
+                           "lPP1","lPP2","lPP3","lPP4","lPP5","lIP2","lIP3","lIP4","lIP5","lDP1","lDP2","lDP3","lDP4","lDP5",
+                           "MO","PO","MS","PS"),present=0,complete=0)
+Leg<-data.frame(element=c("rFH","rFN","rFT","rFS","rFD","rP","lFH","lFN","lFT","lFS","lFD","lP",
+                          "rTP","rPT","rTS","rTD","lTP","lPT","lTS","lTD","rFIP","rFIS","rFID","lFIP","lFIS","lFID"),present=0,complete=0)
+Foot<-data.frame(element=c("rT","rCL","rCB","rN","rLC","rIC","rMC","lT","lCL","lCB","lN","lLC","lIC","lMC",
+                           "rM1","rM2","rM3","rM4","rM5","lM1","lM2","lM3","lM4","lM5",
+                           "rPP1","rPP2","rPP3","rPP4","rPP5","rIP2","rIP3","rIP4","rIP5","rDP1","rDP2","rDP3","rDP4","rDP5",
+                           "lPP1","lPP2","lPP3","lPP4","lPP5","lIP2","lIP3","lIP4","lIP5","lDP1","lDP2","lDP3","lDP4","lDP5",
+                           "MO","PO","MS","PS"),present=0,complete=0)
+NMCranial<-data.frame(element=c("HNL","OL","OLS","PF","OB","MS","OCS","OP","FTA","OPN","OA","AT","FH","MFA","PCC","DCF","PCT",
+                                "ACC","IFO","OFS","ALPF","PT","MT","AZF","BSON","ASOF","AEFE","PEFA","AIOF"),present=0)
+NMPostCranial<-data.frame(element=c("AF","PF","P","HTF","ETF","3T","MTSF","LTSF","SCP","SA","AC","SF","ASF","AAF","BSSN","CS","VN","VF",
+                                    "EP","OT","MTF","LTE","DICF","DACF","AACF","PT","DAF","PAB","LAB","TFB"),present=0)

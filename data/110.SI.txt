@@ -1,0 +1,20 @@
+#Skeletal Inventory File
+#Pop ID=110:Pop Name=TestPop:Investigator=AJNicholson
+#Date Created= 2016-09-21 20:49:06 :Program=BAinventoryV1.0
+#Fields:IndividualID,InvestigatorInitials,Date,Skull,Vertebrae,Thorax,Shoulder,Pelvis,Arm,Hand,Leg,Foot,UnidentifiedFragments,Non-metricTraits,Custom
+#Coding: Standard=Present:Complete, Non-Metric trait=NMTc:NMTp
+#Sk:rI,lI,rM,lM,rS,lS,V,rINC,lINC,rPl,lPl,E,rN,lN,rL,lL,rPr,lPr,rZ,lZ,FS,FPO,FSO,rTS,rTM,rTP,rTZ,lTS,lTM,lTP,lTZ,OS,OB,rOC,lOC,SB,rSP,lSP,rSW,lSW,MC,rMR,lMR,rMA,rMP,rMF,lMA,lMP,lMF:hex
+#V:H,C1,C2,C2O,C3b,C3a,C4b,C4a,C5b,C5a,C6b,C6a,C7b,C7a,T1b,T1a,T2b,T2a,T3b,T3a,T4b,T4a,T5b,T5a,T6b,T6a,T7b,T7a,T8b,T8a,T9b,T9a,T10b,T10a,T11b,T11a,T12b,T12a,L1b,L1a,L2b,L2a,L3b,L3a,L4b,L4a,L5b,L5a,CO,TO,LO:hex
+#T:M,CS,X,r1,l1,r2,l2,r12,l12,r11,l11,r3,r4,r5,r6,r7,r8,r9,r10,l3,l4,l5,l6,l7,l8,l9,l10,O,S:hex
+#Sh:rC,lC,rSB,rG,rSS,rCC,rA,lSB,lG,lSS,lCC,lA:hex
+#P:rASS,lASS,rAl,lAL,Sa,S1b,S2b,LSb,C,rIL,rIS,rp,rAC,rPS,rASOS,lIL,lIS,lp,lAC,lPS,lASOS:hex
+#A:rHH,rHP,rHS,rHD,lHH,lHP,lHS,lHD,rRH,rRP,rRS,rRD,lRH,lRP,lRS,lRD,rO,rC,rUP,rUS,rUH,rO,rC,rUP,rUS,rUH:hex
+#H:rS,rL,rTQ,rP,rTM,rTD,rC,rH,lS,lL,lTQ,lP,lTM,lTD,lC,lH,rM1,rM2,rM3,rM4,rM5,lM1,lM2,lM3,lM4,lM5,rPP1,rPP2,rPP3,rPP4,rPP5,rIP2,rIP3,rIP4,rIP5,rDP1,rDP2,rDP3,rDP4,rDP5,lPP1,lPP2,lPP3,lPP4,lPP5,lIP2,lIP3,lIP4,lIP5,lDP1,lDP2,lDP3,lDP4,lDP5,MO,PO,MS,PS:hex
+#L:rFH,rFN,rFT,rFS,rFD,rP,lFH,lFN,lFT,lFS,lFD,lP,rTP,rPT,rTS,rTD,lTP,lPT,lTS,lTD,rFIP,rFIS,rFID,lFIP,lFIS,lFID:hex
+#F:rT,rCL,rCB,rN,rLC,rIC,rMC,lT,lCL,lCB,lN,lLC,lIC,lMC,rM1,rM2,rM3,rM4,rM5,lM1,lM2,lM3,lM4,lM5,rPP1,rPP2,rPP3,rPP4,rPP5,rIP2,rIP3,rIP4,rIP5,rDP1,rDP2,rDP3,rDP4,rDP5,lPP1,lPP2,lPP3,lPP4,lPP5,lIP2,lIP3,lIP4,lIP5,lDP1,lDP2,lDP3,lDP4,lDP5,MO,PO,MS,PS:hex
+#UF:Skull,LongBone,Vert,HandFoot,ClavScap,Oscoxae,Other:count
+#NMTc:HNL,OL,OLS,PF,OB,MS,OCS,OP,FTA,OPN,OA,AT,FH,MFA,PCC,DCF,PCT,ACC,IFO,OFS,ALPF,PT,MT,AZF,BSON,ASOF,AEFE,PEFA,AIOF:hex
+#NMTp:AF,PF,P,HTF,ETF,3T,MTSF,LTSF,SCP,SA,AC,SF,ASF,AAF,BSSN,CS,VN,VF,EP,OT,MTF,LTE,DICF,DACF,AACF,PT,DAF,PAB,LAB,TFB:hex
+#C:NA,NA,NA,NA,NA,NA,NA,NA
+"ID" "In" "D" "Sk" "V" "T" "Sh" "P" "A" "H" "L" "F" "UF" "NMT" "C"
+"001" "AJN" "2016-09-21_20:49:54" "1c00003c00000:20" "0600000000007:00" "00033c03:00" "000:0" "000000:0" "0000000:0" "000000000000000:0" "0000000:0" "00000000000000:0" "10:0:0:0:0:3:1" "0c140000:04250000" "NA"
