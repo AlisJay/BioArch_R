@@ -35,16 +35,16 @@ Ancestory<-function(ThreeOps=c(orbit,nRoot,LNB,palate,profile,nWidth),BR="NA",VS
   if(Jaw=="T"){European<-European+1}
   if(Jaw=="U"|LEB=="NA"){unknown<-unknown+1}
   
-  scores<-data.frame(Asian=Asian,African=African,European=European)
+  scores<-data.frame(asian=Asian,african=African,european=European)
   unknown<-data.frame(Unknown=unknown)
   
   other<-sum(scores)-max(scores)
   
   outcome<-if(unknown>8){as.character("unknown")
   }else{if(unknown>6 & max(scores)<other){as.character("unknown")
-    }else{if(unknown>6){paste("Probable",as.character(names(scores)[which.max(scores)]))
+    }else{if(unknown>6){paste("possible",as.character(names(scores)[which.max(scores)]))
     }else{if(max(scores)>other){as.character(names(scores)[which.max(scores)])
-      }else{paste("Probable",as.character(names(scores)[which.max(scores)]))}}}} 
+      }else{paste("possible",as.character(names(scores)[which.max(scores)]))}}}} 
   
   w<-NA; w<-if(unknown>0){"Your input was incomplete. The most reliable results come from complete analysis."}
   list(scores=cbind(scores,unknown),outcome=outcome,warnings=w)
