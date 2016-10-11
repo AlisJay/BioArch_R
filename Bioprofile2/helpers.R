@@ -83,12 +83,10 @@ ComScore<-function(A,B,C,D,E){
   list(na=na,score=composite)
 }
 ######################################################################################################################################################################################
-Adult<-function(sex,todd, SucheyBrookes,lovejoy,vault,LA){
-  results<-data.frame(trait=c("Todd","Suchey-Brookes","Lovejoy","Vault","Lateral-Anterior"),
-                      phase=c(NA,NA,NA,NA,NA),
-                      min=c(NA,NA,NA,NA,NA),
-                      max=c(NA,NA,NA,NA,NA),
-                      average=c(NA,NA,NA,NA,NA))
+Adult<-function(sex,todd, SucheyBrookes,lovejoy,vault,LA,Rib){
+  results<-data.frame(trait=c("Todd","Suchey-Brookes","Lovejoy","Vault","Lateral-Anterior","4th Rib"),
+                      phase=NA,min=NA,max=NA,average=NA)
+  rib<-data.frame(phase=paste("p",1:7,sep=""),surface=0,Scontour=0,rim=0,Rcontour=0,count=0,min=c(19,20,30,40,50,60,70),max=c(19,29,39,49,59,69,70))
   cvault<-data.frame(composite=c(1:20,"NaN"),
                      s=c("s1","s1","s2","s2","s2","s2","s3","s3","s3","s3","s3","s4","s4","s4","s4","s5","s5","s5","s6","s6",NA),
                      min=c(19,19,23,23,23,23,28,28,28,28,28,31,31,31,31,35,35,35,34,34,NA),
@@ -114,6 +112,19 @@ Adult<-function(sex,todd, SucheyBrookes,lovejoy,vault,LA){
                       min=c(NA,20,25,30,35,40,45,50,60),
                       max=c(NA,24,29,34,39,44,49,59,61),
                       average=c(NA,22,27,32,37,42,47,54.5,61))
+  
+  rib$surface[rib$phase %in% (strsplit(Rib[1],split="/")[[1]])]<-1 
+  rib$Scontour[rib$phase %in% (strsplit(Rib[2],split="/")[[1]])]<-1 
+  rib$rim[rib$phase %in% (strsplit(Rib[3],split="/")[[1]])]<-1 
+  rib$Rcontour[rib$phase %in% (strsplit(Rib[4],split="/")[[1]])]<-1 
+  rib$count<-rowSums(rib[,2:5])
+  rib<-rib[rib$count==max(rib$count),]
+  if(max(rib$count)!=0){
+    results$phase[results$trait=="4th Rib"]<-paste(rib$phase,collapse="/")
+    results$min[results$trait=="4th Rib"]<-min(rib$min)
+    results$max[results$trait=="4th Rib"]<-max(rib$max)
+    results$average[results$trait=="4th Rib"]<-(results$min[results$trait=="4th Rib"]+results$max[results$trait=="4th Rib"])/2
+  }
   results[,-1][results$trait=="Todd",]<-Todd[Todd$phase==todd,]
                      results[1,2]<-todd
   results[,-1][results$trait=="Lovejoy",]<-Lovejoy[Lovejoy$phase==lovejoy,]
@@ -146,6 +157,7 @@ Adult<-function(sex,todd, SucheyBrookes,lovejoy,vault,LA){
       results[,-1][results$trait=="Suchey-Brookes",]<-c(NA,NA,NA,NA)
       results[2,2]<-NA
     }}
+
   w1<-if(vault$na>0|LA$na>0){paste("you are missing ",as.character(sum(vault$na,LA$na))," suture closure scores. The composite score uses the average of recorded scores to estimate missing values. Therefore the ",if(LA$na>0)"Lateral-Anterior",if(vault$na>0 & LA$na>0)" and ",if(vault$na>0) "vault ","age range",if(vault$na>0 & LA$na>0)"s", "will be less accurate")}
   w2<-if(anyNA(results)){paste("best results come from complete analysis.You are missing: ",if(anyNA(results[results$trait=="Suchey-Brookes"]))"Suchey-Brookes ", if(anyNA(results[results$trait=="Todd"]))"Todd ",if(anyNA(results[results$trait=="Lovejoy"]))"Lovejoy ",if(anyNA(results[results$trait=="Vault"]))"Vault ",if(anyNA(results[results$trait=="Lateral-Anterior"]))"Lateral-Anterior ")}
   
@@ -154,7 +166,7 @@ Adult<-function(sex,todd, SucheyBrookes,lovejoy,vault,LA){
   if(tRange=="Inf  -  -Inf"){tRange<-"NA"}
   if(aRange=="Inf  -  -Inf"){aRange<-"NA"}
   
-  output<-list(TotalRange=tRange,AverageRange=aRange,Table=results,Warnings=c(w1,w2))
+  output<-list(TotalRange=tRange,AverageRange=aRange,Table=results,Table2=rib,Warnings=c(w1,w2))
 }
 ######################################################################################################################################################################################
 dfchoose<-function(x,y){
@@ -190,8 +202,15 @@ dfchoose<-function(x,y){
 }
 ######################################################################################################################################################################################
 sex<-function(ancestory,subAdult,pelvis,cranial,other){
-  results<-data.frame(trait=c("ventral arch","subpubic concavity","ishiopubic ramus","sciatic notch","prearicular sulcus","ishiopubic index","nuchal crest","mastoid process","supra-orbital margin","glabella","mental eminence","craniometrics","Scapula height","Glenoid Height","Humeral Head","Radial Head","Femoral Head"),
+  #1. step up results tables
+  p<-data.frame(trait=c("ventral arch","subpubic concavity","ishiopubic ramus","sciatic notch","prearicular sulcus","pelvis size","illium shape",
+                        "pubic inlet","pubic shape","subpubic angle","obturator foramen","sacrum shape","ishiopubic index","acetabulum"),
                       sex=NA)
+  o<-data.frame(trait=c("nuchal crest","mastoid process","supra-orbital margin","glabella","mental eminence","chin shape","skull size",
+                        "gonial flare","ramus flex","gonial angle","craniometrics","scapula height","glenoid height","humeral head","radial head","femoral head"),sex=NA)
+  
+  
+  #2. reference dataframes
   DFW<-data.frame(measurement=c("ML","MB","BABR","BaNA","BB","BaPr","NaAl","PB","LM","sectioning point","percent correct"),
                   DF1=c(3.107,-4.643,5.786,NA,14.821,1.000,2.714,-5.179,6.071,2672.39,86.6),
                   DF2=c(3.400,-3.833,5.433,-0.167,12.200,-0.100,2.200,NA,5.367,2592.32,86.4),
@@ -216,30 +235,56 @@ sex<-function(ancestory,subAdult,pelvis,cranial,other){
                   under=c(91,91,83,83,84,84,84))
   w1<-NULL;w2<-NULL
   
+  #3. check subadult
   if(subAdult$age=="SubAdult"){
     sex<-"unknown"
     w1<-"We do not sex subadult"
   }else{
     
-    results$sex[results$trait=="nuchal crest"]<-as.character(match5$sex[match5$no==cranial$nonmetric[1,2]])
-    results$sex[results$trait=="mastoid process"]<-as.character(match5$sex[match5$no==cranial$nonmetric[2,2]])
-    results$sex[results$trait=="supra-orbital margin"]<-as.character(match5$sex[match5$no==cranial$nonmetric[3,2]])
-    results$sex[results$trait=="glabella"]<-as.character(match5$sex[match5$no==cranial$nonmetric[4,2]])
-    results$sex[results$trait=="mental eminence"]<-as.character(match5$sex[match5$no==cranial$nonmetric[5,2]])
-    results$sex[results$trait=="sciatic notch"]<-as.character(match5$sex[match5$no==pelvis$nonmetric[4,2]])
-    results$sex[results$trait=="ventral arch"]<-as.character(match3$sex[match3$no==pelvis$nonmetric[1,2]])
-    results$sex[results$trait=="subpubic concavity"]<-as.character(match3$sex[match3$no==pelvis$nonmetric[2,2]])
-    results$sex[results$trait=="ishiopubic ramus"]<-as.character(match3$sex[match3$no==pelvis$nonmetric[3,2]])
+    #fill p
+    p$sex[p$trait=="ventral arch"]<-as.character(match3$sex[match3$no==pelvis$nonmetric[1]])
+    p$sex[p$trait=="subpubic concavity"]<-as.character(match3$sex[match3$no==pelvis$nonmetric[2]])
+    p$sex[p$trait=="ishiopubic ramus"]<-as.character(match3$sex[match3$no==pelvis$nonmetric[3]])
+    p$sex[p$trait=="sciatic notch"]<-as.character(match5$sex[match5$no==pelvis$nonmetric[4]])
     
-    if(!(is.na(pelvis$nonmetric[5,2]))){
-      if(pelvis$nonmetric[5,2]=="T"){results$sex[results$trait=="prearicular sulcus"]<-"f"
-      }else{if(pelvis$nonmetric[5,2]=="F"){results$sex[results$trait=="prearicular sulcus"]<-"m"
-      }else{results$sex[results$trait=="prearicular sulcus"]<-"u"}}}
+    if(!(is.na(pelvis$nonmetric[5]))){
+      if(pelvis$nonmetric[5] %in% 2:4){p$sex[p$trait=="prearicular sulcus"]<-"f"
+      }else{if(pelvis$nonmetric[5]==1){p$sex[p$trait=="prearicular sulcus"]<-"m"
+      }else{p$sex[p$trait=="prearicular sulcus"]<-NA}}}
     
-    if(!(anyNA(pelvis$metric))){index<-(pelvis$metric[1,2]/pelvis$metric[2,2])*100
-                                if(index>IPI[IPI$ancestory==ancestory,2]){results$sex[results$trait=="ishiopubic index"]<-"f"
-                                }else{if(index<IPI[IPI$ancestory==ancestory,3]){results$sex[results$trait=="ishiopubic index"]<-"m"
-                                }else{results$sex[results$trait=="ishiopubic index"]<-"u"}}}
+    p$sex[p$trait=="pelvis size"]<-pelvis$nonmetric[6]
+    p$sex[p$trait=="illium shape"]<-pelvis$nonmetric[7]
+    p$sex[p$trait=="pubic inlet"]<-pelvis$nonmetric[8]
+    p$sex[p$trait=="pubic shape"]<-pelvis$nonmetric[9]
+    p$sex[p$trait=="subpubic angle"]<-pelvis$nonmetric[10]
+    p$sex[p$trait=="obturator foramen"]<-pelvis$nonmetric[11]
+    p$sex[p$trait=="sacrum shape"]<-pelvis$nonmetric[12]
+    
+    if(!(is.na(pelvis$metric[1]))|!(is.na(pelvis$metric[2]))){
+      index<-(pelvis$metric[1]/pelvis$metric[2])*100
+      if(index>IPI[IPI$ancestory==ancestory,2]){p$sex[p$trait=="ishiopubic index"]<-"f"
+      }else{if(index<IPI[IPI$ancestory==ancestory,3]){p$sex[p$trait=="ishiopubic index"]<-"m"
+      }else{p$sex[p$trait=="ishiopubic index"]<-"u"}}}
+    
+    if(!(is.na(pelvis$metric[5]))){
+      if(pelvis$metric > 51.87){p$sex[p$trait=="acetabulum"]<-"m"
+      }else{p$sex[p$trait=="acetabulum"]<-"f"}
+    }
+    
+    
+    #fill 0
+    o$sex[o$trait=="nuchal crest"]<-as.character(match5$sex[match5$no==cranial$nonmetric[1]])
+    o$sex[o$trait=="mastoid process"]<-as.character(match5$sex[match5$no==cranial$nonmetric[2]])
+    o$sex[o$trait=="supra-orbital margin"]<-as.character(match5$sex[match5$no==cranial$nonmetric[3]])
+    o$sex[o$trait=="glabella"]<-as.character(match5$sex[match5$no==cranial$nonmetric[4]])
+    o$sex[o$trait=="mental eminence"]<-as.character(match5$sex[match5$no==cranial$nonmetric[5]])
+    
+    o$sex[o$trait=="chin shape"]<-cranial$nonmetric[6]
+    o$sex[o$trait=="skull size"]<-cranial$nonmetric[7]
+    o$sex[o$trait=="gonial flare"]<-cranial$nonmetric[8]
+    o$sex[o$trait=="ramus flex"]<-cranial$nonmetric[9]
+    o$sex[o$trait=="gonial angle"]<-cranial$nonmetric[10]
+    
     
     if(ancestory=="asian"|ancestory=="possible asian"){
       x<-dfchoose(DFA,cranial$metric)
@@ -253,70 +298,117 @@ sex<-function(ancestory,subAdult,pelvis,cranial,other){
     }else{x<-list(df=NA,rows=NA)}}}
     
     if(!(is.na(x$df))){sum<-sum(y[x$rows,names(y)==x$df]*cranial$metric[x$rows,2])
-                       if(sum>y[10,names(y)==x$df]){results$sex[results$trait=="craniometrics"]<-"m"
-                       }else{results$sex[results$trait=="craniometrics"]<-"f"}}
+                       if(sum>y[10,names(y)==x$df]){o$sex[o$trait=="craniometrics"]<-"m"
+                       }else{o$sex[o$trait=="craniometrics"]<-"f"}}
     
-    if(!(is.na(other[1]))){if(other[1]<140){results$sex[results$trait=="Scapula height"]<-"f"
-    }else{if(other[1]>170){results$sex[results$trait=="Scapula height"]<-"m"
-    }else{results$sex[results$trait=="Scapula height"]<-"u"}}}
+    if(!(is.na(other[1]))){if(other[1]<140){o$sex[o$trait=="scapula height"]<-"f"
+    }else{if(other[1]>170){o$sex[o$trait=="scapula height"]<-"m"
+    }else{o$sex[o$trait=="scapula height"]<-"u"}}}
     
-    if(!(is.na(other[2]))){if(other[2]<36){results$sex[results$trait=="Glenoid Height"]<-"pf"
-    }else{if(other[2]>36){results$sex[results$trait=="Glenoid Height"]<-"pm"
-    }else{results$sex[results$trait=="Glenoid Height"]<-"u"}}}
+    if(!(is.na(other[2]))){if(other[2]<36){o$sex[o$trait=="glenoid height"]<-"pf"
+    }else{if(other[2]>36){o$sex[o$trait=="glenoid height"]<-"pm"
+    }else{o$sex[o$trait=="glenoid height"]<-"u"}}}
     
-    if(!(is.na(other[4]))){if(other[4]<21){results$sex[results$trait=="Radial Head"]<-"f"
-    }else{if(other[4]>=24){results$sex[results$trait=="Radial Head"]<-"m"
-    }else{results$sex[results$trait=="Radial Head"]<-"u"}}}
+    if(!(is.na(other[4]))){if(other[4]<21){o$sex[o$trait=="radial head"]<-"f"
+    }else{if(other[4]>=24){o$sex[o$trait=="radial head"]<-"m"
+    }else{o$sex[o$trait=="radial head"]<-"u"}}}
     
-    if(!(is.na(other[3]))){if(other[3]<43){results$sex[results$trait=="Humeral Head"]<-"f"
-    }else{if(other[3]>47){results$sex[results$trait=="Humeral Head"]<-"m"
-    }else{if(other[3]<44){results$sex[results$trait=="Humeral Head"]<-"pf"
-    }else{if(other[3]>46){results$sex[results$trait=="Humeral Head"]<-"pm"
-    }else{results$sex[results$trait=="Humeral Head"]<-"u"}}}}}
+    if(!(is.na(other[3]))){if(other[3]<43){o$sex[o$trait=="humeral head"]<-"f"
+    }else{if(other[3]>47){o$sex[o$trait=="humeral head"]<-"m"
+    }else{if(other[3]<44){o$sex[o$trait=="humeral head"]<-"pf"
+    }else{if(other[3]>46){o$sex[o$trait=="humeral head"]<-"pm"
+    }else{o$sex[o$trait=="humeral head"]<-"u"}}}}}
     
-    if(!(is.na(other[5]))){if(other[5]<40){results$sex[results$trait=="Femoral Head"]<-"f"
-    }else{if(other[5]>47.5){results$sex[results$trait=="Femoral Head"]<-"m"
-    }else{if(other[5]<43){results$sex[results$trait=="Femoral Head"]<-"pf"
-    }else{if(other[5]>46.5){results$sex[results$trait=="Femoral Head"]<-"pm"
-    }else{results$sex[results$trait=="Femoral Head"]<-"u"}}}}}
+    if(!(is.na(other[5]))){if(other[5]<40){o$sex[o$trait=="femoral head"]<-"f"
+    }else{if(other[5]>47.5){o$sex[o$trait=="femoral head"]<-"m"
+    }else{if(other[5]<43){o$sex[o$trait=="femoral head"]<-"pf"
+    }else{if(other[5]>46.5){o$sex[o$trait=="femoral head"]<-"pm"
+    }else{o$sex[o$trait=="femoral head"]<-"u"}}}}}
     
-    results<-rbind(results,data.frame(trait=c("m","f","pf","pm","u"),sex=c("m","f","pf","pm","u")))
-    results$sex<-as.factor(results$sex)
-    results<-results[1:17,]
+    #results
+    results<-data.frame(result=c("Pelvis_na","Pelvis_m","Pelvis_pm","Pelvis_u","Pelvis_pf","Pelvis_f",
+                                 "Other_na","Other_m","Other_pm","Other_u","Other_pf","Other_f"),count=NA)
     
-    if(sum(summary(results$sex)["f"],summary(results$sex)["pf"],na.rm=TRUE)>9){
-      if(all(is.na(results[c(1:6),2]))){
-        sex<-"possible female"
-        w2<-"without pelvis assessment sex determination can only give possible results"
-      }else{if(summary(results$sex)["f"]>7){sex<-"female"
-      }else{sex<-"possible female"}}
-      
-    }else{if(sum(summary(results$sex)["m"],summary(results$sex)["pm"],na.rm=TRUE)>9){
-      if(all(is.na(results[c(1:6),2]))){
-        sex<-"possible male"
-        w2<-"without pelvis assessment sex determination can only give possible results"
-      }else{if(summary(results$sex)["m"]>7){sex<-"male"
-      }else{sex<-"possible male"}}
-      
-    }else{if((sum(summary(results$sex)["f"],summary(results$sex)["pf"],na.rm=TRUE)>sum(summary(results$sex)["m"],summary(results$sex)["pm"],na.rm=TRUE))& summary(results$sex)["NA's"]<10){
-      if(sum(summary(results[c(1:6),2])["f"],summary(results[c(1:6),2])["pf"],na.rm=TRUE)<sum(summary(results[c(1:6),2])["m"],summary(results[c(1:6),2])["pm"],na.rm=TRUE)){sex<-"unkown"
-      }else{if(summary(results[c(1:6),2])["f"]>5){sex<-"female"
-      }else{sex<-"possible female"}}
-      
-    }else{if((sum(summary(results$sex)["m"],summary(results$sex)["pm"],na.rm=TRUE)>sum(summary(results$sex)["f"],summary(results$sex)["pf"],na.rm=TRUE))& summary(results$sex)["NA's"]<10){
-      if(sum(summary(results[c(1:6),2])["m"],summary(results[c(1:6),2])["pm"],na.rm=TRUE)<sum(summary(results[c(1:6),2])["f"],summary(results[c(1:6),2])["pf"],na.rm=TRUE)){sex<-"unkown"
-      }else{if(summary(results[c(1:6),2])["m"]>5){sex<-"male"
-      }else{sex<-"possible male"}}
-      
-    }else{if(summary(results[c(1:6),2])["f"]==6){sex<-"female"
-    }else{if(summary(results[c(1:6),2])["m"]==6){sex<-"male"
-    }else{if(sum(summary(results[c(1:6),2])["f"],summary(results[c(1:6),2])["pf"],na.rm=TRUE)>5){sex<-"probable female"
-    }else{if(sum(summary(results[c(1:6),2])["m"],summary(results[c(1:6),2])["pm"],na.rm=TRUE)>5){sex<-"probable male"
-    }else{sex<-"unknown"}}}}}}}}
-    }
-	
+    results$count[results$result=="Pelvis_m"]<-length(p$trait[p$sex=="m"& !(is.na(p$sex))])
+    results$count[results$result=="Pelvis_pm"]<-length(p$trait[p$sex=="pm"& !(is.na(p$sex))])
+    results$count[results$result=="Pelvis_f"]<-length(p$trait[p$sex=="f"& !(is.na(p$sex))])
+    results$count[results$result=="Pelvis_pf"]<-length(p$trait[p$sex=="pf"& !(is.na(p$sex))])
+    results$count[results$result=="Pelvis_u"]<-length(p$trait[p$sex=="u"& !(is.na(p$sex))])
+    results$count[results$result=="Pelvis_na"]<-length(p$sex)-sum(results$count[2:6],na.rm=TRUE)
+    
+    results$count[results$result=="Other_m"]<-length(o$trait[o$sex=="m"& !(is.na(o$sex))])
+    results$count[results$result=="Other_pm"]<-length(o$trait[o$sex=="pm"& !(is.na(o$sex))])
+    results$count[results$result=="Other_f"]<-length(o$trait[o$sex=="f"& !(is.na(o$sex))])
+    results$count[results$result=="Other_pf"]<-length(o$trait[o$sex=="pf"& !(is.na(o$sex))])
+    results$count[results$result=="Other_u"]<-length(o$trait[o$sex=="u"& !(is.na(o$sex))])
+    results$count[results$result=="Other_na"]<-length(o$sex)-sum(results$count[8:12],na.rm=TRUE)
+    
+    #sex determination logic tests
+    if(sum(results$count[c(2,3,8,9)],na.rm=TRUE)>15){#if pm+m > 15/30
+      if(results$count[1]==14){# if no pelvic data
+        sex<-"probable male"
+        w2<-"'A probable designation is employed when the pelvis can not be used'(Steckel,Sciulli & Rose(2005))"
+      }else{if(sum(results$count[c(2,8)],na.rm=TRUE)>7){# if m > 7
+        sex<-"male"
+        w2<-NULL
+      }else{
+        sex<-"probable male"
+        w2<-NULL
+      }}
+    }else{if(sum(results$count[c(5,6,11,12)],na.rm=TRUE)>15){#if pf+f > 15/30
+      if(results$count[1]==14){#if no pelvic data
+        sex<-"probable female"
+        w2<-"'A probable designation is employed when the pelvis can not be used'(Steckel,Sciulli & Rose(2005))"
+      }else{if(sum(results$count[c(6,12)],na.rm=TRUE)>7){#if f > 7
+        sex<-"female"
+        w2<-NULL
+      }else{
+        sex<-"probable female"
+        w2<-NULL
+      }}
+    }else{if((sum(results$count[c(2,3,8,9)],na.rm=TRUE)>sum(results$count[c(5,6,11,12)],na.rm=TRUE))& (sum(results$count[c(1,7)],na.rm=TRUE)<20)){#if pm+m > pf+f and there are less than 20 missing
+      if((sum(results$count[c(2,3)],na.rm=TRUE)<sum(results$count[c(5,6)],na.rm=TRUE))){# if pelvis shows opossite trend
+        sex<-"unknown"
+        w2<-"Pelvic results disagree with the rest of the skeleton"
+      }else{if(results$count[2]>5){# if pelvis m > 5
+        sex<-"male"
+        w2<-NULL
+      }else{
+        sex<-"probable male"
+        w2<-NULL
+      }}
+    }else{if((sum(results$count[c(5,6,11,12)],na.rm=TRUE)>sum(results$count[c(2,3,8,9)],na.rm=TRUE)) & (sum(results$count[c(1,7)],na.rm=TRUE)<20)){#if pf+f > pm+m and there are less than 20 missing
+      if(sum(results$count[c(5,6)],na.rm=TRUE)<sum(results$count[c(2,3)],na.rm=TRUE)){#if pelvis shows opposite trend
+        sex<-"unknown"
+        w2<-"Pelvic results disagree with the rest of the skeleton"
+      }else{if(results$count[6]>5){#if pelvis f > 5
+        sex<-"female"
+        w2<-NULL
+      }else{
+        sex<-"probable female"
+        w2<-NULL
+      }}
+    }else{if(results$count[2]>10){#if pelvis m > 10/14
+      sex<-"male"
+      w2<-"sex determination based on pelvic data only"
+    }else{if(results$count[6]>10){#if pelvis f > 10/14
+      sex<-"female"
+      w2<-"sex determination based on pelvic data only"
+    }else{if(sum(results$count[c(2,3)],na.rm=TRUE)>7){# if pelvis m+pm > 7/14
+      sex<-"probable male"
+      w2<-"sex determination based on pelvic data only"
+    }else{if(sum(results$count[c(5,6)],na.rm=TRUE)>7){# if pelvis pf+f > 7/14
+      sex<-"probable female"
+      w2<-"sex determination based on pelvic data only"
+    }else{
+      sex<-"unknown"
+      w2<-NULL
+    }}}}}}}}
+    
+  }
+  #output
 	w3<-if(anyNA(results)){"Your input was incomplete please note that the most reliable results come from complete analysis"}
-    list(Sex=sex,Table=results,Warnings=c(w1,w2,w3))
+    list(Sex=sex,Table=results,Table2=rbind(p,o),Warnings=c(w1,w2,w3))
     }
     
     

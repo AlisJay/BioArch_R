@@ -42,13 +42,13 @@ shinyServer(function(input, output) {
   
   #sex()
   #creating the pelvis and cranial field from the input
-  p<-reactive({list(nonmetric=data.frame(trait=c("ventral arch","subpubic concavity","ishiopubic ramus","sciatic notch","prearicular sulcus"),score=c(input$va,input$spc,input$ipr,input$sn,input$pas)),
-                    metric=data.frame(trait=c("pubic length", "ischium length"),measurement=c(input$pLength,input$iLength)))})
+  p<-reactive({list(nonmetric=c(input$va,input$spc,input$ipr,input$sn,input$pas,input$pShape,input$iShape,input$pInlet,input$pShape,input$spAngle,input$OF,input$sShape),
+                    metric=c(input$pLength,input$iLength,input$pLength2,input$iLength2,input$awidth))})
   
-  cr<-reactive({list(nonmetric= data.frame(trait=c("nuchal crest","mastoid process","supra-orbital margin","glabella","mental eminence"),
-                                           score=c(input$nc,input$m,input$som,input$g,input$me)),
-                     metric=data.frame(trait=c("maximum length","maximum breadth","basion bregma","basion nasion","bizygomatic breadth","basion prosthion","nasion alveolar","palate breadth","mastoid length"),
+  cr<-reactive({list(nonmetric=c(input$nc,input$m,input$som,input$g,input$me,input$Chin,input$cSize,input$flare,input$flex,input$gAngle),
+                     metric=data.frame(trait=c("maximum length","maximum breadth","basion bregma","basion nasion","bizygomatic breadth","basion prosthion","nasion alveolar","palate breadth","mastoid length"), 
                                        measurement=c(input$maxLength,input$maxBreadth,input$BaBr,input$BaNa,input$BB,input$BaPr,input$NaAl,input$pBreadth,input$mLength)))})
+  
   other<-reactive({c(input$sHeight,input$gHeight,input$hHead,input$rHead,input$fHead)})
   #(ancestory,subAdult,pelvis,cranial)
   #options for sex(), using known and unknown values
@@ -81,9 +81,9 @@ shinyServer(function(input, output) {
   LA<-reactive({ComScore(input$P,input$MC,input$SF,input$IST,input$SST)})
   
   #adult options known and unknown sex
-  a1<-reactive({Adult(sex=input$ksex,todd=input$todd,SucheyBrookes=input$SucheyBrookes,lovejoy=input$lovejoy,vault=vault(),LA=LA())})
-  a2<-reactive({Adult(sex=s4()$Sex,todd=input$todd,SucheyBrookes=input$SucheyBrookes,lovejoy=input$lovejoy,vault=vault(),LA=LA())})
-  a3<-reactive({Adult(sex=s2()$Sex,todd=input$todd,SucheyBrookes=input$SucheyBrookes,lovejoy=input$lovejoy,vault=vault(),LA=LA())})
+  a1<-reactive({Adult(sex=input$ksex,todd=input$todd,SucheyBrookes=input$SucheyBrookes,lovejoy=input$lovejoy,vault=vault(),LA=LA(),Rib=c(input$rib1,input$rib2,input$rib3,input$rib4))})
+  a2<-reactive({Adult(sex=s4()$Sex,todd=input$todd,SucheyBrookes=input$SucheyBrookes,lovejoy=input$lovejoy,vault=vault(),LA=LA(),Rib=c(input$rib1,input$rib2,input$rib3,input$rib4))})
+  a3<-reactive({Adult(sex=s2()$Sex,todd=input$todd,SucheyBrookes=input$SucheyBrookes,lovejoy=input$lovejoy,vault=vault(),LA=LA(),Rib=c(input$rib1,input$rib2,input$rib3,input$rib4))})
   
   #age output options
   output$agr1<-renderPrint({paste(as.character(a1()$TotalRange)," (",as.character(a1()$AverageRange),")")})
@@ -122,12 +122,11 @@ shinyServer(function(input, output) {
   Pscore<-reactive({if(input$knownage=="known"){"NA"}else{paste(input$todd,input$SucheyBrookes,input$lovejoy,sep=":")}})
   Su<-reactive({if(input$knownage=="known"){"NA"}else{paste(input$ML,input$L,input$O,input$AS,input$B,input$P,input$MC,input$SF,input$IST,input$SST,sep=":")}})
   
-  PNM<-reactive({if(input$knownsex=="known"){"NA"}else{paste(input$va,input$spc,input$ipr,input$sn,sep=":")}})
-  PAS<-reactive({if(input$knownsex=="known"){"NA"}else{input$pas}})
-  CNM<-reactive({if(input$knownsex=="known"){"NA"}else{paste(input$nc,input$m,input$som,input$g,input$me,sep=":")}})
-  PM<-reactive({if(input$knownsex=="known"){"NA"}else{paste(input$pLength,input$pLength2,input$iLength,input$iLength2,input$awidth,sep=":")}})
-  PCM<-reactive({if(input$knownsex=="known"){"NA"}else{paste(input$sHeight,input$gHeight,input$hHead,input$rHead,input$fHead,sep=":")}})
-  CM<-reactive({if(input$knownsex=="known"){"NA"}else{paste(input$maxLength,input$maxBreadth,input$BaBr,input$BaNa,input$BB,input$BaPr,input$NaAl,input$pBreadth,input$mLength,sep=":")}})
+  Pelvis<-reactive({if(input$knownsex=="known"){list(nonmetric="NA",metric="NA")}else{p()}})
+  cranial<-reactive({if(input$knownsex=="known"){list(nometric="NA",metric=data.frame(trait="None",measurment="NA"))}else{cr()}})
+  o<-reactive({if(input$knownsex=="known"){"NA"}else{other()}})
+  
+  rib<-reactive({if(input$knownsex=="known"){"NA"}else{paste(input$rib1,input$rib2,input$rib3,input$rib4,sep=":")}})
   
   k<-reactive({KnownScore(input$knownage,input$knownac,input$knownsex)})
   
@@ -138,9 +137,9 @@ shinyServer(function(input, output) {
   
   Ag<-reactive({if(input$knownage=="known"){input$kage}else{Sub()$age}})  
   
-  AgeScores<-reactive({if(input$knownage=="known"){list(paste(as.character(input$krange[1])," - ", as.character(input$krange[2]),sep=""),"NA","NA","NA","NA","NA")
+  AgeScores<-reactive({if(input$knownage=="known"){list(paste(as.character(input$krange[1])," - ", as.character(input$krange[2]),sep=""),"NA","NA","NA","NA","NA","NA","NA")
   }else{
-    if(Sub()$age=="SubAdult"){list(Sub()$range,"NA","NA","NA","NA","NA")
+    if(Sub()$age=="SubAdult"){list(Sub()$range,"NA","NA","NA","NA","NA","NA","NA")
     }else{
       if(k()=="1:0:0"){aExtract(a3())
       }else{
@@ -148,19 +147,18 @@ shinyServer(function(input, output) {
         }else{aExtract(a3())}}}}
   })
   
-  Sex<-reactive({if(input$knownsex=="known"){list(input$ksex,"NA")
-  }else{if(k()=="1:0:1"){sExtract(s1())
-  }else{if(k()=="1:0:0"){sExtract(s2())
-  }else{if(k()=="0:0:1"){sExtract(s3())
-  }else{sExtract(s4())}}}}
+  Sex<-reactive({if(input$knownsex=="known"){list(input$ksex,rep("NA",12))
+  }else{if(k()=="1:0:1"){list(s1()$Sex,s1()$Table$count)
+  }else{if(k()=="1:0:0"){list(s1()$Sex,s2()$Table$count)
+  }else{if(k()=="0:0:1"){list(s1()$Sex,s3()$Table$count)
+  }else{list(s1()$Sex,s4()$Table$count)}}}}
   })
   
   #Append
   IMessage<-eventReactive(input$Append,{
-    Append2(input$POPID,input$ID,input$Person2,k=k(),an=An(),s=Sex()[[1]],ag=Ag(),
-            r=AgeScores()[[1]],ans=AnS(),ss=Sex()[[2]],
-            t=AgeScores()[[2]],sb=AgeScores()[[3]],l=AgeScores()[[4]],v=AgeScores()[[5]],la=AgeScores()[[6]],
-            an3=An3(),an2=An2(),escore=EScore(),pscore=Pscore(),su=Su(),pnm=PNM(),pas=PAS(),cnm=CNM(),pm=PM(),pcm=PCM(),cm=CM(),input$dir)
+    Append2(input$POPID,input$ID,input$Person2,k=k(),an=An(),s=Sex()[[1]],ag=Ag(),r=AgeScores()[[1]],ans=AnS(),ss=Sex()[[2]],
+            t=AgeScores()[[2]],sb=AgeScores()[[3]],l=AgeScores()[[4]],v=AgeScores()[[5]],la=AgeScores()[[6]],r4=AgeScores()[[7]],
+            an3=An3(),an2=An2(),escore=EScore(),pscore=Pscore(),rib=rib(),su=Su(),Pelvis=Pelvis(),Cranial=cranial(),Other=o(),input$dir)
   })
   output$IMessage<-renderPrint({IMessage()})
   

@@ -4,12 +4,12 @@ createBP<-function(ID,name="NA",investigator="NA",dir){
   head<-c("#Biological profile",
           paste("#Pop ID=",ID,":Pop Name=",name,":Investigator=",investigator,sep=""),
           paste("#Date Created=",Sys.time(),":Program=BioProfileV2.0"),
-          "#Fields:ID,Investigator,date,known,ancestry,sex,age,range,AncestryScore,SexScore,Todd,Suchey-Brooks,Lovejoy,Vault,lateral-anterior",
+          "#Fields:ID,Investigator,date,known,ancestry,sex,age,range,AncestryScore,Sex Pelvis,Sex Other,Todd,Suchey-Brooks,Lovejoy,Vault,lateral-anterior,4th Rib",
           "#K:Ancestry,Sex,Age:1,0",
           "#AnS:Asian,African,European,Undetermined:Count",
-          "#SS:Male,Probable Male,Unknown,Female,probable Female,Unrecorded:Count",
-          "#T,SB,L,V,LA:Phase,min,max,average:seeB&U94,numeric,numeric,numeric")
-  Table<-data.frame(ID=NA,In=NA,D=NA,K=NA,An=NA,S=NA,Ag=NA,R=NA,AnS=NA,SS=NA,T=NA,SB=NA,L=NA,V=NA,LA=NA)
+          "#SP,SO:unrecorded,male,probable male,unknown,probable female,female:Count",
+          "#T,SB,L,V,LA,R4:Phase,min,max,average:alphanumeric,numeric,numeric,numeric")
+  Table<-data.frame(ID=NA,In=NA,D=NA,K=NA,An=NA,S=NA,Ag=NA,R=NA,AnS=NA,SP=NA,SO=NA,T=NA,SB=NA,L=NA,V=NA,LA=NA,R4=NA)
   filepath<-paste(dir,ID,".BP.txt",sep="")
   write(head,filepath)
   write.table(Table[-1,],filepath,append=TRUE,row.names=FALSE)
@@ -18,19 +18,19 @@ createBP<-function(ID,name="NA",investigator="NA",dir){
   head<-c("#Osteological assement:Biological Profile",
           paste("#Pop ID=",ID,":Pop Name=",name,":Investigator=",investigator,sep=""),
           paste("#Date Created=",Sys.time(),":Program=BioProfileV2.0"),
-          "#Fields:ID,Investigator,date,Ancestry3, Ancestry2,Epiphysis Score,Phase Score,Sutures,Pelvic non-metric traits,Preauricular sulcus,Cranial non-metric traits,Pelvis metrics,Post-cranial metrics,Cranial metrics",
+          "#Fields:ID,Investigator,date,Ancestry3, Ancestry2,Epiphysis Score,Phase Score,4th Rib,Sutures,Pelvic non-metric traits,Preauricular sulcus,Cranial non-metric traits,Pelvis metrics,Post-cranial metrics,Cranial metrics",
           "#AN3:orbit,nRoot,LNB,palate,profile,nwidth:Eu,Af,As,U",
           "AN2:BR,VS,PBD,SI,nBridge,LEB,nSpine,fShape,mMarks,Jaw:T,F,U",
           "#EScore:pRadius,dFibula,dTibia,dFemur,pFibula,acromion,iliac,hHead,fHead,lTrochanter,pTibia,gTrochanter,dradius,s3s5,s2s3,s1s2,clavicle,SOS:hex",
-          "#PScore:Todd,Suchey-Brookes,Lovejoy:seeB$U94",
+          "#PScore:Todd,Suchey-Brookes,Lovejoy:alphanumeric,seeB$U1994",
+          "#Rib:S,SC,RE,RC:alphanumeric,seeByers2010",
           "#S:ML,L,O,AS,B,P,MC,SF,IST,SST:NA,0,1,2,3",
-          "#PNM:VA,SPC,IPR,SN:0-3,0-3,0-3,0-5",
-          "#PAS:PAS:NA,T,F",
-          "#CNM:NC,MP,SOM,G,ME:0-5",
+          "#PNM:va,spc,ipr,sn,pas,pShape,iiShape,pInlet,pShape,spAngle,OF,sShape:0-3,0-5,m/f/NA",
+          "#CNM:NC,MP,SOM,G,ME,Chin,cSize,flare,flex,gAngle:0-5,m/f/NA",
           "#PM:pLength,pLength2,iLength,iLength2,aWidth:numeric",
           "#PCM:sHeight,gHeight,hHead,rHead,FHead:numeric",
           "#CM:mxLength,mxBreadth,BaBr,BaNa,zBreadth,BaPr,NaAl,pBreadth,mLength:numeric")
-  Table<-data.frame(ID=NA,In=NA,D=NA,AN3=NA,AN2=NA,EScore=NA,PScore=NA,S=NA,PNM=NA,PAS=NA,CNM=NA,PM=NA,PCM=NA,CM=NA)
+  Table<-data.frame(ID=NA,In=NA,D=NA,AN3=NA,AN2=NA,EScore=NA,PScore=NA,Rib=NA,S=NA,PNM=NA,CNM=NA,PM=NA,PCM=NA,CM=NA)
   filepath<-paste(dir,ID,".OA.BP.txt",sep="")
   write(head,filepath)
   write.table(Table[-1,],filepath,append=TRUE,row.names=FALSE)
@@ -38,41 +38,42 @@ createBP<-function(ID,name="NA",investigator="NA",dir){
 }
 
 
-AppendBP<-function(PopID,ID,In,k,an,s,ag,r,ans,ss,t,sb,l,v,la,dir){
+AppendBP<-function(PopID,ID,In,k,an,s,ag,r,ans,ss,t,sb,l,v,la,r4,dir){
   #adds indivdual record to an existing .BP.txt
   filepath<-paste(dir,PopID,".BP.txt",sep="")
   if(!(file.exists(filepath))){
     stop("File ",filepath," Does not exist please check the Population ID")
   }else{
-    Table<-data.frame(ID=ID,In=In,D=gsub(" ","_",as.character(Sys.time())),K=k,An=an,S=s,Ag=ag,R=r,AnS=ans,SS=ss,T=t,SB=sb,L=l,V=v,LA=la)
+    Table<-data.frame(ID=ID,In=In,D=gsub(" ","_",as.character(Sys.time())),K=k,An=an,S=s,Ag=ag,R=r,AnS=ans,SP=paste(ss[1:6],collapse=":"),SO=paste(ss[7:12],collapse=":"),T=t,SB=sb,L=l,V=v,LA=la,R4=r4)
     write.table(Table,filepath,append=TRUE,row.names=FALSE,col.names=FALSE)
     paste("Added Individual",ID,"to",filepath)
   }
 }
 
-AppendOABP<-function(PopID,ID,In,an3,an2,escore,pscore,s,pnm,pas,cnm,pm,pcm,cm,dir){
+AppendOABP<-function(PopID,ID,In,an3,an2,escore,pscore,rib,s,Pelvis,Cranial,Other,dir){
   #adds indivdual record to an existing OA.BP.txt
   filepath<-paste(dir,PopID,".OA.BP.txt",sep="")
   if(!(file.exists(filepath))){
     stop("File ",filepath," Does not exist please check the Population ID")
   }else{
-    Table<-data.frame(ID=ID,In=In,D=gsub(" ","_",as.character(Sys.time())),AN3=an3,AN2=an2,EScore=escore,PScore=pscore,S=s,PNM=pnm,PAS=pas,CNM=cnm,PM=pm,PCM=pcm,CM=cm)
+    Table<-data.frame(ID=ID,In=In,D=gsub(" ","_",as.character(Sys.time())),AN3=an3,AN2=an2,EScore=escore,PScore=pscore,Rib=rib,S=s,
+                      PNM=paste(Pelvis$nonmetric,collapse=":"),CNM=paste(Cranial$nonmetric,collapse=":"),PM=paste(Pelvis$metric,collapse=":"),PCM=Other,CM=paste(Cranial$metric$measurement,collapse=":"))
     write.table(Table,filepath,append=TRUE,row.names=FALSE,col.names=FALSE)
     paste("Added Individual",ID,"to",filepath)
   }
 }
 
-Append2<-function(PopID,ID,In,k,an,s,ag,r,ans,ss,t,sb,l,v,la,an3,an2,escore,pscore,su,pnm,pas,cnm,pm,pcm,cm,dir){
+Append2<-function(PopID,ID,In,k,an,s,ag,r,ans,ss,t,sb,l,v,la,r4,an3,an2,escore,pscore,rib,su,Cranial,Pelvis,Other,dir){
   #uses appropreate append commands depending on wheter known or unknow data is entered
-  X<-AppendBP(PopID,ID,In,k,an,s,ag,r,ans,ss,t,sb,l,v,la,dir)
+  X<-AppendBP(PopID,ID,In,k,an,s,ag,r,ans,ss,t,sb,l,v,la,r4,dir)
   if(k=="1:1:1"){y<-paste("All data known, no record added to ",PopID,".OA.BP.txt",dir)}
-  if(k=="1:1:0"){y<-AppendOABP(PopID,ID,In,"NA","NA",escore,pscore,su,"NA","NA","NA","NA","NA","NA",dir)}
-  if(k=="1:0:1"){y<-AppendOABP(PopID,ID,In,"NA","NA","NA","NA","NA",pnm,pas,cnm,pm,pcm,cm,dir)}
-  if(k=="1:0:0"){y<-AppendOABP(PopID,ID,In,"NA","NA",escore,pscore,su,pnm,pas,cnm,pm,pcm,cm,dir)}
-  if(k=="0:1:1"){y<-AppendOABP(PopID,ID,In,an3,an2,"NA","NA","NA","NA","NA","NA","NA","NA","NA",dir)}
-  if(k=="0:0:1"){y<-AppendOABP(PopID,ID,In,an3,an2,"NA","NA","NA",pnm,pas,cnm,pm,pcm,cm,dir)}
-  if(k=="0:1:0"){y<-AppendOABP(PopID,ID,In,an3,an2,escore,pscore,su,"NA","NA","NA","NA","NA","NA",dir)}
-  if(k=="0:0:0"){y<-AppendOABP(PopID,ID,In,an3,an2,escore,pscore,su,pnm,pas,cnm,pm,pcm,cm,dir)}
+  if(k=="1:1:0"){y<-AppendOABP(PopID,ID,In,"NA","NA",escore,pscore,rib,su,Pelvis,Cranial,Other,dir)}
+  if(k=="1:0:1"){y<-AppendOABP(PopID,ID,In,"NA","NA","NA","NA","NA","NA",Pelvis,Cranial,Other,dir)}
+  if(k=="1:0:0"){y<-AppendOABP(PopID,ID,In,"NA","NA",escore,pscore,rib,su,Pelvis,Cranial,Other,dir)}
+  if(k=="0:1:1"){y<-AppendOABP(PopID,ID,In,an3,an2,"NA","NA","NA","NA",Pelvis,Cranial,Other,dir)}
+  if(k=="0:0:1"){y<-AppendOABP(PopID,ID,In,an3,an2,"NA","NA","NA","NA",Pelvis,Cranial,Other,dir)}
+  if(k=="0:1:0"){y<-AppendOABP(PopID,ID,In,an3,an2,escore,pscore,rib,su,Pelvis,Cranial,Other,dir)}
+  if(k=="0:0:0"){y<-AppendOABP(PopID,ID,In,an3,an2,escore,pscore,rib,su,Pelvis,Cranial,Other,dir)}
   paste(X,y,sep=".")
 }
 
@@ -123,12 +124,6 @@ aExtract<-function(a){
   Love<-paste(table[3,-1],collapse=":")
   Vault<-paste(table[4,-1],collapse=":")
   LA<-paste(table[5,-1],collapse=":")
-  list(Range,Todd,SB,Love,Vault,LA)
-}
-
-sExtract<-function(s){
-  sex<-s$Sex
-  table<-s$Table
-  sScore<-paste(summary(table$sex)["m"],summary(table$sex)["pm"],summary(table$sex)["u"],summary(table$sex)["pf"],summary(table$sex)["f"],summary(table$sex)["NA's"],sep=":")
-  list(sex,sScore)
+  Rib<-paste(table[6,-1],collapse=":")
+  list(Range,Todd,SB,Love,Vault,LA,Rib)
 }
