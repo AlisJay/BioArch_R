@@ -2,6 +2,7 @@ library(shiny);library(markdown)
 
 shinyUI(navbarPage("Inventory",
                    tabPanel("write",
+                            textInput("dir","Data Folder",value="../data/"),
                             column(width=4,
                                    h3("Population Info"),
                                    textInput("POPID","Population ID",value="NA"),

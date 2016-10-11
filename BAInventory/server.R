@@ -1,8 +1,8 @@
-source("functions.R")
-source("tables.R")
+source("functions.R",local=TRUE)
+source("tables.R",local = TRUE)
 
 shinyServer(function(input, output) {
-                        
+   
   #UFs
   output$UFs<-UFs<-renderText({paste(input$USkull,input$ULimb,input$UVert,input$UHandFoot,input$UClavScap,input$UOsCoxae,input$UOther,sep=":")})
   
@@ -74,20 +74,20 @@ shinyServer(function(input, output) {
   
   #Writing to file
   PMessage<-eventReactive(input$Create,{
-    CreateSI(input$POPID,input$POPName,input$Person1,custom=c(input$C1,input$C2,input$C3,input$C4,input$C5,input$C6,input$C7,input$C8))
+    CreateSI(input$POPID,input$POPName,input$Person1,custom=c(input$C1,input$C2,input$C3,input$C4,input$C5,input$C6,input$C7,input$C8),input$dir)
   })
   output$PMessage<-renderPrint({PMessage()})
   
   #add individual
   IMessage<-eventReactive(input$Append,{
     AppendSI(input$POPID,input$ID,input$Person2,SkullScore(),VertScore(),ThoraxScore(),ShoulderScore(),PelvisScore(),
-             ArmScore(),HandScore(),LegScore(),FootScore(),UFs(),NMScore(),CustomScore())
+             ArmScore(),HandScore(),LegScore(),FootScore(),UFs(),NMScore(),CustomScore(),input$dir)
   })
   output$IMessage<-renderPrint({IMessage()})
   
   #Compatability Check
   ComMessage<-eventReactive(input$Compat,{
-    CompCheck(input$POPID,input$POPName,input$Person1,c(input$C1,input$C2,input$C3,input$C4,input$C5,input$C6,input$C7,input$C8))
+    CompCheck(input$POPID,input$POPName,input$Person1,c(input$C1,input$C2,input$C3,input$C4,input$C5,input$C6,input$C7,input$C8),input$dir)
   })
   output$ComMessage<-renderPrint({ComMessage()})
 })

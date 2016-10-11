@@ -1,5 +1,5 @@
 #writing functions for Bio-Profiler
-createBP<-function(ID,name="NA",investigator="NA"){
+createBP<-function(ID,name="NA",investigator="NA",dir){
   # create .BP.txt file, that contains the results of bioprofile analysis
   head<-c("#Biological profile",
           paste("#Pop ID=",ID,":Pop Name=",name,":Investigator=",investigator,sep=""),
@@ -10,7 +10,7 @@ createBP<-function(ID,name="NA",investigator="NA"){
           "#SS:Male,Probable Male,Unknown,Female,probable Female,Unrecorded:Count",
           "#T,SB,L,V,LA:Phase,min,max,average:seeB&U94,numeric,numeric,numeric")
   Table<-data.frame(ID=NA,In=NA,D=NA,K=NA,An=NA,S=NA,Ag=NA,R=NA,AnS=NA,SS=NA,T=NA,SB=NA,L=NA,V=NA,LA=NA)
-  filepath<-paste("../data/",ID,".BP.txt",sep="")
+  filepath<-paste(dir,ID,".BP.txt",sep="")
   write(head,filepath)
   write.table(Table[-1,],filepath,append=TRUE,row.names=FALSE)
     
@@ -31,16 +31,16 @@ createBP<-function(ID,name="NA",investigator="NA"){
           "#PCM:sHeight,gHeight,hHead,rHead,FHead:numeric",
           "#CM:mxLength,mxBreadth,BaBr,BaNa,zBreadth,BaPr,NaAl,pBreadth,mLength:numeric")
   Table<-data.frame(ID=NA,In=NA,D=NA,AN3=NA,AN2=NA,EScore=NA,PScore=NA,S=NA,PNM=NA,PAS=NA,CNM=NA,PM=NA,PCM=NA,CM=NA)
-  filepath<-paste("../data/",ID,".OA.BP.txt",sep="")
+  filepath<-paste(dir,ID,".OA.BP.txt",sep="")
   write(head,filepath)
   write.table(Table[-1,],filepath,append=TRUE,row.names=FALSE)
   paste("Files ", ID ,".BP.txt and ",ID,".OA.BP.txt created", sep="")
 }
 
 
-AppendBP<-function(PopID,ID,In,k,an,s,ag,r,ans,ss,t,sb,l,v,la){
+AppendBP<-function(PopID,ID,In,k,an,s,ag,r,ans,ss,t,sb,l,v,la,dir){
   #adds indivdual record to an existing .BP.txt
-  filepath<-paste("../data/",PopID,".BP.txt",sep="")
+  filepath<-paste(dir,PopID,".BP.txt",sep="")
   if(!(file.exists(filepath))){
     stop("File ",filepath," Does not exist please check the Population ID")
   }else{
@@ -50,9 +50,9 @@ AppendBP<-function(PopID,ID,In,k,an,s,ag,r,ans,ss,t,sb,l,v,la){
   }
 }
 
-AppendOABP<-function(PopID,ID,In,an3,an2,escore,pscore,s,pnm,pas,cnm,pm,pcm,cm){
+AppendOABP<-function(PopID,ID,In,an3,an2,escore,pscore,s,pnm,pas,cnm,pm,pcm,cm,dir){
   #adds indivdual record to an existing OA.BP.txt
-  filepath<-paste("../data/",PopID,".OA.BP.txt",sep="")
+  filepath<-paste(dir,PopID,".OA.BP.txt",sep="")
   if(!(file.exists(filepath))){
     stop("File ",filepath," Does not exist please check the Population ID")
   }else{
@@ -62,23 +62,23 @@ AppendOABP<-function(PopID,ID,In,an3,an2,escore,pscore,s,pnm,pas,cnm,pm,pcm,cm){
   }
 }
 
-Append2<-function(PopID,ID,In,k,an,s,ag,r,ans,ss,t,sb,l,v,la,an3,an2,escore,pscore,su,pnm,pas,cnm,pm,pcm,cm){
+Append2<-function(PopID,ID,In,k,an,s,ag,r,ans,ss,t,sb,l,v,la,an3,an2,escore,pscore,su,pnm,pas,cnm,pm,pcm,cm,dir){
   #uses appropreate append commands depending on wheter known or unknow data is entered
-  X<-AppendBP(PopID,ID,In,k,an,s,ag,r,ans,ss,t,sb,l,v,la)
-  if(k=="1:1:1"){y<-paste("All data known, no record added to ",PopID,".OA.BP.txt")}
-  if(k=="1:1:0"){y<-AppendOABP(PopID,ID,In,"NA","NA",escore,pscore,su,"NA","NA","NA","NA","NA","NA")}
-  if(k=="1:0:1"){y<-AppendOABP(PopID,ID,In,"NA","NA","NA","NA","NA",pnm,pas,cnm,pm,pcm,cm)}
-  if(k=="1:0:0"){y<-AppendOABP(PopID,ID,In,"NA","NA",escore,pscore,su,pnm,pas,cnm,pm,pcm,cm)}
-  if(k=="0:1:1"){y<-AppendOABP(PopID,ID,In,an3,an2,"NA","NA","NA","NA","NA","NA","NA","NA","NA")}
-  if(k=="0:0:1"){y<-AppendOABP(PopID,ID,In,an3,an2,"NA","NA","NA",pnm,pas,cnm,pm,pcm,cm)}
-  if(k=="0:1:0"){y<-AppendOABP(PopID,ID,In,an3,an2,escore,pscore,su,"NA","NA","NA","NA","NA","NA")}
-  if(k=="0:0:0"){y<-AppendOABP(PopID,ID,In,an3,an2,escore,pscore,su,pnm,pas,cnm,pm,pcm,cm)}
+  X<-AppendBP(PopID,ID,In,k,an,s,ag,r,ans,ss,t,sb,l,v,la,dir)
+  if(k=="1:1:1"){y<-paste("All data known, no record added to ",PopID,".OA.BP.txt",dir)}
+  if(k=="1:1:0"){y<-AppendOABP(PopID,ID,In,"NA","NA",escore,pscore,su,"NA","NA","NA","NA","NA","NA",dir)}
+  if(k=="1:0:1"){y<-AppendOABP(PopID,ID,In,"NA","NA","NA","NA","NA",pnm,pas,cnm,pm,pcm,cm,dir)}
+  if(k=="1:0:0"){y<-AppendOABP(PopID,ID,In,"NA","NA",escore,pscore,su,pnm,pas,cnm,pm,pcm,cm,dir)}
+  if(k=="0:1:1"){y<-AppendOABP(PopID,ID,In,an3,an2,"NA","NA","NA","NA","NA","NA","NA","NA","NA",dir)}
+  if(k=="0:0:1"){y<-AppendOABP(PopID,ID,In,an3,an2,"NA","NA","NA",pnm,pas,cnm,pm,pcm,cm,dir)}
+  if(k=="0:1:0"){y<-AppendOABP(PopID,ID,In,an3,an2,escore,pscore,su,"NA","NA","NA","NA","NA","NA",dir)}
+  if(k=="0:0:0"){y<-AppendOABP(PopID,ID,In,an3,an2,escore,pscore,su,pnm,pas,cnm,pm,pcm,cm,dir)}
   paste(X,y,sep=".")
 }
 
-CompCheck<-function(PopID,PopName,Investigator){
+CompCheck<-function(PopID,PopName,Investigator,dir){
   #checks to see if details in an existing file match those current on the form
-  filepath<-paste("../data/",PopID,".BP.txt",sep="")
+  filepath<-paste(dir,PopID,".BP.txt",sep="")
   #Step1: check file exists
   if(!(file.exists(filepath))){
     stop("File ",filepath," Does not exist please check the Population ID")

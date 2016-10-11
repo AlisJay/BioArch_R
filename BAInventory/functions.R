@@ -34,7 +34,7 @@ InventoryIssue<-function(present,complete){
     paste("Please check:",complete[CinP==FALSE])
   }else{"no issues"}
 }
-CreateSI<-function(ID,name,Investigator,custom){
+CreateSI<-function(ID,name,Investigator,custom,dir){
   #creates the .SI.txt file
   Head<-c("#Skeletal Inventory File",
           paste("#Pop ID=",ID,":Pop Name=",name,":Investigator=",Investigator,sep=""),
@@ -56,15 +56,15 @@ CreateSI<-function(ID,name,Investigator,custom){
           paste("#C:",paste(custom,collapse=","), sep="")
   )
   Table<-data.frame(ID=NA,In=NA,D=NA,Sk=NA,V=NA,T=NA,Sh=NA,P=NA,A=NA,H=NA,L=NA,F=NA,UF=NA,NMT=NA,C=NA)
-  filepath<-paste("../data/",ID,".SI.txt",sep="")
+  filepath<-paste(dir,ID,".SI.txt",sep="")
   write(Head,filepath)
   write.table(Table[-1,],filepath,append=TRUE,row.names=FALSE)
   paste("File ",ID,".SI.txt created", sep="")
 }
-AppendSI<-function(PopID,ID,In,Sk,V,T,Sh,P,A,H,L,F,UF,NMT,C){
+AppendSI<-function(PopID,ID,In,Sk,V,T,Sh,P,A,H,L,F,UF,NMT,C,dir){
   #adds row to existing file with individual data in
   Table<-data.frame(ID,In,D=gsub(" ","_",as.character(Sys.time())),Sk,V,T,Sh,P,A,H,L,F,UF,NMT,C)
-  filepath<-paste("../data/",PopID,".SI.txt",sep="")
+  filepath<-paste(dir,PopID,".SI.txt",sep="")
   if(!(file.exists(filepath))){
     stop("File ",filepath," Does not exist please check the Population ID")
   }else{
@@ -72,9 +72,9 @@ AppendSI<-function(PopID,ID,In,Sk,V,T,Sh,P,A,H,L,F,UF,NMT,C){
     paste("Added Individual",ID)
   }
 }
-CompCheck<-function(PopID,PopName,Investigator,custom){
+CompCheck<-function(PopID,PopName,Investigator,custom,dir){
   #checks to see if details in an existing file match those current on the form
-  filepath<-paste("../data/",PopID,".SI.txt",sep="")
+  filepath<-paste(dir,PopID,".SI.txt",sep="")
   #Step1: check file exists
   if(!(file.exists(filepath))){
     stop("File ",filepath," Does not exist please check the Population ID")

@@ -1,6 +1,6 @@
 #sourcing functions from the helper file
-source("helpers.R")
-source("write.R")
+source("helpers.R",local=TRUE)
+source("write.R",local=TRUE)
 
 shinyServer(function(input, output) {
   
@@ -103,13 +103,13 @@ shinyServer(function(input, output) {
   
   #create files 
   PMessage<-eventReactive(input$Create,{
-    createBP(input$POPID,input$POPName,input$Person1)
+    createBP(input$POPID,input$POPName,input$Person1,input$dir)
   })
   output$PMessage<-renderPrint({PMessage()})
   
   #Compatability Check
   ComMessage<-eventReactive(input$Compat,{
-    CompCheck(input$POPID,input$POPName,input$Person1)
+    CompCheck(input$POPID,input$POPName,input$Person1,input$dir)
   })
   output$ComMessage<-renderPrint({ComMessage()})
   
@@ -160,7 +160,7 @@ shinyServer(function(input, output) {
     Append2(input$POPID,input$ID,input$Person2,k=k(),an=An(),s=Sex()[[1]],ag=Ag(),
             r=AgeScores()[[1]],ans=AnS(),ss=Sex()[[2]],
             t=AgeScores()[[2]],sb=AgeScores()[[3]],l=AgeScores()[[4]],v=AgeScores()[[5]],la=AgeScores()[[6]],
-            an3=An3(),an2=An2(),escore=EScore(),pscore=Pscore(),su=Su(),pnm=PNM(),pas=PAS(),cnm=CNM(),pm=PM(),pcm=PCM(),cm=CM())
+            an3=An3(),an2=An2(),escore=EScore(),pscore=Pscore(),su=Su(),pnm=PNM(),pas=PAS(),cnm=CNM(),pm=PM(),pcm=PCM(),cm=CM(),input$dir)
   })
   output$IMessage<-renderPrint({IMessage()})
   
