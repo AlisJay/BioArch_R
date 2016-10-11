@@ -1,0 +1,74 @@
+Abbreviation,FullName,Field,Profile
+orbit,Orbit Shape,Ancestry3,Ancestry
+nRoot,Nasal Root (shape and height),Ancestry3,Ancestry
+LNB,Lower Nasal Border,Ancestry3,Ancestry
+palate,Palate shape,Ancestry3,Ancestry
+profile,Face profile,Ancestry3,Ancestry
+nwidth,Nasal Width,Ancestry3,Ancestry
+BR,Prominant brow ridge,Ancestry2,Ancestry
+VS,Complex vault structure,Ancestry2,Ancestry
+PBD,Post-bregma depression,Ancestry2,Ancestry
+SI,Shovel shaped incisors,Ancestry2,Ancestry
+nBridge,High nasal bridge,Ancestry2,Ancestry
+LEB,Projecting Lower Eye Border,Ancestry2,Ancestry
+nSpine,Prominant nasal spine,Ancestry2,Ancestry
+fShape,Wide face shape,Ancestry2,Ancestry
+mMarks,Rugged vault muscle marks,Ancestry2,Ancestry
+Jaw,Small Jaw,Ancestry2,Ancestry
+pRadius,Proximal Radius,Epiphysis Score,Age
+dFibula,Distal Fibula,Epiphysis Score,Age
+dTibia,Distal Tibia,Epiphysis Score,Age
+dFemur,Distal Femur,Epiphysis Score,Age
+pFibula,Proximal Fibula,Epiphysis Score,Age
+acromion,Acromion Process,Epiphysis Score,Age
+iliac,Illiac Crest,Epiphysis Score,Age
+hHead,Humeral Head,Epiphysis Score,Age
+fHead,Femur Head,Epiphysis Score,Age
+lTrochanter,Lesser Trochanter,Epiphysis Score,Age
+pTibia,Proximal Tibia,Epiphysis Score,Age
+gTrochanter,Greater Trochanter,Epiphysis Score,Age
+dradius,Distal Radius,Epiphysis Score,Age
+s3s5,3rd to 5th Sacral Vertebrae,Epiphysis Score,Age
+s2s3,2nd and 3rd Sacral Vertebrae,Epiphysis Score,Age
+s1s2,1st and 2nd Sacral Vertebrae,Epiphysis Score,Age
+clavicle,Sternal end of Clavicle,Epiphysis Score,Age
+SOS,Spheno-Occipital Synchondrosis,Epiphysis Score,Age
+ML,Midlambdoid,Sutures,Age
+L,Lambda,Sutures,Age
+O,Obelion,Sutures,Age
+AS,Anterior Sagittal,Sutures,Age
+B,Bregma,Sutures,Age
+P,Pterion,Sutures,Age
+MC,Midcoronal,Sutures,Age
+SF,Sphenofrontal,Sutures,Age
+IST,Inferior Sphenotemporal,Sutures,Age
+SST,Superior Sphenotemporal,Sutures,Age
+VA,Ventral Arch,Pelvic non-metric traits,Sex
+SPC,Subpubic Concavity,Pelvic non-metric traits,Sex
+IPR,Ishio-Pubic Ramus,Pelvic non-metric traits, Sex
+SN,Sciatic Notch,Pelvic non-metric traits,Sex
+PAS,Preauricular Sulcus,Pelvic non-metric traits,Sex
+NC,Nuchal Crest,Cranial non-metric traits,Sex
+MP,Mastoid Process,Cranial non-metric traits,Sex
+SOM,Supraorbital Margin,Cranial non-metric traits,Sex
+G,Glabella,Cranial non-metric traits,Sex
+ME,Mental Eminence,Cranial non-metric traits,Sex
+pLength,Pubic Length,Pelvis metrics,Sex
+pLength2,Pubic Length From Acetabular Rim,Pelvis metrics,Sex
+iLength,Ishial Length,Pelvis metrics,Sex
+iLength2,Ishial Length From Acetabular Rim,Pelvis metrics,Sex
+aWidth,Maximum Horizontal Width of the Acetabulum,Pelvis metrics,Sex
+sHeight,Scapula Height,Post-cranial metrics,Sex
+gHeight,Glenoid Height,Post-cranial metrics,Sex
+hHead,Vertical Humeral Head Diameter,Post-cranial metrics,Sex
+rHead,Maximum Radial Head Diameter,Post-cranial metrics,Sex
+FHead,Femoral Head Diameter,Post-cranial metrics,Sex
+mxLength,Maximum Cranial Length,Cranial metrics,Sex
+mxBreadth,Maximum Cranial Breadth,Cranial metrics,Sex
+BaBr,Basion to Bregma,Cranial metrics,Sex
+BaNa,Basion to Nasion,Cranial metrics,Sex
+zBreadth,Bizygomatic Breadth,Cranial metrics,Sex
+BaPr,Basion to Prosthion,Cranial metrics,Sex
+NaAl,Nasion to Alveolar Border,Cranial metrics,Sex
+pBreadth,Palate Breadth,Cranial metrics,Sex
+mLength,Mastoid Length,Cranial metrics,Sex

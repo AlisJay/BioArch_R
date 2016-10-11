@@ -138,3 +138,48 @@ DecodeAge<-function(Table){
   }
   age
 }
+##########################################################################
+Abbrev_Library<-function(FileType="Inventory",Bone=NA,Abbreviation=NA,Region=NA,Field=NA,Profile=NA){
+  Filetypes<-c("Inventory","Profile")
+  if(!(FileType %in% Filetypes)){output<-"Unrecognized file type, valid FileTypes are Inventory and Profile"}
+  if(FileType=="Inventory"){
+    Library<-read.table("Help/InventoryAbbrevs",header=TRUE,sep=",")
+    if(!(is.na(Bone))){
+      if(Bone %in% Library$Bone){
+        output<-Library[Library$Bone==Bone,]
+      }else{if(Bone=="All"){
+        output<-unique(Library$Bone)
+      }else{
+        output<-"Unrecognised Bone use Bone='All' to see valid bone names"}}
+    }else{if(!(is.na(Abbreviation))){
+      if(Abbreviation %in% Library$Abbreviation){
+        output<-Library[Library$Abbreviation==Abbreviation,]
+      }else{
+        output<-"Unrecognised Abbreviation"}
+    }else{if(!(is.na(Region))){
+      if(Region %in% Library$Region){
+        output<-Library[Library$Region==Region,]
+      }else{if(Region=="All"){output<-unique(Library$Region)
+      }else{output<-"Unrecognised Region use Region='All' to see valid bone names"}}
+        }else{output<-"Please enter either Bone, Abbreviation or Region "}}}
+  }
+  if(FileType=="Profile"){
+    Library<-read.table("Help/ProfileAbbrevs",header=TRUE,sep=",")
+    if(!(is.na(Abbreviation))){
+      if(Abbreviation %in% Library$Abbreviation){
+        output<-Library[Library$Abbreviation==Abbreviation,]
+      }else{output<-"Unrecognised Abbreviation"}
+    }else{if(!(is.na(Field))){
+      if(Field %in% Library$Field){
+        output<-Library[Library$Field==Field,]
+      }else{if(Field=="All"){output<-unique(Library$Field)
+      }else{output<-"Unrecognised Field use Field='All' to see valid field names"}}
+    }else{if(!(is.na(Profile))){
+      if(Profile %in% Library$Profile){
+        output<-Library[Library$Profile==Profile,]
+      }else{if(Profile=="All"){output<-unique(Library$Profile)
+      }else{output<-"Unrecognised Profile use Profile='All' to see valid profile names"}}
+        }else{output<-"Please enter either Field, Profile or Abbreviation"}}}
+  }
+  output
+}
