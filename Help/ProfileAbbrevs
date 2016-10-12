@@ -72,3 +72,19 @@ BaPr,Basion to Prosthion,Cranial metrics,Sex
 NaAl,Nasion to Alveolar Border,Cranial metrics,Sex
 pBreadth,Palate Breadth,Cranial metrics,Sex
 mLength,Mastoid Length,Cranial metrics,Sex
+S,Surface bone,4th Rib, Age
+SC,Surface Contour,4th Rib, Age
+RE,Rim Edge, 4th Rib, Age
+RC, Rim Contour, 4th Rib, Age
+pShape,Pelvis Shape,Pelvic non-metric traits,Sex
+iiShape,Illium Shape,Pelvic non-metric traits,Sex
+pInlet,Pubic Inlet shape,Pelvic non-metric traits,Sex
+pShape,Pubic shape,Pelvic non-metric traits,Sex
+spAngle,Subpubic Angle,Pelvic non-metric traits,Sex
+OF,Obturator Foramen Shape,Pelvic non-metric traits,Sex
+sShape,Sacrum Shape,Pelvic non-metric traits,Sex
+Chin,Chin Shape from below,Cranial non-metric traits,Sex
+cSize,Skull Size,Cranial non-metric traits,Sex
+flare,Gonial Flare,Cranial non-metric traits,Sex
+flex,Assending Ramus Flex,Cranial non-metric traits,Sex
+gAngle,Gonial Angle,Cranial non-metric traits,Sex
