@@ -92,11 +92,11 @@ Adult<-function(sex,todd, SucheyBrookes,lovejoy,vault,LA,Rib){
                      min=c(19,19,23,23,23,23,28,28,28,28,28,31,31,31,31,35,35,35,34,34,NA),
                      max=c(44,44,45,45,45,45,44,44,44,44,44,61,61,61,61,60,60,60,61,61,NA),
                      average=c(31,31,34,34,34,34,38,38,38,38,38,44,44,44,44,49,49,49,52,52,NA))
-  cLA<-data.frame(composite=c(1:14,"NaN"),
-                  s=c("s1","s2","s3","s3","s3","s4","s5","s5","s6","s6","s7","s7","s7","s7",NA),
-                  min=c(20,29,28,28,28,31,35,35,39,39,49,49,49,49,NA),
-                  max=c(41,44,51,51,51,54,56,56,61,61,61,61,61,61,NA),
-                  average=c(32,37,40,40,40,43,46,46,52,52,55,55,55,55,NA))
+  cLA<-data.frame(composite=c(1:15,"NaN"),
+                  s=c("s1","s2","s3","s3","s3","s4","s5","s5","s6","s6","s7","s7","s7","s7","s7",NA),
+                  min=c(20,29,28,28,28,31,35,35,39,39,49,49,49,49,49,NA),
+                  max=c(41,44,51,51,51,54,56,56,61,61,61,61,61,61,61,NA),
+                  average=c(32,37,40,40,40,43,46,46,52,52,55,55,55,55,55,NA))
   Todd<-data.frame(phase=c("NA","p1","p2","p3","p4","p5","p6","p7","p8","p9","p10"),
                    min=c(NA,18,20,22,25,27,30,35,40,45,50),
                    max=c(NA,19,21,24,26,30,35,39,45,49,61),
@@ -146,11 +146,11 @@ Adult<-function(sex,todd, SucheyBrookes,lovejoy,vault,LA,Rib){
     results[5,2]<-as.character(cLA[cLA$composite==LA$score,2])
   }
   
-  if(sex=="female"|sex=="possible female"){
+  if(sex=="female"|sex=="probable female"){
     results[,-1][results$trait=="Suchey-Brookes",]<-SB[SB$phase==SucheyBrookes,c(1,2,3,4)]
     results[2,2]<-SucheyBrookes
   }else{
-    if(sex=="male"|sex=="possible male"){
+    if(sex=="male"|sex=="probable male"){
       results[,-1][results$trait=="Suchey-Brookes",]<-SB[SB$phase==SucheyBrookes,c(1,5,6,7)]
       results[2,2]<-SucheyBrookes
     }else{
@@ -162,7 +162,9 @@ Adult<-function(sex,todd, SucheyBrookes,lovejoy,vault,LA,Rib){
   w2<-if(anyNA(results)){paste("best results come from complete analysis.You are missing: ",if(anyNA(results[results$trait=="Suchey-Brookes"]))"Suchey-Brookes ", if(anyNA(results[results$trait=="Todd"]))"Todd ",if(anyNA(results[results$trait=="Lovejoy"]))"Lovejoy ",if(anyNA(results[results$trait=="Vault"]))"Vault ",if(anyNA(results[results$trait=="Lateral-Anterior"]))"Lateral-Anterior ")}
   
   tRange<-paste(as.character(min(results$min,na.rm=TRUE))," - ",as.character(max(results$max,na.rm=TRUE)))
-  aRange<-paste(as.character(min(results$average,na.rm=TRUE))," - ",as.character(max(results$average,na.rm=TRUE)))  
+  if(sum(is.na(results$average))<=2){
+    aRange<-paste(as.character(min(results$average[results$average!=min(results$average,na.rm=TRUE)],na.rm=TRUE))," - ",as.character(max(results$average[results$average!=max(results$average,na.rm=TRUE)],na.rm=TRUE)))
+  }else{aRange<-paste(as.character(min(results$average,na.rm=TRUE))," - ",as.character(max(results$average,na.rm=TRUE)))  }
   if(tRange=="Inf  -  -Inf"){tRange<-"NA"}
   if(aRange=="Inf  -  -Inf"){aRange<-"NA"}
   
@@ -260,14 +262,14 @@ sex<-function(ancestory,subAdult,pelvis,cranial,other){
     p$sex[p$trait=="obturator foramen"]<-pelvis$nonmetric[11]
     p$sex[p$trait=="sacrum shape"]<-pelvis$nonmetric[12]
     
-    if(!(is.na(pelvis$metric[1]))|!(is.na(pelvis$metric[2]))){
+    if(!(anyNA(c(pelvis$metric[1],pelvis$metric[2])))){
       index<-(pelvis$metric[1]/pelvis$metric[2])*100
       if(index>IPI[IPI$ancestory==ancestory,2]){p$sex[p$trait=="ishiopubic index"]<-"f"
       }else{if(index<IPI[IPI$ancestory==ancestory,3]){p$sex[p$trait=="ishiopubic index"]<-"m"
       }else{p$sex[p$trait=="ishiopubic index"]<-"u"}}}
     
     if(!(is.na(pelvis$metric[5]))){
-      if(pelvis$metric > 51.87){p$sex[p$trait=="acetabulum"]<-"m"
+      if(pelvis$metric[5] > 51.87){p$sex[p$trait=="acetabulum"]<-"m"
       }else{p$sex[p$trait=="acetabulum"]<-"f"}
     }
     
