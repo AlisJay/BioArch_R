@@ -147,18 +147,18 @@ shinyServer(function(input, output) {
         }else{aExtract(a3())}}}}
   })
   
-  Sex<-reactive({if(input$knownsex=="known"){list(input$ksex,rep("NA",12))
-  }else{if(k()=="1:0:1"){list(s1()$Sex,s1()$Table$count)
-  }else{if(k()=="1:0:0"){list(s1()$Sex,s2()$Table$count)
-  }else{if(k()=="0:0:1"){list(s1()$Sex,s3()$Table$count)
-  }else{list(s1()$Sex,s4()$Table$count)}}}}
+  Sex<-reactive({if(input$knownsex=="known"){list(input$ksex,rep("NA",12),rep("NA",30))
+  }else{if(k()=="1:0:1"){list(s1()$Sex,s1()$Table$count,s1()$Table2$sex)
+  }else{if(k()=="1:0:0"){list(s2()$Sex,s2()$Table$count,s2()$Table2$sex)
+  }else{if(k()=="0:0:1"){list(s3()$Sex,s3()$Table$count,s3()$Table2$sex)
+  }else{list(s4()$Sex,s4()$Table$count,s4()$Table2$sex)}}}}
   })
   
   #Append
   IMessage<-eventReactive(input$Append,{
     Append2(input$POPID,input$ID,input$Person2,k=k(),an=An(),s=Sex()[[1]],ag=Ag(),r=AgeScores()[[1]],ans=AnS(),ss=Sex()[[2]],
             t=AgeScores()[[2]],sb=AgeScores()[[3]],l=AgeScores()[[4]],v=AgeScores()[[5]],la=AgeScores()[[6]],r4=AgeScores()[[7]],
-            an3=An3(),an2=An2(),escore=EScore(),pscore=Pscore(),rib=rib(),su=Su(),Pelvis=Pelvis(),Cranial=cranial(),Other=o(),input$dir)
+            an3=An3(),an2=An2(),escore=EScore(),pscore=Pscore(),rib=rib(),su=Su(),Pelvis=Pelvis(),Cranial=cranial(),Other=o(),sd=Sex()[[3]],input$dir)
   })
   output$IMessage<-renderPrint({IMessage()})
   

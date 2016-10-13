@@ -4,12 +4,13 @@ createBP<-function(ID,name="NA",investigator="NA",dir){
   head<-c("#Biological profile",
           paste("#Pop ID=",ID,":Pop Name=",name,":Investigator=",investigator,sep=""),
           paste("#Date Created=",Sys.time(),":Program=BioProfileV2.0"),
-          "#Fields:ID,Investigator,date,known,ancestry,sex,age,range,AncestryScore,Sex Pelvis,Sex Other,Todd,Suchey-Brooks,Lovejoy,Vault,lateral-anterior,4th Rib",
+          "#Fields:ID,Investigator,date,known,ancestry,sex,age,range,AncestryScore,Sex Pelvis,Sex Other,Sex detailed,Todd,Suchey-Brooks,Lovejoy,Vault,lateral-anterior,4th Rib",
           "#K:Ancestry,Sex,Age:1,0",
           "#AnS:Asian,African,European,Undetermined:Count",
           "#SP,SO:unrecorded,male,probable male,unknown,probable female,female:Count",
+          '#SD:va,spc,ipr,sn,pas,pShape,iiShape,pInlet,pShape,spAngle,OF,sShape,ipIndex,A,NC,MP,SOM,G,ME,Chin,cSize,flare,flex,gAngle,craniometrics,sHeight,gHeight,hHead,rHead,FHead:NA,u,m,pm,pf,f',
           "#T,SB,L,V,LA,R4:Phase,min,max,average:alphanumeric,numeric,numeric,numeric")
-  Table<-data.frame(ID=NA,In=NA,D=NA,K=NA,An=NA,S=NA,Ag=NA,R=NA,AnS=NA,SP=NA,SO=NA,T=NA,SB=NA,L=NA,V=NA,LA=NA,R4=NA)
+  Table<-data.frame(ID=NA,In=NA,D=NA,K=NA,An=NA,S=NA,Ag=NA,R=NA,AnS=NA,SP=NA,SO=NA,SD=NA,T=NA,SB=NA,L=NA,V=NA,LA=NA,R4=NA)
   filepath<-paste(dir,ID,".BP.txt",sep="")
   write(head,filepath)
   write.table(Table[-1,],filepath,append=TRUE,row.names=FALSE)
@@ -38,13 +39,13 @@ createBP<-function(ID,name="NA",investigator="NA",dir){
 }
 
 
-AppendBP<-function(PopID,ID,In,k,an,s,ag,r,ans,ss,t,sb,l,v,la,r4,dir){
+AppendBP<-function(PopID,ID,In,k,an,s,ag,r,ans,ss,t,sb,l,v,la,r4,sd,dir){
   #adds indivdual record to an existing .BP.txt
   filepath<-paste(dir,PopID,".BP.txt",sep="")
   if(!(file.exists(filepath))){
     stop("File ",filepath," Does not exist please check the Population ID")
   }else{
-    Table<-data.frame(ID=ID,In=In,D=gsub(" ","_",as.character(Sys.time())),K=k,An=an,S=s,Ag=ag,R=r,AnS=ans,SP=paste(ss[1:6],collapse=":"),SO=paste(ss[7:12],collapse=":"),T=t,SB=sb,L=l,V=v,LA=la,R4=r4)
+    Table<-data.frame(ID=ID,In=In,D=gsub(" ","_",as.character(Sys.time())),K=k,An=an,S=s,Ag=ag,R=r,AnS=ans,SP=paste(ss[1:6],collapse=":"),SO=paste(ss[7:12],collapse=":"),SD=paste(sd,collapse=":"),T=t,SB=sb,L=l,V=v,LA=la,R4=r4)
     write.table(Table,filepath,append=TRUE,row.names=FALSE,col.names=FALSE)
     paste("Added Individual",ID,"to",filepath)
   }
@@ -57,15 +58,15 @@ AppendOABP<-function(PopID,ID,In,an3,an2,escore,pscore,rib,s,Pelvis,Cranial,Othe
     stop("File ",filepath," Does not exist please check the Population ID")
   }else{
     Table<-data.frame(ID=ID,In=In,D=gsub(" ","_",as.character(Sys.time())),AN3=an3,AN2=an2,EScore=escore,PScore=pscore,Rib=rib,S=s,
-                      PNM=paste(Pelvis$nonmetric,collapse=":"),CNM=paste(Cranial$nonmetric,collapse=":"),PM=paste(Pelvis$metric,collapse=":"),PCM=Other,CM=paste(Cranial$metric$measurement,collapse=":"))
+                      PNM=paste(Pelvis$nonmetric,collapse=":"),CNM=paste(Cranial$nonmetric,collapse=":"),PM=paste(Pelvis$metric,collapse=":"),PCM=paste(Other,collapse=":"),CM=paste(Cranial$metric$measurement,collapse=":"))
     write.table(Table,filepath,append=TRUE,row.names=FALSE,col.names=FALSE)
     paste("Added Individual",ID,"to",filepath)
   }
 }
 
-Append2<-function(PopID,ID,In,k,an,s,ag,r,ans,ss,t,sb,l,v,la,r4,an3,an2,escore,pscore,rib,su,Cranial,Pelvis,Other,dir){
+Append2<-function(PopID,ID,In,k,an,s,ag,r,ans,ss,t,sb,l,v,la,r4,an3,an2,escore,pscore,rib,su,Cranial,Pelvis,Other,sd,dir){
   #uses appropreate append commands depending on wheter known or unknow data is entered
-  X<-AppendBP(PopID,ID,In,k,an,s,ag,r,ans,ss,t,sb,l,v,la,r4,dir)
+  X<-AppendBP(PopID,ID,In,k,an,s,ag,r,ans,ss,t,sb,l,v,la,r4,sd,dir)
   if(k=="1:1:1"){y<-paste("All data known, no record added to ",PopID,".OA.BP.txt",dir)}
   if(k=="1:1:0"){y<-AppendOABP(PopID,ID,In,"NA","NA",escore,pscore,rib,su,Pelvis,Cranial,Other,dir)}
   if(k=="1:0:1"){y<-AppendOABP(PopID,ID,In,"NA","NA","NA","NA","NA","NA",Pelvis,Cranial,Other,dir)}
