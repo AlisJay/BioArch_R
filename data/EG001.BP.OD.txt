@@ -1,0 +1,26 @@
+#Osteological assement:Biological Profile
+#Pop ID=EG001:Pop Name=Test Population:Investigator=AJNicholson
+#Date Created= 2016-10-12 11:38:31 :Program=BioProfileV2.0
+#Fields:ID,Investigator,date,Ancestry3, Ancestry2,Epiphysis Score,Phase Score,4th Rib,Sutures,Pelvic non-metric traits,Preauricular sulcus,Cranial non-metric traits,Pelvis metrics,Post-cranial metrics,Cranial metrics
+#AN3:orbit,nRoot,LNB,palate,profile,nwidth:Eu,Af,As,U
+AN2:BR,VS,PBD,SI,nBridge,LEB,nSpine,fShape,mMarks,Jaw:T,F,U
+#EScore:pRadius,dFibula,dTibia,dFemur,pFibula,acromion,iliac,hHead,fHead,lTrochanter,pTibia,gTrochanter,dradius,s3s5,s2s3,s1s2,clavicle,SOS:hex
+#PScore:Todd,Suchey-Brookes,Lovejoy:alphanumeric,seeB$U1994
+#Rib:S,SC,RE,RC:alphanumeric,seeByers2010
+#S:ML,L,O,AS,B,P,MC,SF,IST,SST:NA,0,1,2,3
+#PNM:va,spc,ipr,sn,pas,pShape,iiShape,pInlet,pShape,spAngle,OF,sShape:0-3,0-5,m/f/NA
+#CNM:NC,MP,SOM,G,ME,Chin,cSize,flare,flex,gAngle:0-5,m/f/NA
+#PM:pLength,pLength2,iLength,iLength2,aWidth:numeric
+#PCM:sHeight,gHeight,hHead,rHead,FHead:numeric
+#CM:mxLength,mxBreadth,BaBr,BaNa,zBreadth,BaPr,NaAl,pBreadth,mLength:numeric
+"ID" "In" "D" "AN3" "AN2" "EScore" "PScore" "Rib" "S" "PNM" "CNM" "PM" "PCM" "CM"
+"P001" "AJN" "2016-10-12_11:38:48" "Eu:Af:Eu:Eu:Eu:As" "F:F:F:F:T:F:F:F:T:T" "00000" "p3:p4:p4" "p5:p3:p3/p4/p5/p6:p3" "1:2:1:1:2:2:1:1:1:1" "1:3:1:1:2:f:f:NA:f:NA:NA:f" "2:2:3:3:3:NA:NA:f:f:f" "86.13:89.6:52.71:47.86:48.25" "165:35:45:20.56:42" "NA:NA:NA:NA:NA:NA:NA:NA:NA"
+"P002" "AJN" "2016-10-12_11:47:48" "Eu:Eu:As:Eu:Eu:As" "F:F:F:F:T:F:T:F:T:T" "00000" "p7:p5:p5" "p6:p4:p3/p4/p5/p6:p4/p5/p6" "3:3:2:3:2:2:2:2:3:3" "1:1:2:1:2:f:m:NA:f:f:f:NA" "1:2:1:2:3:f:f:m:f:f" "78.07:89.27:58.64:49.98:50.06" "165.4:32.1:39.5:19.5:42.5" "NA:NA:NA:NA:NA:NA:NA:NA:NA"
+"P003" "AJN" "2016-10-12_12:58:28" "Eu:Af:As:Eu:Eu:Eu" "F:F:F:F:F:F:T:F:F:T" "00000" "p2:p2:p2" "p1/p2:p1:p1/p2:p2" "1:1:0:1:1:NA:0:0:1:1" "0:1:0:3:3:u:f:NA:u:NA:u:NA" "4:1:2:1:3:f:f:m:f:u" "70:67.38:NA:44.87:49.86" "142:33:41:20:38" "162:124.7:150.2:96:121:89.6:47:33.1:2.2"
+"P004" "AJN" "2016-10-12_13:09:47" "Eu:Eu:As:Af:As:As" "F:F:F:F:T:F:T:F:T:F" "00000" "p8:p6:p7" "p6:p5/p6:p3/p4/p5/p6:p4/p5/p6" "3:3:3:3:3:3:2:3:3:3" "0:1:0:5:1:u:m:NA:u:NA:u:m" "4:4:3:4:3:m:m:f:m:m" "82.52:86.5:NA:50.05:54.81" "170:38:48:25:48" "175.2:131.9:165.3:100.7:129.1:92.6:43:33.8:3.1"
+"P005" "AJN" "2016-10-12_13:53:54" "Eu:As:As:Af:Af:Af" "F:F:T:F:F:F:T:T:F:F" "00000" "p2:p2:p5" "p6:p2:p3/p4/p5/p6:p2" "NA:NA:NA:NA:NA:NA:NA:NA:NA:NA" "3:3:3:4:1:m:u:f:m:NA:f:m" "4:3:4:4:4:m:u:m:m:u" "74.14:77.21:60.31:44.27:45.05" "172.4:39.3:49.2:27.4:49.1" "173.5:127.9:162.8:96.7:127.5:90.5:40:35.1:2.8"
+"P006" "AJN" "2016-10-12_14:01:54" "Eu:Eu:As:Af:Eu:As" "F:F:F:F:T:F:T:F:F:F" "00000" "p5:p4:p5" "p6:p2:p3/p4/p5/p6:p2" "0:2:2:2:3:2:2:2:2:2" "1:3:2:4:1:m:m:m:m:m:m:m" "3:4:4:5:3:m:m:m:m:m" "85.03:91.33:57.15:54.86:52.78" "169.8:38.9:47.2:28.1:49.2" "177.5:129.3:164.2:101.5:132.7:91.8:40.8:34.7:3"
+"P007" "AJN" "2016-10-12_14:10:44" "Eu:Eu:Eu:Eu:Eu:As" "F:T:F:F:T:T:T:F:T:F" "00000" "p3:p2:p3" "p3/p4:p2:p3/p4/p5/p6:p2" "2:2:2:2:2:2:2:2:2:2" "0:0:2:5:1:NA:m:NA:NA:NA:NA:m" "3:4:4:5:3:m:m:m:m:m" "82.29:91.13:NA:50:56.62" "168.4:36:44.9:29.1:47.8" "179:133.4:163.8:100.8:132.7:NA:NA:34.7:3.5"
+"P008" "AJN" "2016-10-12_14:31:21" "As:Eu:As:As:As:Eu" "F:T:F:T:F:T:F:F:F:U" "00000" "p6:p3:p5" "p5:p3:p3/p4/p5/p6:p3" "3:2:3:3:3:2:3:2:3:3" "0:0:1:3:1:NA:m:NA:NA:NA:NA:m" "1:4:2:3:4:m:u:m:m:m" "NA:NA:NA:NA:51.72" "169:39.8:47.5:26.2:48.3" "171.6:131.9:159.8:96.3:124:87.4:40.2:34:3.2"
+"P009" "AJN" "2016-10-12_14:44:27" "Af:As:As:As:As:Eu" "F:T:F:T:F:T:F:F:F:U" "00000" "p10:p6:p8" "p7:p7:p7:p7" "3:3:3:3:3:3:2:NA:NA:NA" "1:2:1:3:4:f:u:f:f:f:m:u" "2:1:2:3:4:f:f:f:f:u" "81.75:82.29:56.92:48.73:48.95" "140:33.1:42.7:22.8:37.6" "169.7:126.4:149.8:96.3:124:86.9:35.9:33.2:2.4"
+"P010" "AJN" "2016-10-12_15:22:06" "Af:As:Af:Af:Af:Af" "F:T:F:F:T:F:T:F:T:T" "00000" "p9:p6:p8" "NA:NA:NA:NA" "3:3:3:3:3:3:3:3:3:3" "0:0:2:2:5:f:u:m:f:NA:u:u" "2:4:1:1:1:NA:NA:NA:NA:NA" "NA:NA:NA:NA:NA" "156.1:35.9:41.2:18.5:39.3" "NA:NA:NA:NA:NA:NA:NA:NA:NA"
