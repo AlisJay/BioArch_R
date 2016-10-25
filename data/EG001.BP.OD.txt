@@ -1,4 +1,4 @@
-#Osteological assement:Biological Profile
+#Osteological data:Biological Profile
 #Pop ID=EG001:Pop Name=Test Population:Investigator=AJNicholson
 #Date Created= 2016-10-12 11:38:31 :Program=BioProfileV2.0
 #Fields:ID,Investigator,date,Ancestry3, Ancestry2,Epiphysis Score,Phase Score,4th Rib,Sutures,Pelvic non-metric traits,Preauricular sulcus,Cranial non-metric traits,Pelvis metrics,Post-cranial metrics,Cranial metrics

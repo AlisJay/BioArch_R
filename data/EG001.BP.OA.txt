@@ -1,4 +1,4 @@
-#Biological profile
+#Osteological Assessment: Biological profile
 #Pop ID=EG001:Pop Name=Test Population:Investigator=AJNicholson
 #Date Created= 2016-10-12 11:38:31 :Program=BioProfileV2.0
 #Fields:ID,Investigator,date,known,ancestry,sex,age,range,AncestryScore,Sex Pelvis,Sex Other,Sex detailed,Todd,Suchey-Brooks,Lovejoy,Vault,lateral-anterior,4th Rib

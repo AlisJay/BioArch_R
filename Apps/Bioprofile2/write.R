@@ -1,7 +1,9 @@
 #writing functions for Bio-Profiler
 createBP<-function(ID,name="NA",investigator="NA",dir){
   # create .BP.txt file, that contains the results of bioprofile analysis
-  head<-c("#Biological profile",
+  filepath<-paste(dir,ID,".BP.OA.txt",sep="")
+  if(file.exists(filepath)){stop(filepath," already exists")}
+  head<-c("#Osteological Assessment: Biological profile",
           paste("#Pop ID=",ID,":Pop Name=",name,":Investigator=",investigator,sep=""),
           paste("#Date Created=",Sys.time(),":Program=BioProfileV2.0"),
           "#Fields:ID,Investigator,date,known,ancestry,sex,age,range,AncestryScore,Sex Pelvis,Sex Other,Sex detailed,Todd,Suchey-Brooks,Lovejoy,Vault,lateral-anterior,4th Rib",
@@ -11,12 +13,11 @@ createBP<-function(ID,name="NA",investigator="NA",dir){
           '#SD:va,spc,ipr,sn,pas,pShape,iiShape,pInlet,pShape,spAngle,OF,sShape,ipIndex,A,NC,MP,SOM,G,ME,Chin,cSize,flare,flex,gAngle,craniometrics,sHeight,gHeight,hHead,rHead,FHead:NA,u,m,pm,pf,f',
           "#T,SB,L,V,LA,R4:Phase,min,max,average:alphanumeric,numeric,numeric,numeric")
   Table<-data.frame(ID=NA,In=NA,D=NA,K=NA,An=NA,S=NA,Ag=NA,R=NA,AnS=NA,SP=NA,SO=NA,SD=NA,T=NA,SB=NA,L=NA,V=NA,LA=NA,R4=NA)
-  filepath<-paste(dir,ID,".BP.OA.txt",sep="")
   write(head,filepath)
   write.table(Table[-1,],filepath,append=TRUE,row.names=FALSE)
     
   #create a OA.BP.txt file which stores the data entered into bioprofile
-  head<-c("#Osteological assement:Biological Profile",
+  head<-c("#Osteological data:Biological Profile",
           paste("#Pop ID=",ID,":Pop Name=",name,":Investigator=",investigator,sep=""),
           paste("#Date Created=",Sys.time(),":Program=BioProfileV2.0"),
           "#Fields:ID,Investigator,date,Ancestry3, Ancestry2,Epiphysis Score,Phase Score,4th Rib,Sutures,Pelvic non-metric traits,Preauricular sulcus,Cranial non-metric traits,Pelvis metrics,Post-cranial metrics,Cranial metrics",
@@ -51,7 +52,7 @@ AppendBP<-function(PopID,ID,In,k,an,s,ag,r,ans,ss,t,sb,l,v,la,r4,sd,dir){
   }
 }
 
-AppendOABP<-function(PopID,ID,In,an3,an2,escore,pscore,rib,s,Pelvis,Cranial,Other,dir){
+AppendBP2<-function(PopID,ID,In,an3,an2,escore,pscore,rib,s,Pelvis,Cranial,Other,dir){
   #adds indivdual record to an existing BP.OD.txt
   filepath<-paste(dir,PopID,".BP.OD.txt",sep="")
   if(!(file.exists(filepath))){
@@ -68,13 +69,13 @@ Append2<-function(PopID,ID,In,k,an,s,ag,r,ans,ss,t,sb,l,v,la,r4,an3,an2,escore,p
   #uses appropreate append commands depending on wheter known or unknow data is entered
   X<-AppendBP(PopID,ID,In,k,an,s,ag,r,ans,ss,t,sb,l,v,la,r4,sd,dir)
   if(k=="1:1:1"){y<-paste("All data known, no record added to ",PopID,".OA.BP.txt",dir)}
-  if(k=="1:1:0"){y<-AppendOABP(PopID,ID,In,"NA","NA",escore,pscore,rib,su,Pelvis,Cranial,Other,dir)}
-  if(k=="1:0:1"){y<-AppendOABP(PopID,ID,In,"NA","NA","NA","NA","NA","NA",Pelvis,Cranial,Other,dir)}
-  if(k=="1:0:0"){y<-AppendOABP(PopID,ID,In,"NA","NA",escore,pscore,rib,su,Pelvis,Cranial,Other,dir)}
-  if(k=="0:1:1"){y<-AppendOABP(PopID,ID,In,an3,an2,"NA","NA","NA","NA",Pelvis,Cranial,Other,dir)}
-  if(k=="0:0:1"){y<-AppendOABP(PopID,ID,In,an3,an2,"NA","NA","NA","NA",Pelvis,Cranial,Other,dir)}
-  if(k=="0:1:0"){y<-AppendOABP(PopID,ID,In,an3,an2,escore,pscore,rib,su,Pelvis,Cranial,Other,dir)}
-  if(k=="0:0:0"){y<-AppendOABP(PopID,ID,In,an3,an2,escore,pscore,rib,su,Pelvis,Cranial,Other,dir)}
+  if(k=="1:1:0"){y<-AppendBP2(PopID,ID,In,"NA","NA",escore,pscore,rib,su,Pelvis,Cranial,Other,dir)}
+  if(k=="1:0:1"){y<-AppendBP2(PopID,ID,In,"NA","NA","NA","NA","NA","NA",Pelvis,Cranial,Other,dir)}
+  if(k=="1:0:0"){y<-AppendBP2(PopID,ID,In,"NA","NA",escore,pscore,rib,su,Pelvis,Cranial,Other,dir)}
+  if(k=="0:1:1"){y<-AppendBP2(PopID,ID,In,an3,an2,"NA","NA","NA","NA",Pelvis,Cranial,Other,dir)}
+  if(k=="0:0:1"){y<-AppendBP2(PopID,ID,In,an3,an2,"NA","NA","NA","NA",Pelvis,Cranial,Other,dir)}
+  if(k=="0:1:0"){y<-AppendBP2(PopID,ID,In,an3,an2,escore,pscore,rib,su,Pelvis,Cranial,Other,dir)}
+  if(k=="0:0:0"){y<-AppendBP2(PopID,ID,In,an3,an2,escore,pscore,rib,su,Pelvis,Cranial,Other,dir)}
   paste(X,y,sep=".")
 }
 
