@@ -36,6 +36,8 @@ InventoryIssue<-function(present,complete){
 }
 CreateSI<-function(ID,name,Investigator,custom,dir){
   #creates the .SI.txt file
+  filepath<-paste(dir,ID,".SI.txt",sep="")
+  if(file.exists(filepath)){stop(filepath," already exists")}
   Head<-c("#Skeletal Inventory File",
           paste("#Pop ID=",ID,":Pop Name=",name,":Investigator=",Investigator,sep=""),
           paste("#Date Created=",Sys.time(),":Program=BAinventoryV1.0"),
@@ -56,7 +58,6 @@ CreateSI<-function(ID,name,Investigator,custom,dir){
           paste("#C:",paste(custom,collapse=","), sep="")
   )
   Table<-data.frame(ID=NA,In=NA,D=NA,Sk=NA,V=NA,T=NA,Sh=NA,P=NA,A=NA,H=NA,L=NA,F=NA,UF=NA,NMT=NA,C=NA)
-  filepath<-paste(dir,ID,".SI.txt",sep="")
   write(Head,filepath)
   write.table(Table[-1,],filepath,append=TRUE,row.names=FALSE)
   paste("File ",ID,".SI.txt created", sep="")
