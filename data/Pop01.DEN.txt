@@ -1,0 +1,22 @@
+#Dental
+#Pop ID=Pop01:Pop Name=TestPop:Investigator=AJNicholson
+#Date Created= 2016-11-09 13:40:10 :Program=DentalV1.0
+#Fields:IndividualID,InvestigatorInitials,Date,Perminant score,Decidous Score,Caries,Calculus,Hypoplasia,Hypercalcification,Wear,Measurments,growth,Morphological traits,modification,Ablation
+#Perminant:uRM3,uRM2,uRM1,uRP4,uRP3,uRC1,uRI2,uRI1,uLI1,uLI2,uLC1,uLP3,uLP4,uLM1,uLM2,uLM3,lRM3,lRM2,lRM1,lRP4,lRP3,lRC1,lRI2,lRI1,lLI1,lLI2,lLC1,lLP3,lLP4,lLM1,lLM2,lLM3
+#Decidous:uRdM2,uRdM1,uRdC1,uRdI2,uRdI1,uLdI1,uLdI2,uLdC1,uLdM1,uLdM2,lRdM2,lRdM1,lRdC1,lRdI2,lRdI1,lLdI1,lLdI2,lLdC1,lLdM1,lLdM2
+#Score:Present,Loose,Occulsion,Unerupted,Premortem Loss,Postmortem Loss:Hex
+#Car:surface:I/L/B/C/R/XL/NC
+#Cal:side_size:B/L_NA/1/2/3
+#Hypo:Type_location:1/2/3/4/5_num
+#Hyper:Type,Colour_location:6/7,1/2/3/4_num
+#Molar Wear:Quandrant_score:Q1/Q2/Q3/Q4_NA/1-10
+#Other Wear:score:NA/1-8
+#Measure:mmd/cmd/bl/ch:num
+#G:eruption,formation:1-21,1-14
+#Growth teeth:lRM3,lRM2,lRM1,lLM1,lLM2,lLM3,lRdM1,lRdM2,lRdC1,lLdC1,lLdM1,lLdM2,
+#Morph:see B&U94
+#Mod:Ids
+#Ab:of premortem loss:hex
+"ID" "In" "D" "pScore" "dScore" "Car" "Cal" "Hypo" "Hyper" "W" "Measure" "G" "Morph" "Mod" "Ab"
+"Blank01" "AJN" "2016-11-09_13:40:44" "00000000::::00000000:ffffffff" "00000::::fffff:00000" NA NA NA NA NA NA "20:NA" NA NA NA
+"Sk01" "AJN" "2016-11-09_13:48:34" "c7404940:000:000:000:3a8000:057fff" "00000::::fffff:00000" "LB:NA:NA:NA:NA:NA:C:NA:NA:LB" "L1:NA:NA:NA:NA:NA:NA:B2:BL3:NA" "1_2.1:NA:1_6.1/1_3.4:NA:NA:NA:NA:4_1.9:NA:NA" "61_2.8/61_4.0:NA:NA:NA:NA:NA:NA:62_3.2/62_3.4:NA:NA" "2/1/2/NA:NA/1/NA/NA:1:2:3:NA:NA/1/2/3:3:1:NA" "NA/NA/NA/NA:NA/NA/NA/NA:NA/NA/NA/NA:NA/NA/NA/NA:NA/NA/NA/NA:NA/NA/NA/NA:NA/NA/NA/NA:NA/NA/NA/NA:NA/NA/NA/NA:NA/NA/NA/NA" "21:14" "NA/NA:0/0/2/0:0/0/0/1:0/0/1:0/0:0/2/0:Y/5/0/3/0/0/2:0" "Sk01_1:Sk01_2:NA:NA:NA:NA:NA:Sk01_3:NA:Sk01_4" "0a"
