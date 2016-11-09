@@ -1,7 +1,7 @@
 #' Produces basic assessment of the metrics recorded for sex determination
 #'
-#' @param BP loaded biological profile file, created using ReadBioArch("file.BP.txt")
-#' @param OABP loaded Osteological assement:Biological Profile file, created using ReadBioArch("file.OA.BP.txt)
+#' @param BPOA loaded biological profile file, created using ReadBioArch("file.BP.OA.txt")
+#' @param BPOD loaded Osteological assement:Biological Profile file, created using ReadBioArch("file.BP.OD.txt)
 #' @param Prob.as.certain logical, should probable female and probale male be treated as female and male, default =TRUE
 #'
 #' @return List of dataframes, Individual= The recorded data for each individual, Population= summary of the data on population level, Calculated= indices and discriminate functions calculated from raw data for each individual, assignment= series of three dataframe that exainine the accuracy of sex assignment using each measure
@@ -9,7 +9,7 @@
 #' @export
 #'
 #' @examples
-ProfileMetrics<-function(BP,OABP,Prob.as.certain=TRUE){
+ProfileMetrics<-function(BPOA,BPOD,Prob.as.certain=TRUE){
   
   if(Prob.as.certain){
     SexConvert<-function(sex){

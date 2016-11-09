@@ -1,6 +1,6 @@
 #' Input Bioarchaeology data 
 #'
-#' @param infoType type of info to enter current options= Profile,Inventory,Metrics,Library,JInventory,JMetrics,Dental
+#' @param infoType type of info to enter current options= Profile,Inventory,Metrics,Reference,JInventory,JMetrics,Dental
 #'
 #' @return Opens the relevant shiny app
 #' @export
@@ -8,12 +8,12 @@
 #' @examples InputBioArch("Profile)
 InputBioArch<-function(infoType){
   library("shiny")
-  InfoTypes<-c("Inventory","Profile","Library","JInventory","Metrics","JMetrics","Dental")
+  InfoTypes<-c("Inventory","Profile","Reference","JInventory","Metrics","JMetrics","Dental")
   if(!(infoType %in% InfoTypes)){stop("invalid info type! valid options are ",paste(InfoTypes,collapse=","))}
   if(infoType=="Profile"){shiny::runApp('Apps/BioProfile2')}
   if(infoType=="Inventory"){shiny::runApp('Apps/BAInventory')}
-  if(infoType=="Library"){shiny::runApp('Apps/Library')}
-  if(infoType=="Metrics"){shiny::runApp('Apps/Metrics')}
+  if(infoType=="Reference"){shiny::runApp('Apps/Library')}
+  if(infoType=="Metrics"){shiny::runApp('Apps/TotalMetrics')}
   if(infoType=="JInventory"){shiny::runApp('Apps/JInventory')}
   if(infoType=="JMetrics"){shiny::runApp('Apps/JMetrics')}
   if(infoType=="Dental"){shiny::runApp('Apps/Dental')}

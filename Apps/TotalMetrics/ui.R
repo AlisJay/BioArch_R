@@ -362,7 +362,7 @@ shinyUI(navbarPage("TotalMetrics",
                             h3(textOutput("score")),
                             textInput("dir","Data Folder",value="../../data/"),
                             column(width=3,
-                                   checkboxGroupInput("Equipment","Please tick all available equipment",choices=c("Sliding calipers","Spreading calipers","Osteometric board","Tape","Mandibulometer","Craniophore","Coordinate calipers","digitizer tablet","Other")),
+                                   checkboxGroupInput("Equipment","Please tick all available equipment",choices=c("Digital sliding calipers","Analog sliding calipers","Spreading calipers","Osteometric board","Tape","Mandibulometer","Craniophore","Coordinate calipers","digitizer tablet","Other")),
                                    conditionalPanel("input.Equipment.indexOf('Other') >= 0 ",
                                                     textInput("equipment2","Specify other",value=NA))
                             ),
