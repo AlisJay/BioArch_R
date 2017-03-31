@@ -184,3 +184,79 @@ Abbrev_Library<-function(FileType="Inventory",Bone=NA,Abbreviation=NA,Region=NA,
   output
 }
 ##########################################################################
+DecodeM<-function(Metrics,x){
+  HeadLine<-Metrics$Head[grep(paste0("#",x),Metrics$Head)]
+  Heads<-strsplit(HeadLine,split=":")[[1]][2]
+  Heads<-strsplit(Heads,split=",")[[1]]
+  IDs<-Metrics$Table$ID
+  DF<-data.frame(Measurement=Heads)
+  
+  for(i in 1:length(IDs)){DF[,as.character(IDs[i])]<-strsplit(Metrics$Table[i,x],split=":")[[1]]}
+  DF2<-DF[grepl("/",DF[,2])==TRUE,]
+  DF<-DF[grepl("/",DF[,2])==FALSE,]
+  M2<-NULL
+  for(i in 1:length(DF2$Measurement)){M2<-c(M2,paste0(as.character(DF2$Measurement[i]),"_r"),paste0(as.character(DF2$Measurement[i]),"_l"))}
+  DF3<-data.frame(Measurement=M2)
+  
+  for(i in 1:length(IDs)){
+    DF3[,as.character(IDs[i])]<-as.numeric(unlist(strsplit(DF2[,i+1],split="/")))
+    DF[,as.character(IDs[i])]<-as.numeric(DF[,as.character(IDs[i])])}
+  
+  DF<-rbind(DF,DF3)
+  DF$Average<-round(rowMeans(as.data.frame(DF[,-1]),na.rm=TRUE),3)
+  DF
+}
+##########################################################################
+DecodeDen<-function(Dental){
+  library(BMS)
+  Teeth<-strsplit(Dental$Head[5],split=":")[[1]][2];Teeth<-strsplit(Teeth,split=",")[[1]]
+  T2<-strsplit(Dental$Head[6],split=":")[[1]][2];T2<-strsplit(T2,split=",")[[1]]
+  Teeth<-c(Teeth,T2)
+  Ids<-Dental$Table$ID
+  Out<-list(Population=data.frame(Tooth=Teeth,Present=0,Loose=0,Occulsion=0,Unerupted=0,Premortem=0,Postmortem=0))
+  
+  for(i in 1:length(Ids)){
+    pScore<-strsplit(Dental$Table$pScore[i],split=":")[[1]]
+    dScore<-strsplit(Dental$Table$dScore[i],split=":")[[1]]
+    Present_P<-hex2bin(pScore[1]);Present_D<-hex2bin(dScore[1])
+    Present<-c(Present_P,Present_D)
+    Loose_P<-hex2bin(pScore[2]);Loose_P<-Loose_P[(length(Loose_P)-length(Present_P[Present_P==1])+1):length(Loose_P)]
+    Loose_D<-hex2bin(dScore[2]);Loose_D<-Loose_D[(length(Loose_D)-length(Present_D[Present_D==1])+1):length(Loose_D)]
+    Loose<-c(Loose_P,Loose_D)
+    Occulsion_P<-hex2bin(pScore[3]);Occulsion_P<-Occulsion_P[(length(Occulsion_P)-length(Present_P[Present_P==1])+1):length(Occulsion_P)]
+    Occulsion_D<-hex2bin(dScore[3]);Occulsion_D<-Occulsion_D[(length(Occulsion_D)-length(Present_D[Present_D==1])+1):length(Occulsion_D)]
+    Occulsion<-c(Occulsion_P,Occulsion_D)
+    Unerupted_P<-hex2bin(pScore[4]);Unerupted_P<-Unerupted_P[(length(Unerupted_P)-length(Present_P[Present_P==1])+1):length(Unerupted_P)]
+    Unerupted_D<-hex2bin(dScore[4]);Unerupted_D<-Unerupted_D[(length(Unerupted_D)-length(Present_D[Present_D==1])+1):length(Unerupted_D)]
+    Unerupted<-c(Unerupted_P,Unerupted_D)
+    Premortem_P<-hex2bin(pScore[5]);Premortem_P<-Premortem_P[(length(Premortem_P)-length(Present_P[Present_P==0])+1):length(Premortem_P)]
+    Premortem_D<-hex2bin(dScore[5]);Premortem_D<-Premortem_D[(length(Premortem_D)-length(Present_D[Present_D==0])+1):length(Premortem_D)]
+    Premortem<-c(Premortem_P,Premortem_D)
+    Postmortem_P<-hex2bin(pScore[6]);Postmortem_P<-Postmortem_P[(length(Postmortem_P)-length(Present_P[Present_P==0])+1):length(Postmortem_P)]
+    Postmortem_D<-hex2bin(dScore[6]);Postmortem_D<-Postmortem_D[(length(Postmortem_D)-length(Present_D[Present_D==0])+1):length(Postmortem_D)]
+    Postmortem<-c(Postmortem_P,Postmortem_D)
+    
+    x<-data.frame(Tooth=Teeth,Present=Present,Loose=0,Occulsion=0,Unerupted=0,Premortem=0,Postmortem=0)
+    x$Loose[x$Present==0]<-NA;x$Occulsion[x$Present==0]<-NA;x$Unerupted[x$Present==0]<-NA
+    x$Loose[x$Present==1]<-Loose[!(is.na(Loose))];x$Occulsion[x$Present==1]<-Occulsion[!(is.na(Occulsion))];x$Unerupted[x$Present==1]<-Unerupted[!(is.na(Unerupted))]
+    x$Premortem[x$Present==0]<-Premortem[!(is.na(Premortem))];x$Premortem[x$Present==1]<-NA;x$Postmortem[x$Present==0]<-Postmortem[!(is.na(Postmortem))];x$Postmortem[x$Present==1]<-NA
+    
+    if(length(x$Tooth[x$Present==1])>0){
+      y<-data.frame(Tooth=x$Tooth[x$Present==1],Caries=strsplit(Dental$Table$Car[i],split=":")[[1]],Calculus=strsplit(Dental$Table$Cal[i],split=":")[[1]],Hypoplasia=strsplit(Dental$Table$Hypo[i],split=":")[[1]],Hypercalcification=strsplit(Dental$Table$Hyper[i],split=":")[[1]],Wear=strsplit(Dental$Table$W[i],split=":")[[1]],Mesiodistal=NA,Interproxmal=NA,Bucolingual=NA,Crown=NA,modification=strsplit(Dental$Table$Mod[i],split=":")[[1]])
+      measurements<-strsplit(Dental$Table$Measure[i],split=":")[[1]]
+      for(j in 1:length(y$Tooth)){y[j,7:10]<-strsplit(measurements[j],split="/")[[1]]}
+    }else{y<-NULL}
+    
+    Out[[length(Out)+1]]<-list("Score"=x,"Features"=y)
+    Out$Population$Present<-Out$Population$Present+x$Present
+    Out$Population$Loose<-rowSums(cbind(Out$Population$Loose,x$Loose),na.rm=TRUE)
+    Out$Population$Unerupted<-rowSums(cbind(Out$Population$Unerupted,x$Unerupted),na.rm=TRUE)
+    Out$Population$Occulsion<-rowSums(cbind(Out$Population$Occulsion,x$Occulsion),na.rm=TRUE)
+    Out$Population$Premortem<-rowSums(cbind(Out$Population$Premortem,x$Premortem),na.rm=TRUE)
+    Out$Population$Postmortem<-rowSums(cbind(Out$Population$Postmortem,x$Postmortem),na.rm=TRUE)
+  }
+  Out$Population[,-1]<-(Out$Population[,-1])/length(Ids)
+  names(Out)<-c("Population",Ids)
+  Out
+}
+

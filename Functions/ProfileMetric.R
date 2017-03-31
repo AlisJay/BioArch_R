@@ -1,7 +1,7 @@
 #' Produces basic assessment of the metrics recorded for sex determination
 #'
-#' @param BPOA loaded biological profile file, created using ReadBioArch("file.BP.OA.txt")
-#' @param BPOD loaded Osteological assement:Biological Profile file, created using ReadBioArch("file.BP.OD.txt)
+#' @param OABP loaded biological profile file, created using ReadBioArch("file.BP.OA.txt")
+#' @param ODBP loaded Osteological assement:Biological Profile file, created using ReadBioArch("file.BP.OD.txt)
 #' @param Prob.as.certain logical, should probable female and probale male be treated as female and male, default =TRUE
 #'
 #' @return List of dataframes, Individual= The recorded data for each individual, Population= summary of the data on population level, Calculated= indices and discriminate functions calculated from raw data for each individual, assignment= series of three dataframe that exainine the accuracy of sex assignment using each measure
@@ -9,7 +9,7 @@
 #' @export
 #'
 #' @examples
-ProfileMetrics<-function(BPOA,BPOD,Prob.as.certain=TRUE){
+ProfileMetrics<-function(OABP,ODBP,Prob.as.certain=TRUE){
   
   if(Prob.as.certain){
     SexConvert<-function(sex){
@@ -34,7 +34,7 @@ ProfileMetrics<-function(BPOA,BPOD,Prob.as.certain=TRUE){
                          mxLength=NA,mxBreadth=NA,BaBr=NA,BaNa=NA,zBreadth=NA,BaPr=NA,NaAL=NA,pBreadth=NA,mLength=NA)
   
   for(i in 1:length(IDs)){
-    Individual$sex[Individual$ID==IDs[i]]<-SexConvert(BP$Table$S[BP$Table$ID==IDs[i]])
+    Individual$sex[Individual$ID==IDs[i]]<-SexConvert(ODBP$Table$S[ODBP$Table$ID==IDs[i]])
     Individual[Individual$ID==IDs[i],3:7]<-as.numeric(strsplit(OABP$Table$PM[i],split=":")[[1]])
     Individual[Individual$ID==IDs[i],8:12]<-as.numeric(strsplit(OABP$Table$PCM[i],split=":")[[1]])
     Individual[Individual$ID==IDs[i],13:21]<-as.numeric(strsplit(OABP$Table$CM[i],split=":")[[1]])
@@ -74,7 +74,7 @@ ProfileMetrics<-function(BPOA,BPOD,Prob.as.certain=TRUE){
                          IP_Siedler=NA,API_1=NA,API_2=NA,aWidth_Murphy=NA,aWidth_Patriquin=NA,CM1=NA,CM2=NA,CM3=NA,CM4=NA,
                          CM5=NA,CM6=NA,CM7=NA,CM8=NA,CM9=NA,CM10=NA,CM11=NA,CM12=NA,CM13=NA,CM14=NA)
   for(i in 1:length(IDs)){
-    BpAssign<-strsplit(BP$Table$SD[i],split=":")[[1]]
+    BpAssign<-strsplit(ODBP$Table$SD[i],split=":")[[1]]
     Assignment[i,3]<-SexConvert(BpAssign[13]);Assignment[i,4]<-SexConvert(BpAssign[14])
     Assignment[i,5]<-SexConvert(BpAssign[26]);Assignment[i,6]<-SexConvert(BpAssign[27])
     Assignment[i,7]<-SexConvert(BpAssign[28]);Assignment[i,8]<-SexConvert(BpAssign[29])
