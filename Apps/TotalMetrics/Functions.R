@@ -10,7 +10,7 @@ CreateMetric<-function(ID,name,Investigator,dir,equipment){
           paste("#Pop ID=",ID,":Pop Name=",name,":Investigator=",Investigator,sep=""),
           paste("#Date Created=",Sys.time(),":Program=TotalMetricsV.1.0"),
           paste("#Equipment:",paste(equipment,collapse=","),sep=""),
-          "#Fields:IndividualID,InvestigatorInitials,Date,Cranial,Mandible,Shoulder,Pelvis,UpperLimb,LowerLimb,Fragmented long bone,Articulated,Vertebrae,Metatarsal,Other",
+          "#Fields:IndividualID,InvestigatorInitials,Date,Cranial,Mandible,Shoulder,Pelvis,UpperLimb,LowerLimb,Fragmented long bone,Articulated,Vertebrae,Metatarsal,Other,Average",
           "#C:g_op,eu_eu,zy_zy,ba_b,ba_n,ba_pr,ecm_ecm,pr_alv,au_au,n_pr,ft_ft,fmt_fmt,n_ns,al_al,d_ec,OH,ec_ec,d_d,n_b,b_l,l_o,ba_o,ML,po_b,mfb,mob,acb,nmfs,nzos,nas:numeric",
           "#M:id_gn,mbh,mbb,go_go,cdl_cdl,minrb,maxrb,maxrh,ML,MA:numeric",
           "#Sh:cl,csd,cvd,sh,sb,gh,gb,ssl,ssw,al,cpl:numeric",
@@ -21,20 +21,21 @@ CreateMetric<-function(ID,name,Investigator,dir,equipment){
           "#A:AH,bid,cv,tpd,n_gn:numeric",
           "#V:c1,c2,c3,c4,c5,c6,c7,t1,t2,t3,t4,t5,t6,t7,t8,t9,t10,t11,t12,l1,l2,l3,l4,l5:numeric",
           "#MT:m1,m2,m3,m4,m5:numeric",
-          "#O:mcl,cb,mtl,manl,msl,s1w,s3w:numeric")
-  Table<-data.frame(ID=NA,In=NA,D=NA,C=NA,M=NA,Sh=NA,P=NA,UL=NA,LL=NA,FLB=NA,A=NA,V=NA,MT=NA,O=NA)
+          "#O:mcl,cb,mtl,manl,msl,s1w,s3w:numeric",
+          "#Av:Have the measurments been averaged:TRUE/FALSE")
+  Table<-data.frame(ID=NA,In=NA,D=NA,C=NA,M=NA,Sh=NA,P=NA,UL=NA,LL=NA,FLB=NA,A=NA,V=NA,MT=NA,O=NA,AV=NA)
   write(Head,filepath)
   write.table(Table[-1,],filepath,append=TRUE,row.names=FALSE)
   paste(ID,".M.OD.txt created", sep="")
 }
 
-AppendMetric<-function(PopID,ID,In,dir,C,M,Sh,P,UL,LL,FLB,A,V,MT,O){
+AppendMetric<-function(PopID,ID,In,dir,C,M,Sh,P,UL,LL,FLB,A,V,MT,O,AV){
   #adds indivdual record to an existing .BP.OA.txt
   filepath<-paste(dir,PopID,".M.OD.txt",sep="")
   if(!(file.exists(filepath))){
     stop("File ",filepath," Does not exist please check the Population ID")
   }else{
-    Table<-data.frame(ID=ID,In=In,D=gsub(" ","_",as.character(Sys.time())),C=C,M=M,Sh=Sh,P=P,UL=UL,LL=LL,FLB=FLB,A=A,V=V,MT=MT,O=O)
+    Table<-data.frame(ID=ID,In=In,D=gsub(" ","_",as.character(Sys.time())),C=C,M=M,Sh=Sh,P=P,UL=UL,LL=LL,FLB=FLB,A=A,V=V,MT=MT,O=O,AV=AV)
     write.table(Table,filepath,append=TRUE,row.names=FALSE,col.names=FALSE)
     paste("Added Individual",ID,"to",filepath)
   }

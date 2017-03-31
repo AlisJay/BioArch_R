@@ -56,7 +56,7 @@ shinyServer(function(input,output){
   
   #add individual
   IMessage<-eventReactive(input$Append,{
-    AppendMetric(input$POPID,input$ID,input$Person2,input$dir,C=Cr(),M=M(),Sh=Sh(),P=P(),UL=UL(),LL=LL(),FLB=FLB(),A=A(),V=V(),MT=MT(),O=O())
+    AppendMetric(input$POPID,input$ID,input$Person2,input$dir,C=Cr(),M=M(),Sh=Sh(),P=P(),UL=UL(),LL=LL(),FLB=FLB(),A=A(),V=V(),MT=MT(),O=O(),AV=input$Average)
   })
   output$IMessage<-renderPrint({IMessage()})
 })

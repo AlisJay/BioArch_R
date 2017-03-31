@@ -1,0 +1,19 @@
+#Osteological data: Metrics
+#Pop ID=EG001:Pop Name=TestPop:Investigator=AJNicholson
+#Date Created= 2017-03-22 17:58:20 :Program=TotalMetricsV.1.0
+#Equipment:Digital sliding calipers,Spreading calipers,Osteometric board,Tape,
+#Fields:IndividualID,InvestigatorInitials,Date,Cranial,Mandible,Shoulder,Pelvis,UpperLimb,LowerLimb,Fragmented long bone,Articulated,Vertebrae,Metatarsal,Other,Average
+#C:g_op,eu_eu,zy_zy,ba_b,ba_n,ba_pr,ecm_ecm,pr_alv,au_au,n_pr,ft_ft,fmt_fmt,n_ns,al_al,d_ec,OH,ec_ec,d_d,n_b,b_l,l_o,ba_o,ML,po_b,mfb,mob,acb,nmfs,nzos,nas:numeric
+#M:id_gn,mbh,mbb,go_go,cdl_cdl,minrb,maxrb,maxrh,ML,MA:numeric
+#Sh:cl,csd,cvd,sh,sb,gh,gb,ssl,ssw,al,cpl:numeric
+#P:och,ib,pl,pl2,pl3,il,il2,il3,psh,midpw,minpw,iprw,pa,snw,snd,ad,sl,sb,s1b:numeric
+#UL:mhl,heb,vhhd,mxhd,minhd,mrl,srd,trd,rhd,mul,pul,sud,tud,muc:numeric
+#LL:mfl,bfl,efb,mfhd,sfsd,tfsd,sfmd,tfmd,mfc,lfcd,mfcd,lfcw,mfcw,icw,icd,stl,mtl,ptl,mptb,mdtb,std,ttd,tc,mfbl,mfbd:numeric
+#FLB:fhhl,fhsl,fhol,fhtl,frhl,frpl,frsl,frdl,ffscl,ffdl,ftpl,fttl,ftsl,ftdl,ftml:numeric
+#A:AH,bid,cv,tpd,n_gn:numeric
+#V:c1,c2,c3,c4,c5,c6,c7,t1,t2,t3,t4,t5,t6,t7,t8,t9,t10,t11,t12,l1,l2,l3,l4,l5:numeric
+#MT:m1,m2,m3,m4,m5:numeric
+#O:mcl,cb,mtl,manl,msl,s1w,s3w:numeric
+#Av:Have the measurments been averaged:TRUE/FALSE
+"ID" "In" "D" "C" "M" "Sh" "P" "UL" "LL" "FLB" "A" "V" "MT" "O" "AV"
+"BLank" "AJN" "2017-03-22_17:58:25" "NA:NA:NA:NA:NA:NA:NA:NA:NA:NA:NA:NA:NA:NA:NA/NA:NA/NA:NA:NA:NA:NA:NA:NA:NA/NA:NA:NA:NA:NA:NA:NA:NA" "NA:NA:NA:NA:NA:NA/NA:NA/NA:NA/NA:NA:NA" "NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA" "NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA:NA:NA" "NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA" "NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA" "NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA:NA/NA" "NA/NA:NA:NA:NA:NA" "NA:NA:NA:NA:NA:NA:NA:NA:NA:NA:NA:NA:NA:NA:NA:NA:NA:NA:NA:NA:NA:NA:NA:NA" "NA/NA:NA/NA:NA/NA:NA/NA:NA/NA" "NA/NA:NA/NA:NA/NA:NA:NA:NA:NA" FALSE
