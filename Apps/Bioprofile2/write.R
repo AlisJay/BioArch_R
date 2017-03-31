@@ -6,7 +6,7 @@ createBP<-function(ID,name="NA",investigator="NA",dir){
   head<-c("#Osteological Assessment: Biological profile",
           paste("#Pop ID=",ID,":Pop Name=",name,":Investigator=",investigator,sep=""),
           paste("#Date Created=",Sys.time(),":Program=BioProfileV2.0"),
-          "#Fields:ID,Investigator,date,known,ancestry,sex,age,range,AncestryScore,Sex Pelvis,Sex Other,Sex detailed,Todd,Suchey-Brooks,Lovejoy,Vault,lateral-anterior,4th Rib",
+          "#Fields:ID,Investigator,date,known,ancestry,sex,age,range,AncestryScore,Sex Pelvis,Sex Other,Sex detailed,Todd,Suchey-Brooks,Lovejoy,Vault,lateral-anterior,4th Rib,AgePhoto,SexPhoto,AncestryPhoto",
           "#K:Ancestry,Sex,Age:1,0",
           "#AnS:Asian,African,European,Undetermined:Count",
           "#SP,SO:unrecorded,male,probable male,unknown,probable female,female:Count",
@@ -16,7 +16,7 @@ createBP<-function(ID,name="NA",investigator="NA",dir){
   write(head,filepath)
   write.table(Table[-1,],filepath,append=TRUE,row.names=FALSE)
     
-  #create a OA.BP.txt file which stores the data entered into bioprofile
+  #create a BP.OA.txt file which stores the data entered into bioprofile
   head<-c("#Osteological data:Biological Profile",
           paste("#Pop ID=",ID,":Pop Name=",name,":Investigator=",investigator,sep=""),
           paste("#Date Created=",Sys.time(),":Program=BioProfileV2.0"),
@@ -31,8 +31,11 @@ createBP<-function(ID,name="NA",investigator="NA",dir){
           "#CNM:NC,MP,SOM,G,ME,Chin,cSize,flare,flex,gAngle:0-5,m/f/NA",
           "#PM:pLength,pLength2,iLength,iLength2,aWidth:numeric",
           "#PCM:sHeight,gHeight,hHead,rHead,FHead:numeric",
-          "#CM:mxLength,mxBreadth,BaBr,BaNa,zBreadth,BaPr,NaAl,pBreadth,mLength:numeric")
-  Table<-data.frame(ID=NA,In=NA,D=NA,AN3=NA,AN2=NA,EScore=NA,PScore=NA,Rib=NA,S=NA,PNM=NA,CNM=NA,PM=NA,PCM=NA,CM=NA)
+          "#CM:mxLength,mxBreadth,BaBr,BaNa,zBreadth,BaPr,NaAl,pBreadth,mLength:numeric",
+          "#AgPhoto:Epiphysis,PubicSynthesis,Auricular,rib,suture:alphanumeric/filepath",
+          "#SPhoto:Pubic,SciaticNotch,Articulated pelvis,os coxa,Mastoid,supraorbital,nuchal,mandible:alphanumeric/filepath",
+          "#AnPhoto:Cranial Vault,Orbit,Nasal,Anterior cranial,lateral cranial:alphanumeric/filepath")
+  Table<-data.frame(ID=NA,In=NA,D=NA,AN3=NA,AN2=NA,EScore=NA,PScore=NA,Rib=NA,S=NA,PNM=NA,CNM=NA,PM=NA,PCM=NA,CM=NA,AgPhoto=NA,SPhoto=NA,AnPhoto=NA)
   filepath<-paste(dir,ID,".BP.OD.txt",sep="")
   write(head,filepath)
   write.table(Table[-1,],filepath,append=TRUE,row.names=FALSE)
@@ -52,30 +55,30 @@ AppendBP<-function(PopID,ID,In,k,an,s,ag,r,ans,ss,t,sb,l,v,la,r4,sd,dir){
   }
 }
 
-AppendBP2<-function(PopID,ID,In,an3,an2,escore,pscore,rib,s,Pelvis,Cranial,Other,dir){
+AppendBP2<-function(PopID,ID,In,an3,an2,escore,pscore,rib,s,Pelvis,Cranial,Other,Photo,dir){
   #adds indivdual record to an existing BP.OD.txt
   filepath<-paste(dir,PopID,".BP.OD.txt",sep="")
   if(!(file.exists(filepath))){
     stop("File ",filepath," Does not exist please check the Population ID")
   }else{
     Table<-data.frame(ID=ID,In=In,D=gsub(" ","_",as.character(Sys.time())),AN3=an3,AN2=an2,EScore=escore,PScore=pscore,Rib=rib,S=s,
-                      PNM=paste(Pelvis$nonmetric,collapse=":"),CNM=paste(Cranial$nonmetric,collapse=":"),PM=paste(Pelvis$metric,collapse=":"),PCM=paste(Other,collapse=":"),CM=paste(Cranial$metric$measurement,collapse=":"))
+                      PNM=paste(Pelvis$nonmetric,collapse=":"),CNM=paste(Cranial$nonmetric,collapse=":"),PM=paste(Pelvis$metric,collapse=":"),PCM=paste(Other,collapse=":"),CM=paste(Cranial$metric$measurement,collapse=":"),AgPhoto=paste(Photo[[1]],collapse=":"),SPhoto=paste(Photo[[2]],collapse=":"),AnPhoto=paste(Photo[[3]],collapse=":"))
     write.table(Table,filepath,append=TRUE,row.names=FALSE,col.names=FALSE)
     paste("Added Individual",ID,"to",filepath)
   }
 }
 
-Append2<-function(PopID,ID,In,k,an,s,ag,r,ans,ss,t,sb,l,v,la,r4,an3,an2,escore,pscore,rib,su,Cranial,Pelvis,Other,sd,dir){
+Append2<-function(PopID,ID,In,k,an,s,ag,r,ans,ss,t,sb,l,v,la,r4,an3,an2,escore,pscore,rib,su,Cranial,Pelvis,Other,sd,Photo,dir){
   #uses appropreate append commands depending on wheter known or unknow data is entered
   X<-AppendBP(PopID,ID,In,k,an,s,ag,r,ans,ss,t,sb,l,v,la,r4,sd,dir)
-  if(k=="1:1:1"){y<-paste("All data known, no record added to ",PopID,".OA.BP.txt",dir)}
-  if(k=="1:1:0"){y<-AppendBP2(PopID,ID,In,"NA","NA",escore,pscore,rib,su,Pelvis,Cranial,Other,dir)}
-  if(k=="1:0:1"){y<-AppendBP2(PopID,ID,In,"NA","NA","NA","NA","NA","NA",Pelvis,Cranial,Other,dir)}
-  if(k=="1:0:0"){y<-AppendBP2(PopID,ID,In,"NA","NA",escore,pscore,rib,su,Pelvis,Cranial,Other,dir)}
-  if(k=="0:1:1"){y<-AppendBP2(PopID,ID,In,an3,an2,"NA","NA","NA","NA",Pelvis,Cranial,Other,dir)}
-  if(k=="0:0:1"){y<-AppendBP2(PopID,ID,In,an3,an2,"NA","NA","NA","NA",Pelvis,Cranial,Other,dir)}
-  if(k=="0:1:0"){y<-AppendBP2(PopID,ID,In,an3,an2,escore,pscore,rib,su,Pelvis,Cranial,Other,dir)}
-  if(k=="0:0:0"){y<-AppendBP2(PopID,ID,In,an3,an2,escore,pscore,rib,su,Pelvis,Cranial,Other,dir)}
+  if(k=="1:1:1"){y<-paste("All data known, no record added to ",PopID,".OA.BP.txt",Photo,dir)}
+  if(k=="1:1:0"){y<-AppendBP2(PopID,ID,In,"NA","NA",escore,pscore,rib,su,Pelvis,Cranial,Other,Photo,dir)}
+  if(k=="1:0:1"){y<-AppendBP2(PopID,ID,In,"NA","NA","NA","NA","NA","NA",Pelvis,Cranial,Other,Photo,dir)}
+  if(k=="1:0:0"){y<-AppendBP2(PopID,ID,In,"NA","NA",escore,pscore,rib,su,Pelvis,Cranial,Other,Photo,dir)}
+  if(k=="0:1:1"){y<-AppendBP2(PopID,ID,In,an3,an2,"NA","NA","NA","NA",Pelvis,Cranial,Other,Photo,dir)}
+  if(k=="0:0:1"){y<-AppendBP2(PopID,ID,In,an3,an2,"NA","NA","NA","NA",Pelvis,Cranial,Other,Photo,dir)}
+  if(k=="0:1:0"){y<-AppendBP2(PopID,ID,In,an3,an2,escore,pscore,rib,su,Pelvis,Cranial,Other,Photo,dir)}
+  if(k=="0:0:0"){y<-AppendBP2(PopID,ID,In,an3,an2,escore,pscore,rib,su,Pelvis,Cranial,Other,Photo,dir)}
   paste(X,y,sep=".")
 }
 
@@ -97,7 +100,7 @@ CompCheck<-function(PopID,PopName,Investigator,dir){
     #compatability warnings
     if(!(identical(Name,PopName))){print(paste("The Population names differ.In the existing file it is given as ",Name,sep=""))}
     if(!(identical(Invest,Investigator))){print(paste("The file was created by ",Invest,". Please make sure you have permission to write to this file",sep=""))}
-    if(!(identical(version,"Program=BioProfileV2.0"))){print(paste("The file was created by using a diffrent version of this software, Please check version update info for potential compatability issues",sep=""))}
+    if(!(identical(version,"Program=BioProfileV2.0"))){print(paste("The file was created by using a diffrent version of this software, Please check version update info for potential compatability issues.The current version is BioProfileV2.0",sep=""))}
     
   }
   print("Compatability check complete")
@@ -129,3 +132,4 @@ aExtract<-function(a){
   Rib<-paste(table[6,-1],collapse=":")
   list(Range,Todd,SB,Love,Vault,LA,Rib)
 }
+

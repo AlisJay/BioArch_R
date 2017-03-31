@@ -154,11 +154,14 @@ shinyServer(function(input, output) {
   }else{list(s4()$Sex,s4()$Table$count,s4()$Table2$sex)}}}}
   })
   
+  Photo<-reactive({list(Age=c(input$Epi_P,input$PS_P,input$Aur_P,input$Rib_P,input$Suture_P),
+                        Sex=c(input$Pubic_P,input$GSN_P,input$Pelvis_P,input$OsC_P,input$Mastoid_P,input$SO_P,input$NC_P,input$Man_P),
+                        Ancestry=c(input$Vault_P,input$Orbit_P,input$Nasal_P,input$AntC_P,input$LatC_P))})
   #Append
   IMessage<-eventReactive(input$Append,{
     Append2(input$POPID,input$ID,input$Person2,k=k(),an=An(),s=Sex()[[1]],ag=Ag(),r=AgeScores()[[1]],ans=AnS(),ss=Sex()[[2]],
             t=AgeScores()[[2]],sb=AgeScores()[[3]],l=AgeScores()[[4]],v=AgeScores()[[5]],la=AgeScores()[[6]],r4=AgeScores()[[7]],
-            an3=An3(),an2=An2(),escore=EScore(),pscore=Pscore(),rib=rib(),su=Su(),Pelvis=Pelvis(),Cranial=cranial(),Other=o(),sd=Sex()[[3]],input$dir)
+            an3=An3(),an2=An2(),escore=EScore(),pscore=Pscore(),rib=rib(),su=Su(),Pelvis=Pelvis(),Cranial=cranial(),Other=o(),sd=Sex()[[3]],Photo(),input$dir)
   })
   output$IMessage<-renderPrint({IMessage()})
   
