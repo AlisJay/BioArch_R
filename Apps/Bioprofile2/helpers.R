@@ -211,7 +211,8 @@ sex<-function(ancestory,subAdult,pelvis,cranial,other){
   o<-data.frame(trait=c("nuchal crest","mastoid process","supra-orbital margin","glabella","mental eminence","chin shape","skull size",
                         "gonial flare","ramus flex","gonial angle","craniometrics","scapula height","glenoid height","humeral head","radial head","femoral head"),sex=NA)
   
-  
+  results<-data.frame(result=c("Pelvis_na","Pelvis_m","Pelvis_pm","Pelvis_u","Pelvis_pf","Pelvis_f",
+                               "Other_na","Other_m","Other_pm","Other_u","Other_pf","Other_f"),count=NA)
   #2. reference dataframes
   DFW<-data.frame(measurement=c("ML","MB","BABR","BaNA","BB","BaPr","NaAl","PB","LM","sectioning point","percent correct"),
                   DF1=c(3.107,-4.643,5.786,NA,14.821,1.000,2.714,-5.179,6.071,2672.39,86.6),
