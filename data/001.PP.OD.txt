@@ -1,0 +1,19 @@
+#Osteological data:Pathology
+#Pop ID=001:Pop Name=PopulationX:Investigator=ANicholson
+#Date Created= 2017-03-15 16:25:28 :Program=PaleoPathV1.0
+#Fields:Individual ID,InvestigatorInitials,Date,Lesion ID,Type,Description,Location,Features,Size,Shape,Nature,Additional,Linked lesions
+#Type:Type of abnormality:Formation/Loss/Shape/Complex
+#Des:headline description:prescribed
+#Loc:Region,Bone(s),Additional:prescribed,prescribed,free
+#Feat:features affected, sutures (skull only):prescribed
+#Size:names,values:free/prescribed,num(mm)
+#Shape:names,values:prescribed, free/prescribed
+#Nature:names,values:prescribed,free/prescribed
+#Add:Addtional information:free
+#Link:IDS,connection:alphanumeric,prescribed
+"ID" "In" "D" "ID2" "Type" "Des" "Loc" "Feat" "Size" "Shape" "Nature" "Add" "Link" "photo"
+"111" "AJN" "2017-03-17_13:34:56" "F_S01" "Shape" "Supernummery bones" "Foot:Snum:see nature" "NA:NA" "NA:NA" "NA:NA" "os tibiale externum_l,NA" NA NA "001"
+"112" "AJN" "2017-03-17_13:39:59" "SK_S09" "Shape" "Supernummery bones" "Skull:Snum:Lambdoidal,Pterion" NA NA NA "no.Lambdoidal,no.Cornal,no.Sagittal,Pterion side:3/2,NA,NA,Left" NA NA "P22-1"
+"112" "AJN" "2017-03-17_13:39:59" "C_1" "Loss" "Custom lesion" "Arm:Radius_r:on articular surface" "head:NA" "Total Area,% bone,no. sites:1.2/0.87,<1/3,1" "Overall:ovoid" "Organisation,Involvement,cortical thinning,overlapping,collapse:Diffuse,Cortex/trabeculae/diploe/Periosteal/subchondral/external table,TRUE,single,FALSE" "visible trabecular bone" NA "P21_4"
+"113" "AJN" "2017-03-17_13:46:16" "SK_L01_P" "Loss" "Ectocranial porosis" "Skull:Parietal_r,Parietal_l:NA" ":saggital" "Right area,Left area,hole size,hole variability:45/60,45/54,<0.5mm,The size is roughly consitant across the whole lesion" "Symetric,Right,Left:TRUE,extends outward from the saggittal suture,round curve" "Surface,Thickening,coalescing,activity:outer table/diploe,FALSE,FALSE,Healed" "None" NA "AN022"
+"113" "AJN" "2017-03-17_13:46:16" "SK_L01_Ob" "Loss" "Ectocranial porosis" "Skull:Lacrimal_r,Frontal:Orbit" "pars_orbitalia_r:frontolacrimal_r" "Right area,Left area,hole size,hole variability:14/3,NA/NA,0.5-<1mm,There is some variablity with some geographic grouping by size" "Symetric,Right,Left:FALSE,spreads down to lacriminal largest holes found on the lacriminal bone,not effected" "Surface,Thickening,coalescing,activity:diploe/outer table,TRUE,TRUE,Active lesion" "None" NA "AN043"
