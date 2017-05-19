@@ -79,9 +79,13 @@ shinyServer(function(input, output) {
   output$PMessage<-renderPrint({PMessage()})
   
   #add individual
+  Photo<-renderText({paste(input$Photo1,input$Photo2,input$Photo3,input$Photo4,input$Photo5,input$Photo6,input$Photo7,input$Photo8,input$Photo9,input$Photo10,input$Photo11,input$Photo12,input$Photo13,input$Photo14,input$Photo15,input$Photo16,sep=":")})
+  OS<-function(x,x2){if(x=="Partial"){out<-x2}else{out<-x};out}
+  output$O_S<-O_S<-renderText({paste(OS(input$CVOrder,input$CVOrder2),OS(input$TVOrder,input$TVOrder2),OS(input$LVOrder,input$LVOrder2),OS(input$ROrder,input$ROrder2),OS(input$RSide,input$RSide2),
+                         OS(input$MCOrder,input$MCOrder2),OS(input$MCSide,input$MCSide2),OS(input$HPOrder,input$HPOrder2),OS(input$HPSide,input$HPSide2),OS(input$MTOrder,input$MTOrder2),OS(input$MTSide,input$MTSide2),OS(input$FPOrder,input$FPOrder2),OS(input$FPSide,input$FPSide2),sep=":")})
   IMessage<-eventReactive(input$Append,{
     AppendSI(input$POPID,input$ID,input$Person2,SkullScore(),VertScore(),ThoraxScore(),ShoulderScore(),PelvisScore(),
-             ArmScore(),HandScore(),LegScore(),FootScore(),UFs(),NMScore(),CustomScore(),input$dir)
+             ArmScore(),HandScore(),LegScore(),FootScore(),UFs(),NMScore(),CustomScore(),O_S(),Photo(),input$dir)
   })
   output$IMessage<-renderPrint({IMessage()})
   
