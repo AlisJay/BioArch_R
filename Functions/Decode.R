@@ -185,7 +185,7 @@ Abbrev_Library<-function(FileType="Inventory",Bone=NA,Abbreviation=NA,Region=NA,
 }
 ##########################################################################
 DecodeM<-function(Metrics,x){
-  HeadLine<-Metrics$Head[grep(paste0("#",x),Metrics$Head)]
+  HeadLine<-Metrics$Head[grep(paste0("#",x,":"),Metrics$Head)]
   Heads<-strsplit(HeadLine,split=":")[[1]][2]
   Heads<-strsplit(Heads,split=",")[[1]]
   IDs<-Metrics$Table$ID
@@ -205,6 +205,22 @@ DecodeM<-function(Metrics,x){
   DF<-rbind(DF,DF3)
   DF$Average<-round(rowMeans(as.data.frame(DF[,-1]),na.rm=TRUE),3)
   DF
+}
+##########################################################################
+DecodeTotalM<-function(Metrics){
+  Cranial<-DecodeM(Metrics,"C")
+  Mandible<-DecodeM(Metrics,"M")
+  Shoulder<-DecodeM(Metrics,"Sh")
+  Pelvis<-DecodeM(Metrics,"P")
+  UpperLimb<-DecodeM(Metrics,"UL")
+  LowerLimb<-DecodeM(Metrics,"LL")
+  FragmentedLongBone<-DecodeM(Metrics,"FLB")
+  Articulated<-DecodeM(Metrics,"A")
+  Vertebrae<-DecodeM(Metrics,"V")
+  Metatarsal<-DecodeM(Metrics,"MT")
+  Other<-DecodeM(Metrics,"O")
+  
+  list("Cranial"=Cranial,"Mandible"=Mandible,"Shoulder"=Shoulder,"Pelvis"=Pelvis,"UpperLimb"=UpperLimb,"LowerLimb"=LowerLimb,"FragmentedLongBone"=FragmentedLongBone,"Articulated"=Articulated,"Vertebrae"=Vertebrae,"Metatarsal"=Metatarsal,"Other"=Other)
 }
 ##########################################################################
 DecodeDen<-function(Dental){
