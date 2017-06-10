@@ -2,7 +2,7 @@ library(shiny);library(markdown)
 
 shinyUI(navbarPage("Dental",
                    tabPanel("Perminant Inventory",
-                            #h3(textOutput("pScore")),
+                            h3(textOutput("pScore")),
                             #h4(textOutput("Perminant")),
                             column(width=2,
                                    h4("Maxillary"),
@@ -36,7 +36,7 @@ shinyUI(navbarPage("Dental",
                                    checkboxGroupInput("L_postmortem","postmortem loss",c("RM3","RM2","RM1","RP4","RP3","RC1","RI2","RI1","LI1","LI2","LC1","LP3","LP4","LM1","LM2","LM3")))
                             ),
                    tabPanel("Deciduous Inventory",
-                            #h3(textOutput("dScore")),
+                            h3(textOutput("dScore")),
                             column(width=2,
                                    h4("Maxillary"),
                                    checkboxGroupInput("ud_present","Tick if present",c("RdM2","RdM1","RdC1","RdI2","RdI1","LdI1","LdI2","LdC1","LdM1","LdM2")),

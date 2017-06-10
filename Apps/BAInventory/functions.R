@@ -1,15 +1,13 @@
 #function definations 
 InventoryScore<-function(Present,Complete,Names){
   library(BMS)
-  Table<-data.frame("Name"=Names,"Score"=0)
+  Table<-data.frame("Name"=Names,"Score"=0,"Score2"=0)
   Table$Score[Table$Name %in% Present]<-1
   Score<-bin2hex(Table$Score)
   if(sum(Table$Score)==0){Score<-paste(Score,0,sep=":")
   }else{
-    Table<-Table[Table$Score==1,]
-    Table$Score<-0
-    Table$Score[Table$Name %in% Complete]<-1
-    Score<-paste(Score,bin2hex(Table$Score),sep=":")}
+    Table$Score2[Table$Name %in% Complete]<-1
+    Score<-paste(Score,bin2hex(Table$Score2[Table$Score==1]),sep=":")}
   Score
 }
 
@@ -19,15 +17,15 @@ CScore<-function(C,present,complete){
   Custom<-Custom[!(Custom$names=="NA"),]
   if(length(Custom[,1])==0){
     Score<-NA
-  }else{Score<-InventoryScore(present,complete,Custom)}
+  }else{Score<-InventoryScore(present,complete,Custom$element)}
   Score
 }
 
 NonMetricScore<-function(p1,d1,p2,d2){
   #produces coded score for non-metric traits
-  cranial<-InventoryScore(p1,NA,d1)
+  cranial<-InventoryScore(p1,NA,d1$element)
   cranial<-strsplit(cranial,split=":")[[1]][1]
-  Post<-InventoryScore(p2,NA,d2)
+  Post<-InventoryScore(p2,NA,d2$element)
   Post<-strsplit(Post,split=":")[[1]][1]
   paste(cranial,Post,sep=":")
 }

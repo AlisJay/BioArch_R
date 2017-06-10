@@ -1,15 +1,18 @@
+#Shepard's crook##############################################################################################
 T_S01_UI<-tagList(fixedPage(h3("ID:T_S01"),
                             h4("Description:Shepard's Crook deformity")))
 T_S01_RC<-function(input=input){   
   Table<-data.frame(ID=NA,In=NA,D=NA,ID2="T_S01",Type="Shape",Des="Shepard's crook deformity",Loc=NA,Feat=NA,Size=NA,Shape=NA,Nature=NA,Add=NA,Link=NA)
   Table }
 
+#Bifid rib##############################################################################################
 T_S02_UI<-tagList(fixedPage(h3("ID:T_S02"),
                             h4("Description:Bifid/bicipital rib(s)")))
 T_S02_RC<-function(input=input){   
   Table<-data.frame(ID=NA,In=NA,D=NA,ID2="T_S02",Type="Shape",Des="Bifid/bicipital rib(s)",Loc=NA,Feat=NA,Size=NA,Shape=NA,Nature=NA,Add=NA,Link=NA)
   Table }
 
+#Supernummery bones##############################################################################################
 T_S03_UI<-tagList(fixedPage(h3("ID:T_S03"),
                             h4("Description:Supernummery rib(s)"),
                             column(width=4,selectInput("T_S03_1","Left",multiple=TRUE,choices=c("Cervical","Intrathoracic","Lumbar","Sacral","other/unknown")),
@@ -31,25 +34,29 @@ T_S03_RC<-function(input=input){
   if(input$T_S03_Link1 != "None"){Table$Link<-paste(paste(input$T_S03_Link1,collapse=","),paste(input$T_S03_Link2,collapse=","),sep=":")}
   Table }
 
+#circular sternal defect##############################################################################################
 T_L01_UI<-tagList(fixedPage(h3("ID:T_L01"),
-                            h4("Description:Circular defect in sternum")))
+                            h4("Description:Circular defect in sternum"),
+                            selectInput("T_L01_1","Location of defect",c("Sternabra 1","Sternabra 2","Sternabra 3","Sternabra 4","Xiphoid","Manubrium"))))
 T_L01_RC<-function(input=input){   
   Table<-data.frame(ID=NA,In=NA,D=NA,ID2="T_L01",Type="Loss",Des="Circular defect in sternum",Loc="Thorax:Sternum:NA",Feat=NA,Size=NA,Shape=NA,Nature=NA,Add=NA,Link=NA)
   Table }
 
+#Irregular vertebral growth##############################################################################################
 T_F01_UI<-tagList(fixedPage(h3("ID:T_F01"),
                             h4("Description:Irregular growth around vertebral articulation")))
 T_F01_RC<-function(input=input){   
   Table<-data.frame(ID=NA,In=NA,D=NA,ID2="T_F01",Type="Formation",Des="Irregular growth around vertebral articulation",Loc=NA,Feat=NA,Size=NA,Shape=NA,Nature=NA,Add=NA,Link=NA)
   Table }
 
+#Thickened periosteal bone##############################################################################################
 T_F02_UI<-tagList(fixedPage(h3("ID:T_F02"),
                             h4("Description:Thickened periosteal bone")))
 T_F02_RC<-function(input=input){   
   Table<-data.frame(ID=NA,In=NA,D=NA,ID2="T_F02",Type="Thickened periosteal bone",Des=NA,Loc=NA,Feat=NA,Size=NA,Shape=NA,Nature=NA,Add=NA,Link=NA)
   Table }
 
-##################################################################################################
+#data table#################################################################################################
 library(data.table)
 Thorax_DT<-data.table(ref=c("T_S01","T_S02","T_S03","T_L01","T_F01","T_F02"),
                     uioptions=c(T_S01_UI,T_S02_UI,T_S03_UI,T_L01_UI,T_F01_UI,T_F02_UI),

@@ -7,5 +7,6 @@ shinyServer(function(input,output){
   
   output$UScore<-UScore<-renderText({paste(input$USkull,input$ULimb,input$UVert,input$UHandFoot,input$UClavScap,input$UOsCoxae,input$UOther,sep=":")})
   
-  output$VIScore<-VISCore<-renderText({InventoryScore(VInvent,input$VPresent,input$VComplete)})
+  output$VIScore<-VIScore<-renderText({InventoryScore(VInvent,input$VPresent,input$VComplete)})
+  output$VFScore<-VFScore<-renderText({FusionScore(VFusion,input$VOblit,input$VFused,input$VFusing,input$VOpen)})
 })

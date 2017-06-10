@@ -1,17 +1,23 @@
 FusionScore<-function(Names,Oblit,Fused,Fusing,Open){
   library(BMS)
   Table<-data.frame("Name"=Names,"Score"=0)
-  Table$Score[Table$Name %in% Oblit]<-1
+  Table$Score[!(Table$Name %in% c(Oblit,Fused,Fusing,Open))]<-1
   Score<-bin2hex(Table$Score)
-  Table<-Table[Table$Score==0,]
-  Table$Score[Table$Name %in% Fused]<-1
-  Score<-paste(Score,bin2hex(Table$Score),sep=":")
-  Table<-Table[Table$Score==0,]
-  Table$Score[Table$Name %in% Fusing]<-1
-  Score<-paste(Score,bin2hex(Table$Score),sep=":")
-  Table<-Table[Table$Score==0,]
-  Table$Score[Table$Name %in% Open]<-1
-  Score<-paste(Score,bin2hex(Table$Score),sep=":")
+  if(sum(Table$Score)==length(Table$Score)){Score<-paste(Score,0,0,0,0,sep=":")
+  }else{
+    Table<-Table[Table$Score==0,]
+    Table$Score[Table$Name %in% Oblit]<-1
+    Score<-paste(Score,bin2hex(Table$Score),sep=":")
+    Table<-Table[Table$Score==0,]
+    Table$Score[Table$Name %in% Fused]<-1
+    Score<-paste(Score,bin2hex(Table$Score),sep=":")
+    Table<-Table[Table$Score==0,]
+    Table$Score[Table$Name %in% Fusing]<-1
+    Score<-paste(Score,bin2hex(Table$Score),sep=":")
+    Table<-Table[Table$Score==0,]
+    Table$Score[Table$Name %in% Open]<-1
+    Score<-paste(Score,bin2hex(Table$Score),sep=":")
+  }
   Score
 }
 InventoryScore<-function(Names,Present,Complete){

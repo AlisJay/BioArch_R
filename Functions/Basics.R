@@ -8,7 +8,7 @@
 #' @examples InputBioArch("Profile)
 InputBioArch<-function(infoType){
   library("shiny")
-  InfoTypes<-c("Inventory","Profile","Reference","JInventory","Metrics","JMetrics","Dental","Paleopathology")
+  InfoTypes<-c("Inventory","Profile","Reference","JInventory","Metrics","JMetrics","Dental","Paleopathology","HealthIndex")
   if(!(infoType %in% InfoTypes)){stop("invalid info type! valid options are ",paste(InfoTypes,collapse=","))}
   if(infoType=="Profile"){shiny::runApp('Apps/BioProfile2')}
   if(infoType=="Inventory"){shiny::runApp('Apps/BAInventory')}
@@ -18,6 +18,7 @@ InputBioArch<-function(infoType){
   if(infoType=="JMetrics"){shiny::runApp('Apps/JMetrics')}
   if(infoType=="Dental"){shiny::runApp('Apps/Dental')}
   if(infoType=="Paleopathology"){shiny::runApp('Apps/PaleoPath')}
+  if(infoType=="HealthIndex"){shiny::runApp('Apps/HI')}
 }
 
 #' read in BioArch files

@@ -7,7 +7,6 @@ shinyUI(navbarPage("PaleoPath",
                             ),
                    tabPanel("Skull",
                             titlePanel("Specific abnormalities effecting the cranium or mandible"),
-                            em("nb If recording multiple anomalies select all before completing the details. If your abnormality is not on the list or you wish to enter more information use the custom lesion tab"),
                             sidebarPanel(width=4,
                                    h4("Shape abnormalities"),
                                    checkboxGroupInput("Shape_Skull",label=NULL,c("Abnormally small circumference (Microscephly)"="SK_S01", "Abnormally large/wide cranium (Macrocephly)"="SK_S02", "Anterior Posterior elongation (Scaphocephaly)"="SK_S03", "Superior-Inferior elongation (Oxycephaly)"="SK_S04", "Flattening of the posterior skull(Brachycephaly)"="SK_S05", "Asymmetrical distortion(Plagiocephaly)"="SK_S06", "Anteriorly Pointed forehead (Trigonocephaly)"="SK_S07", "Asymmetry of the cranial base"="SK_S08", "Supernummery bones/sutural ossicles"="SK_S09", "Unfused Metopic Suture"="SK_S10", "Deviation from midline of nasal septum"="SK_S11", "Cleft palate"="SK_S12", "Suprainion depression"="SK_S13", "Absence/ complete closure of the external auditory meatus"="SK_S14")),
@@ -19,6 +18,8 @@ shinyUI(navbarPage("PaleoPath",
                                    checkboxGroupInput("Complex_Skull",label=NULL,c("Tempro-mandibular joint porocity/erosion/osteophytes"="SK_C01", "Extensive destruction of the outer table and diploe with radiating grooves and smooth raised nodules"="SK_C02", "Area of disorganized/abnormal bone remodeling, With one or more of: resorptive lesions/patches of sclerotic bone/bone softening/cortical thickening/prominent menigeal grooves/gross enlargement/increased weight, thickness or density/general deformity"="SK_C03","Lesion(s) displaying erosion, remodelling and scarring"="SK_C04"))),
                             mainPanel(width=8,
                                    h3("Details"),
+                                   h5("nb If recording multiple anomalies select all before completing the details. If your abnormality is not on the list or you wish to enter more information use the custom lesion tab"),
+                                   actionButton("SkullUI","Enter details."),
                                    uiOutput("Skull_UI"),
                                    tableOutput("SKTable")
                                   )
@@ -38,6 +39,7 @@ shinyUI(navbarPage("PaleoPath",
                                          checkboxGroupInput("Complex_Vert",label=NULL,c("At least 2 of: Osteophytes on the rim of the vertebral body/irregular margins of the articular facets/ Surface porosity or eburnation of articular facets or odontoid process "="V_C01","Pitting on the superior surface of the vertebral bodies and marginal osteophyte(s)"="V_C02","Bridging of L5 and S1 with unusually large asymmetric inferior articular facets and fissures below the superior articular facet, possibly with callus formation"="V_C03"))),
                             mainPanel(width=8,
                                       h3("Details"),
+                                      actionButton("VertUI","Enter details."),
                                       uiOutput("Vert_UI"),
                                       tableOutput("VTable")
                             )
@@ -56,6 +58,7 @@ shinyUI(navbarPage("PaleoPath",
                                          checkboxGroupInput("Complex_Pelvis",label=NULL,c("Flattening of the superior rim of the acetabulum creating a 2-3cm long eroded area with exposed trabeculae or flattened depression"="P_C01", "Destruction of the acetabulum with surrounding reactive bone growth"="P_C02"))),
                             mainPanel(width=8,
                                       h3("Details"),
+                                      actionButton("PelvisUI","Enter details."),
                                       uiOutput("Pelvis_UI"),
                                       tableOutput("PTable")
                             )
@@ -74,6 +77,7 @@ shinyUI(navbarPage("PaleoPath",
                                          checkboxGroupInput("Complex_Shoulder",label=NULL,c("Raised sharp margins and pitting on the articular surface of the glenoid fossa"="SH_C01", "Flattening or extension of the glenoid fossa accompanied by erosion or pitting"="SH_C02","Pitting on the insertion of rotator cuff muscle and new bone around the insertion or alteration in the contour of the insertion"="SH_C03","Eburnation on the undersurface of the acromion"="SH_C04"))),
                             mainPanel(width=8,
                                       h3("Details"),
+                                      actionButton("ShoulderUI","Enter details."),
                                       uiOutput("Shoulder_UI"),
                                       tableOutput("SHTable")
                             )
@@ -92,6 +96,7 @@ shinyUI(navbarPage("PaleoPath",
                                          checkboxGroupInput("Complex_Thorax",label=NULL,c())),
                             mainPanel(width=8,
                                       h3("Details"),
+                                      actionButton("ThoraxUI","Enter details."),
                                       uiOutput("Thorax_UI"),
                                       tableOutput("TTable")
                             )
@@ -110,6 +115,7 @@ shinyUI(navbarPage("PaleoPath",
                                          checkboxGroupInput("Complex_Arm",label=NULL,c("On Distal Humerus at last 2 of:Osteophytes along the articular surface, Mushrooming of the medial margin, extension into the olecranon fossa, Eburnation, Pitting, distortion of the articular surface"="A_C01", "Pitting within and Spike-like projections/spur/ridges/irregular ossification along the radial tuberocity"="A_C02","Margin osteophytes and areas of pitting or eburnation on the radial head"="A_C03", "Margin osteophytes and areas of pitting or eburnation on the trochlea notch/olecranon and/or coronoid process"="A_C04","Eburnation on the superior pole of head of humerus"="A_C05"))),
                             mainPanel(width=8,
                                       h3("Details"),
+                                      actionButton("ArmUI","Enter details."),
                                       uiOutput("Arm_UI"),
                                       tableOutput("ATable")
                             )
@@ -128,6 +134,7 @@ shinyUI(navbarPage("PaleoPath",
                                          checkboxGroupInput("Complex_Hand",label=NULL,c("Tufting and resorption of distal phalanges"="H_C01","Eburnation in any hand joint"="H_C02"))),
                             mainPanel(width=8,
                                       h3("Details"),
+                                      actionButton("HandUI","Enter details."),
                                       uiOutput("Hand_UI"),
                                       tableOutput("HTable")
                             )
@@ -146,6 +153,7 @@ shinyUI(navbarPage("PaleoPath",
                                          checkboxGroupInput("Complex_Leg",label=NULL,c("Marginal osteophytes, mushrooming, eburnation and/or pitting on the femoral head"="L_C01","Marginal osteophytes,osteophytes on the articular surface, eburnation and/or porosity on distal end of the femur"="L_C02", "Sheave/ envelope of disorganized new bone formation on shaft of femur/ tibia or fibula with large hole/depression(s) which may contain a isolated fragment of bone"="L_C03","On the Patella atleast 2 of :Raise rim around articular surface, surface osteophytes, eburnation, surface porosity and pitting, grooved articular surface"="L_C04"))),
                             mainPanel(width=8,
                                       h3("Details"),
+                                      actionButton("LegUI","Enter details."),
                                       uiOutput("Leg_UI"),
                                       tableOutput("LTable")
                             )
@@ -164,6 +172,7 @@ shinyUI(navbarPage("PaleoPath",
                                          checkboxGroupInput("Complex_Foot",label=NULL,c("Severe loss of bone across multiple foot bones accompanied by deformity bending the forefoot towards to hind foot creating a very high arch"="F_C01","Tufting and resorption of distal phalanges"="F_C02"))),
                             mainPanel(width=8,
                                       h3("Details"),
+                                      actionButton("FootUI","Enter details."),
                                       uiOutput("Foot_UI"),
                                       tableOutput("FTable"),
                                       h1(br()),
@@ -177,6 +186,7 @@ shinyUI(navbarPage("PaleoPath",
                                          checkboxGroupInput("Systemic","Systemic conditions",c("Dwarfism"="SY_01", "Gigantism"="SY_02"))),
                             mainPanel(width=8,
                                       h3("Details"),
+                                      actionButton("SystemicUI","Enter details."),
                                       uiOutput("Systemic_UI"),
                                       tableOutput("SYTable")
                                       )),

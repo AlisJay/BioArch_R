@@ -1,0 +1,29 @@
+#Osteological data:Biological Profile
+#Pop ID=T01:Pop Name=TestPop:Investigator=AJNicholson
+#Date Created= 2017-05-27 19:38:17 :Program=BioProfileV2.0
+#Fields:ID,Investigator,date,Ancestry3, Ancestry2,Epiphysis Score,Phase Score,4th Rib,Sutures,Pelvic non-metric traits,Preauricular sulcus,Cranial non-metric traits,Pelvis metrics,Post-cranial metrics,Cranial metrics
+#AN3:orbit,nRoot,LNB,palate,profile,nwidth:Eu,Af,As,U
+AN2:BR,VS,PBD,SI,nBridge,LEB,nSpine,fShape,mMarks,Jaw:T,F,U
+#EScore:pRadius,dFibula,dTibia,dFemur,pFibula,acromion,iliac,hHead,fHead,lTrochanter,pTibia,gTrochanter,dradius,s3s5,s2s3,s1s2,clavicle,SOS:hex
+#PScore:Todd,Suchey-Brookes,Lovejoy:alphanumeric,seeB$U1994
+#Rib:S,SC,RE,RC:alphanumeric,seeByers2010
+#S:ML,L,O,AS,B,P,MC,SF,IST,SST:NA,0,1,2,3
+#PNM:va,spc,ipr,sn,pas,pShape,iiShape,pInlet,pShape,spAngle,OF,sShape:0-3,0-5,m/f/NA
+#CNM:NC,MP,SOM,G,ME,Chin,cSize,flare,flex,gAngle:0-5,m/f/NA
+#PM:pLength,pLength2,iLength,iLength2,aWidth:numeric
+#PCM:sHeight,gHeight,hHead,rHead,FHead:numeric
+#CM:mxLength,mxBreadth,BaBr,BaNa,zBreadth,BaPr,NaAl,pBreadth,mLength:numeric
+#AgPhoto:Epiphysis,PubicSynthesis,Auricular,rib,suture:alphanumeric/filepath
+#SPhoto:Pubic,SciaticNotch,Articulated pelvis,os coxa,Mastoid,supraorbital,nuchal,mandible:alphanumeric/filepath
+#AnPhoto:Cranial Vault,Orbit,Nasal,Anterior cranial,lateral cranial:alphanumeric/filepath
+"ID" "In" "D" "AN3" "AN2" "EScore" "PScore" "Rib" "S" "PNM" "CNM" "PM" "PCM" "CM" "AgPhoto" "SPhoto" "AnPhoto"
+"SK001" "AJN" "2017-05-28_23:51:23" "U:U:Af:Eu:U:U" "T:U:U:F:U:F:U:U:T:T" "00000" "p4:p5:p5" "NA:NA:NA:NA" "NA:NA:NA:NA:NA:1:2:NA:NA:NA" "2:3:3:4:1:m:NA:NA:m:NA:m:NA" "0:4:5:4:5:m:NA:m:m:f" "73.1:87.5:NA:NA:NA" "NA:17.5:53.2:NA:46.5" "NA:NA:NA:NA:NA:NA:NA:35.1:34.1" "::::" ":::::::" "::::"
+"SK002" "AJN" "2017-05-29_00:04:59" "As:U:Eu:As:As:Eu" "F:T:F:F:U:F:U:T:F:T" "00000" "NA:NA:p4" "p5:p3:p3/p4/p5/p6:p2" "2:2:3:2:2:2:2:2:2:2" "1:1:1:4:3:f:u:NA:f:NA:m:f" "2:1:3:1:2:NA:NA:NA:NA:NA" "75.6:79.1:NA:NA:47" "NA:34:47:NA:43" "162:125:158:96:122:87:33:30.7:31.7" "::::" ":::::::" "::::"
+"SK003" "AJN" "2017-05-30_12:59:30" "U:U:Eu:U:U:U" "F:U:U:T:U:F:U:U:F:T" "00000" "p1:p2:p2" "p1/p2:p2:p1/p2:p2" "NA:NA:NA:NA:NA:NA:NA:NA:NA:NA" "2:1:1:2:1:m:NA:NA:m:NA:m:NA" "2:1:1:1:3:f:NA:f:NA:m" "77.8:80.1:NA:NA:48" "NA:30:35:19:46" "NA:NA:NA:NA:NA:NA:NA:NA:31.0" "::::" ":::::::" "::::"
+"SK004" "AJN" "2017-05-30_13:06:30" "U:U:Af:Eu:U:U" "T:U:U:F:U:F:U:U:T:T" "00000" "p9:p6:p4" "p6:p5/p6:p7:p4/p5/p6" "NA:NA:NA:NA:NA:NA:NA:NA:NA:NA" "1:1:2:4:5:m:u:NA:m:NA:f:NA" "2:1:1:1:3:NA:NA:m:f:u" "74.6:85.4:NA:NA:52" "149:30:35:NA:49" "NA:NA:NA:NA:NA:NA:NA:NA:33.2" "::::" ":::::::" "::::"
+"SK005" "AJN" "2017-05-31_18:49:04" "Eu:Eu:As:Eu:Eu:Eu" "F:F:F:F:T:F:U:F:F:T" "00000" "p2:p2:p3" "p1/p2:p2:p1/p2:p1" "1:1:2:1:1:1:1:2:1:1" "1:1:2:4:2:f:m:f:f:f:u:m" "1:3:1:1:2:f:f:f:m:u" "78.2:79.1:NA:NA:44.4" "136:29.1:43:20:38.7" "160:145:139:98:NA:100:NA:NA:31.3" "::::" ":::::::" "::::"
+"SK006" "AJN" "2017-05-31_18:56:51" "U:U:U:As:U:U" "U:U:U:T:U:U:U:U:T:U" "00000" "NA:NA:NA" "p5:p5/p6:p3/p4/p5/p6:p4/p5/p6" "NA:NA:NA:NA:NA:NA:NA:NA:NA:NA" "0:2:0:4:0:NA:NA:NA:NA:NA:NA:NA" "0:4:0:0:0:u:NA:f:NA:f" "NA:NA:NA:NA:NA" "NA:NA:NA:NA:NA" "NA:NA:NA:NA:NA:NA:NA:NA:36.9" "::::" ":::::::" "::::"
+"SK007" "AJN" "2017-05-31_19:19:37" "U:U:U:U:U:U" "T:F:U:F:U:T:U:U:T:U" "00000" "p5:p4:p4" "p5:p4:p3/p4/p5/p6:p3" "NA:NA:NA:2:1:2:NA:NA:NA:NA" "2:1:2:3:1:u:m:NA:u:NA:u:m" "0:2:0:0:3:u:NA:NA:NA:NA" "72.8:89.5:NA:NA:57.1" "NA:NA:47.6:25.5:49.9" "NA:NA:NA:NA:NA:NA:NA:NA:30.5" "::::" ":::::::" "::::"
+"SK008" "AJN" "2017-05-31_19:28:50" "U:Eu:As:As:Eu:As" "T:F:F:F:U:F:U:F:T:F" "00000" "NA:NA:p6" "p5:p5/p6:p3/p4/p5/p6:p4/p5/p6" "2:2:NA:3:2:2:2:NA:NA:NA" "0:0:0:2:1:NA:u:NA:NA:NA:NA:NA" "4:5:5:4:3:m:m:m:f:f" "NA:90.4:NA:NA:58.2" "NA:NA:47.6:25.5:49.9" "179:156:145:103:122:110:118:NA:36.8" "::::" ":::::::" "::::"
+"SK009" "AJN" "2017-05-31_19:43:30" "As:Eu:As:As:As:As" "F:T:F:F:T:F:U:T:F:T" "00000" "p8:p5:p6" "p6:p4:p3/p4/p5/p6:p4/p5/p6" "1:2:2:2:1:2:2:2:1:1" "2:3:3:4:1:m:m:m:m:m:m:m" "4:3:5:4:4:m:m:f:f:f" "78.4:90.2:NA:NA:58" "179:38:46:28:52" "180:161:145:102:122:110:113:72:33.8" "::::" ":::::::" "::::"
+"SK010" "AJN" "2017-05-31_19:52:11" "U:U:U:U:U:U" "U:U:U:U:U:U:U:U:U:U" "00000" "p2:p1:p2" "NA:NA:NA:NA" "NA:NA:NA:NA:NA:NA:NA:NA:NA:NA" "1:1:1:2:3:f:NA:NA:f:NA:u:NA" "0:0:0:0:0:NA:NA:NA:NA:NA" "77.9:78.3:NA:NA:44.8" "NA:NA:NA:NA:38.2" "NA:NA:NA:NA:NA:NA:NA:NA:NA" "::::" ":::::::" "::::"

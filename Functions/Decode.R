@@ -189,21 +189,24 @@ DecodeM<-function(Metrics,x){
   Heads<-strsplit(HeadLine,split=":")[[1]][2]
   Heads<-strsplit(Heads,split=",")[[1]]
   IDs<-Metrics$Table$ID
-  DF<-data.frame(Measurement=Heads)
+  DF<-data.frame(Measurement=Heads,Average=NA,Absent=NA)
   
   for(i in 1:length(IDs)){DF[,as.character(IDs[i])]<-strsplit(Metrics$Table[i,x],split=":")[[1]]}
-  DF2<-DF[grepl("/",DF[,2])==TRUE,]
-  DF<-DF[grepl("/",DF[,2])==FALSE,]
+  DF2<-DF[grepl("/",DF[,4])==TRUE,]
+  DF<-DF[grepl("/",DF[,4])==FALSE,]
   M2<-NULL
   for(i in 1:length(DF2$Measurement)){M2<-c(M2,paste0(as.character(DF2$Measurement[i]),"_r"),paste0(as.character(DF2$Measurement[i]),"_l"))}
-  DF3<-data.frame(Measurement=M2)
+  DF3<-data.frame(Measurement=M2,Average=NA,Absent=NA)
   
   for(i in 1:length(IDs)){
-    DF3[,as.character(IDs[i])]<-as.numeric(unlist(strsplit(DF2[,i+1],split="/")))
+    DF3[,as.character(IDs[i])]<-as.numeric(unlist(strsplit(DF2[,i+3],split="/")))
     DF[,as.character(IDs[i])]<-as.numeric(DF[,as.character(IDs[i])])}
   
   DF<-rbind(DF,DF3)
   DF$Average<-round(rowMeans(as.data.frame(DF[,-1]),na.rm=TRUE),3)
+  for (i in 1: length(DF[,1])){
+    DF$Absent[i]<-sum(is.na(DF[i,4:length(DF[1,])]))/length(IDs)
+  }
   DF
 }
 ##########################################################################
@@ -218,7 +221,7 @@ DecodeTotalM<-function(Metrics){
   Articulated<-DecodeM(Metrics,"A")
   Vertebrae<-DecodeM(Metrics,"V")
   Metatarsal<-DecodeM(Metrics,"MT")
-  Other<-DecodeM(Metrics,"O")
+  Other<-DecodeM(Metrics,"C")
   
   list("Cranial"=Cranial,"Mandible"=Mandible,"Shoulder"=Shoulder,"Pelvis"=Pelvis,"UpperLimb"=UpperLimb,"LowerLimb"=LowerLimb,"FragmentedLongBone"=FragmentedLongBone,"Articulated"=Articulated,"Vertebrae"=Vertebrae,"Metatarsal"=Metatarsal,"Other"=Other)
 }
@@ -275,4 +278,29 @@ DecodeDen<-function(Dental){
   names(Out)<-c("Population",Ids)
   Out
 }
-
+##########################################################################
+DecodePP<-function(PP){
+  Shape<-PPTablize(Paleopath$Table$Shape,Paleopath$Table$ID2)
+  Size<-PPTablize(Paleopath$Table$Size,Paleopath$Table$ID2)
+  Nature<-PPTablize(Paleopath$Table$Nature,Paleopath$Table$ID2)
+  Individual<-as.data.frame(table(Paleopath$Table$ID))
+  names(Individual)<-c("ID","N")
+  Types<-unique(Paleopath$Table$Type);Individual[,Types]<-NA
+  Des<-unique(Paleopath$Table$Des);Individual[,Des]<-NA
+  for(i in 1:length(Individual$ID)){
+    for(j in 1:length(Types)){
+      Individual[i,Types[j]]<-sum(Paleopath$Table$Type[Paleopath$Table$ID==Individual$ID[i]]==Types[j])
+    }
+    for(j in 1:length(Des)){
+      Individual[i,Des[j]]<-sum(Paleopath$Table$Des[Paleopath$Table$ID==Individual$ID[i]]==Des[j])
+    }
+  }
+  Location<-data.frame("ID"=Paleopath$Table$ID,"ID2"=Paleopath$Table$ID2,"Region"=NA,"Bones"=NA,"Other"=NA,"Features"=NA,"Suture"=NA)
+  for(i in 1:length(Location$ID2)){
+    L1<-strsplit(Paleopath$Table$Loc[i],split=":")[[1]]
+    Location$Region[i]<-L1[1];Location$Bones[i]<-L1[2];Location$Other[i]<-L1[3]
+    L2<-strsplit(Paleopath$Table$Feat[i],split=":")[[1]]
+    Location$Features[i]<-L2[1];Location$Suture[i]<-L2[2]
+  }
+  list("Individual"=Individual,"Location"=Location,"Size"=Size,"Shape"=Shape,"Nature"=Nature)
+}

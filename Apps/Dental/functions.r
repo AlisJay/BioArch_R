@@ -3,37 +3,67 @@ InventoryScore<-function(input){
   Perminant<-data.frame("Teeth"=c("uRM3","uRM2","uRM1","uRP4","uRP3","uRC1","uRI2","uRI1","uLI1","uLI2","uLC1","uLP3","uLP4","uLM1","uLM2","uLM3",
                                   "lRM3","lRM2","lRM1","lRP4","lRP3","lRC1","lRI2","lRI1","lLI1","lLI2","lLC1","lLP3","lLP4","lLM1","lLM2","lLM3"),
                         "Present"=0,"Loose"=0,"Occulsion"=0,"Unerupted"=0,"Premortem"=0,"Postmortem"=0)
+  
   Present<-c(paste("u",input$u_present,sep=""),paste("l",input$L_present,sep=""))
   Loose<-c(paste("u",input$u_loose,sep=""),paste("l",input$L_loose,sep=""))
   Occulsion<-c(paste("u",input$u_occlusion,sep=""),paste("l",input$L_occlusion,sep=""))
   Unerupted<-c(paste("u",input$u_unerupted,sep=""),paste("l",input$L_unerupted,sep=""))
   Premortem<-c(paste("u",input$u_premortem,sep=""),paste("l",input$L_premortem,sep=""))
   Postmortem<-c(paste("u",input$u_postmortem,sep=""),paste("l",input$L_postmortem,sep=""))
+  
   Perminant$Present[Perminant$Teeth %in% Present]<-1;Perminant$Loose[Perminant$Teeth %in% Loose]<-1
   Perminant$Occulsion[Perminant$Teeth %in% Occulsion]<-1;Perminant$Unerupted[Perminant$Teeth %in% Unerupted]<-1
-  Perminant$Premortem[Perminant$Teeth %in% Premortem]<-1;Perminant$Postmortem[Perminant$Teeth %in% Postmortem]<-1
-  Perminant$Postmortem[Perminant$Present==0 & Perminant$Premortem ==0]<-1
   Perminant$Occulsion[Perminant$Loose==1 | Perminant$Unerupted==1]<-0
+  
+  Perminant$Premortem[Perminant$Teeth %in% Premortem]<-1;Perminant$Postmortem[Perminant$Teeth %in% Postmortem]<-1
+  Perminant$Premortem[Perminant$Postmortem==1]<-0
+  
+  
   library(BMS)
-  PerminantScore<-paste(bin2hex(Perminant$Present),bin2hex(Perminant$Loose[Perminant$Present==1]),bin2hex(Perminant$Occulsion[Perminant$Present==1]),
-                        bin2hex(Perminant$Unerupted[Perminant$Present==1]),bin2hex(Perminant$Premortem[Perminant$Present==0]),bin2hex(Perminant$Postmortem[Perminant$Present==0]),sep=":")
+  if(sum(Perminant$Present)==0){
+    PerminantScore<-paste(bin2hex(Perminant$Present),0,0,
+                          0,bin2hex(Perminant$Premortem[Perminant$Present==0]),bin2hex(Perminant$Postmortem[Perminant$Present==0]),sep=":")
+  }else{if(sum(Perminant$Present)==length(Perminant$Present)){
+    PerminantScore<-paste(bin2hex(Perminant$Present),bin2hex(Perminant$Loose[Perminant$Present==1]),bin2hex(Perminant$Occulsion[Perminant$Present==1]),
+                          bin2hex(Perminant$Unerupted[Perminant$Present==1]),0,0,sep=":")
+  }else{
+    PerminantScore<-paste(bin2hex(Perminant$Present),bin2hex(Perminant$Loose[Perminant$Present==1]),bin2hex(Perminant$Occulsion[Perminant$Present==1]),
+                          bin2hex(Perminant$Unerupted[Perminant$Present==1]),bin2hex(Perminant$Premortem[Perminant$Present==0]),bin2hex(Perminant$Postmortem[Perminant$Present==0]),sep=":")
+  }}
+  
+  
   #Decidous score
   Decidous<-data.frame("Teeth"=c("uRdM2","uRdM1","uRdC1","uRdI2","uRdI1","uLdI1","uLdI2","uLdC1","uLdM1","uLdM2",
                                  "lRdM2","lRdM1","lRdC1","lRdI2","lRdI1","lLdI1","lLdI2","lLdC1","lLdM1","lLdM2"),
                        "Present"=0,"Loose"=0,"Occulsion"=0,"Unerupted"=0,"Premortem"=0,"Postmortem"=0)
+  
   Present<-c(paste("u",input$ud_present,sep=""),paste("l",input$Ld_present,sep=""))
   Loose<-c(paste("u",input$ud_loose,sep=""),paste("l",input$Ld_loose,sep=""))
   Occulsion<-c(paste("u",input$ud_occlusion,sep=""),paste("l",input$Ld_occlusion,sep=""))
   Unerupted<-c(paste("u",input$ud_unerupted,sep=""),paste("l",input$Ld_unerupted,sep=""))
   Premortem<-c(paste("u",input$ud_premortem,sep=""),paste("l",input$Ld_premortem,sep=""))
   Postmortem<-c(paste("u",input$ud_postmortem,sep=""),paste("l",input$Ld_postmortem,sep=""))
+  
   Decidous$Present[Decidous$Teeth %in% Present]<-1;Decidous$Loose[Decidous$Teeth %in% Loose]<-1
   Decidous$Occulsion[Decidous$Teeth %in% Occulsion]<-1;Decidous$Unerupted[Decidous$Teeth %in% Unerupted]<-1
-  Decidous$Premortem[Decidous$Teeth %in% Premortem]<-1;Decidous$Postmortem[Decidous$Teeth %in% Postmortem]<-1
-  Decidous$Premortem[Decidous$Present==0 & Decidous$Postmortem ==0]<-1
+  Decidous[Decidous$Present==0,c("Loose","Occulsion","Unerupted")]<-0
   Decidous$Occulsion[Decidous$Loose==1 | Decidous$Unerupted==1]<-0
-  DecidousScore<-paste(bin2hex(Decidous$Present),bin2hex(Decidous$Loose[Decidous$Present==1]),bin2hex(Decidous$Occulsion[Decidous$Present==1]),
-                        bin2hex(Decidous$Unerupted[Decidous$Present==1]),bin2hex(Decidous$Premortem[Decidous$Present==0]),bin2hex(Decidous$Postmortem[Decidous$Present==0]),sep=":")
+  
+  Decidous$Premortem[Decidous$Teeth %in% Premortem]<-1;Decidous$Postmortem[Decidous$Teeth %in% Postmortem]<-1
+  Decidous[Decidous$Present==1,c("Premortem","Postmortem")]<-0
+  Decidous$Postmortem[Decidous$Premortem==1]<-0
+  
+  if(sum(Decidous$Present)==0){
+    DecidousScore<-paste(bin2hex(Decidous$Present),0,0,
+                         0,bin2hex(Decidous$Premortem[Decidous$Present==0]),bin2hex(Decidous$Postmortem[Decidous$Present==0]),sep=":")
+  }else{if(sum(Decidous$Present)==length(Decidous$Present)){
+    DecidousScore<-paste(bin2hex(Decidous$Present),bin2hex(Decidous$Loose[Decidous$Present==1]),bin2hex(Decidous$Occulsion[Decidous$Present==1]),
+                         bin2hex(Decidous$Unerupted[Decidous$Present==1]),0,0,sep=":")
+  }else{
+    DecidousScore<-paste(bin2hex(Decidous$Present),bin2hex(Decidous$Loose[Decidous$Present==1]),bin2hex(Decidous$Occulsion[Decidous$Present==1]),
+                         bin2hex(Decidous$Unerupted[Decidous$Present==1]),bin2hex(Decidous$Premortem[Decidous$Present==0]),bin2hex(Decidous$Postmortem[Decidous$Present==0]),sep=":")
+  }}
+ 
   list("Pscore"=PerminantScore,"Dscore"=DecidousScore)
 }
 ######################################################################################################

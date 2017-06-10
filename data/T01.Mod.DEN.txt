@@ -1,0 +1,21 @@
+Premortem Dental modifications
+#Pop ID=T01:Pop Name=TestPop:Investigator=AJNicholson
+#Date Created= 2017-06-07 12:41:21 :Program=DentalV1.0
+#Fields:ID,Tooth,Type,Description
+#Types:Filing,Drilling,Inlay,Restoration,Artifact:F,D,I,R,A
+#Filing/Drilling:Classification:Classifciation=B$U,group,number/Custom,surface,description
+#Inlay:Classification,Inlay,Adhesive:Classifciation=B$U,group,number/Custom,surface,description
+#Restoration:Material,Location and spread,further description
+#Artifact:Surface,Foreign material inclusion,Description,Carious lesions/perdontal disease
+"ID" "Tooth" "Type" "Description"
+"SK001_1" "lRI2" "A" "O,None,right upper corner eroded ,"
+"SK001_1" "lRI2" "A" "I,None,right upper corner eroded ,"
+"SK003_1" "lRM3" "D" "Custom,O,roughly square hole in mesio-lingual quandrant"
+"SK004_1" "lRC1" "A" "O,None,two distinct lines along occulsal surface,Carious lesions"
+"SK004_2" "lRI1" "A" "O,None,single linear groove, canine side,Carious lesions"
+"SK004_2" "lRI1" "A" "I,None,single linear groove, canine side,Carious lesions"
+"SK005_1" "uRI2" "D" "B&U94,IV,1"
+"SK005_2" "uRI1" "D" "B&U94,IV,1"
+"SK005_3" "lRI2" "D" "B&U94,V,1"
+"SK005_4" "lRI1" "D" "B&U94,VI,10"
+"SK005_5" "lLI2" "D" "B&U94,V,3"
