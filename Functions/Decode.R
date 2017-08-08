@@ -184,11 +184,22 @@ Abbrev_Library<-function(FileType="Inventory",Bone=NA,Abbreviation=NA,Region=NA,
   output
 }
 ##########################################################################
-DecodeM<-function(Metrics,x){
+DecodeM<-function(Metrics,x,ID_Table=FALSE){
   HeadLine<-Metrics$Head[grep(paste0("#",x,":"),Metrics$Head)]
   Heads<-strsplit(HeadLine,split=":")[[1]][2]
   Heads<-strsplit(Heads,split=",")[[1]]
   IDs<-Metrics$Table$ID
+  
+  if(length(IDs)!=length(unique(IDs))){
+    I<-unique(IDs)
+    for(i in 1:length(I)){
+      dup<-grep(I[i],IDs)
+      for(j in 1:length(dup)){IDs[dup[j]]<-paste(IDs[dup[j]],letters[j],sep="_")}
+    }
+    Metrics$Table$ID<-IDs
+    if(ID_Table){IDTable<-Metrics$Table[,1:3]}
+  }
+
   DF<-data.frame(Measurement=Heads,Average=NA,Absent=NA)
   
   for(i in 1:length(IDs)){DF[,as.character(IDs[i])]<-strsplit(Metrics$Table[i,x],split=":")[[1]]}
@@ -207,11 +218,12 @@ DecodeM<-function(Metrics,x){
   for (i in 1: length(DF[,1])){
     DF$Absent[i]<-sum(is.na(DF[i,4:length(DF[1,])]))/length(IDs)
   }
+  if(ID_Table){DF<-list(DF,IDTable)}
   DF
 }
 ##########################################################################
 DecodeTotalM<-function(Metrics){
-  Cranial<-DecodeM(Metrics,"C")
+  Cranial<-DecodeM(Metrics,"C",TRUE)
   Mandible<-DecodeM(Metrics,"M")
   Shoulder<-DecodeM(Metrics,"Sh")
   Pelvis<-DecodeM(Metrics,"P")
@@ -223,7 +235,7 @@ DecodeTotalM<-function(Metrics){
   Metatarsal<-DecodeM(Metrics,"MT")
   Other<-DecodeM(Metrics,"C")
   
-  list("Cranial"=Cranial,"Mandible"=Mandible,"Shoulder"=Shoulder,"Pelvis"=Pelvis,"UpperLimb"=UpperLimb,"LowerLimb"=LowerLimb,"FragmentedLongBone"=FragmentedLongBone,"Articulated"=Articulated,"Vertebrae"=Vertebrae,"Metatarsal"=Metatarsal,"Other"=Other)
+  list("ID"=Cranial[[2]],"Cranial"=Cranial[[1]],"Mandible"=Mandible,"Shoulder"=Shoulder,"Pelvis"=Pelvis,"UpperLimb"=UpperLimb,"LowerLimb"=LowerLimb,"FragmentedLongBone"=FragmentedLongBone,"Articulated"=Articulated,"Vertebrae"=Vertebrae,"Metatarsal"=Metatarsal,"Other"=Other)
 }
 ##########################################################################
 DecodeDen<-function(Dental){
@@ -280,9 +292,9 @@ DecodeDen<-function(Dental){
 }
 ##########################################################################
 DecodePP<-function(PP){
-  Shape<-PPTablize(Paleopath$Table$Shape,Paleopath$Table$ID2)
-  Size<-PPTablize(Paleopath$Table$Size,Paleopath$Table$ID2)
-  Nature<-PPTablize(Paleopath$Table$Nature,Paleopath$Table$ID2)
+  Shape<-PPTablize(Paleopath$Table$Shape,paste(Paleopath$Table$ID,Paleopath$Table$ID2,sep=":"),"Shape skipped, names and data different lengths (Check Commas)")
+  Size<-PPTablize(Paleopath$Table$Size,paste(Paleopath$Table$ID,Paleopath$Table$ID2,sep=":"),"Size skipped, names and data different lengths (Check Commas)")
+  Nature<-PPTablize(Paleopath$Table$Nature,paste(Paleopath$Table$ID,Paleopath$Table$ID2,sep=":"),"Nature skipped, names and data different lengths (Check Commas)")
   Individual<-as.data.frame(table(Paleopath$Table$ID))
   names(Individual)<-c("ID","N")
   Types<-unique(Paleopath$Table$Type);Individual[,Types]<-NA
