@@ -21,6 +21,11 @@ CreatePP<-function(ID,name,Investigator,dir){
   paste("File ",ID,".pp.OD.txt created", sep="")
 }
 
+NoComma<-function(txt){
+  txt<-gsub(",","_",txt)
+  txt
+}
+
 AppendPP<-function(PopID,ID,In,dir,Table,Photo){
   #adds record to an existing .PP.OD.txt
   filepath<-paste(dir,PopID,".PP.OD.txt",sep="")
@@ -30,7 +35,8 @@ AppendPP<-function(PopID,ID,In,dir,Table,Photo){
     Table$ID<-ID
     Table$In<-In
     Table$D<-gsub(" ","_",as.character(Sys.time()))
-    Table$Photo<-Photo$photo[Photo$ID2==Table$ID2]
+    Table<-merge(Table,Photo)
+    Table<-Table[,c(2,3,4,1,5:14)]
     write.table(Table,filepath,append=TRUE,row.names=FALSE,col.names=FALSE)
     paste("Added Individual",ID,"to",filepath)
   }

@@ -1,3 +1,17 @@
+F_C02_RC<-function(input=input){   
+  Table<-data.frame(ID=NA,In=NA,D=NA,ID2="F_C02",Type="Complex",Des="Tufting and resorption of distal phalanges",Loc=NA,Feat="Head,Shaft,Base:NA",Size=NA,Shape=NA,Nature=NA,Add=NA,Link=NA)
+  Table$Loc<-paste("Foot",paste(input$F_C02_1,collapse=","),"NA",sep=":")
+  x<-data.frame("Phalanx"=substr(input$F_C02_1, nchar(input$F_C02_1)-3+1, nchar(input$F_C02_1)),DW=NA,PW=NA,MW=NA,Shape=NA)
+  for(i in 1:length(input$F_C02_1)){
+    x$Shape[i]<-NoComma(input[[as.character(paste0("F_C02_",x$Phalanx[i],"_4"))]])
+    x$DW[i]<-input[[as.character(paste0("F_C02_",x$Phalanx[i],"_1"))]]
+    x$PW[i]<-input[[as.character(paste0("F_C02_",x$Phalanx[i],"_2"))]]
+    x$MW[i]<-input[[as.character(paste0("F_C02_",x$Phalanx[i],"_3"))]]
+  }
+  Table$Shape<-paste(paste(x$Phalanx,collapse=","),paste(x$Shape,collapse=","),sep=":")
+  Table$Size<-paste0("Distal,Proximal,Mid:",paste(paste(x$DW,collapse="/"),paste(x$PW,collapse="/"),paste(x$MW,collapse="/"),sep=","))
+  if(input$F_C02_Link1 != "None"){Table$Link<-paste(paste(input$F_C02_Link1,collapse=","),paste(input$F_C02_Link2,collapse=","),sep=":")}
+  Table }
 
 source("Custom.R",local=TRUE);source("functions.R",local=TRUE)
 shinyServer(function(input,output){
@@ -40,13 +54,13 @@ shinyServer(function(input,output){
   
   #photo reference####
   output$Photo<-renderUI({Photoref(input)[[1]]})
-  
+  output$Phototable<-renderTable({photocollect(Photoref(input)[[2]],input)})
   #file creation####
   PMessage<-eventReactive(input$Create,{
     CreatePP(input$POPID,input$POPName,input$Person1,input$dir)
   })
   output$PMessage<-renderPrint({PMessage()})
-  
+  output$ResultsTable<-renderTable({merge(RecordCreator(input),photocollect(Photoref(input)[[2]],input))})
   #append records####
   IMessage<-eventReactive(input$Append,{
     AppendPP(input$POPID,input$ID,input$Person2,input$dir,RecordCreator(input),photocollect(Photoref(input)[[2]],input))
@@ -61,7 +75,7 @@ shinyServer(function(input,output){
   
   #Record creation checks####
   #output$customcheck<-renderTable({})
-  #output$SKTable<-renderTable({RecordCreator(input)})
+  #output$SKTable<-renderTable({NA})
   #output$VTable<-renderTable({NA})
   #output$SHTable<-renderTable({NA})
   #output$PTable<-renderTable({NA})
@@ -69,6 +83,8 @@ shinyServer(function(input,output){
   #output$ATable<-renderTable({NA})
   #output$HTable<-renderTable({NA})
   #output$LTable<-renderTable({NA})
-  #output$FTable<-renderTable({NA})
+  output$FTable<-renderTable({F_C02_RC(input)})
+  
+  
 })
 

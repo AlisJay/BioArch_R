@@ -413,7 +413,7 @@ SK_S08_RC<-function(input=input){
 #Supernummery bones#############################################################################################################################################
 SK_S09_UI<-tagList(fixedPage(h3("ID:SK_S09"),
                              h4("Description:Supernummery bones"),
-                             column(width=6,selectInput("SK_S09_1","Type",multiple=TRUE,selected="Lambdoidal",c("Inca","Lambda","Lambdoidal","Pterion","Bregma","Coronal","Sagittal")),
+                             column(width=6,selectInput("SK_S09_1","Type",multiple=TRUE,selected="Lambdoidal",c("Inca","Lambda","Lambdoidal","Right Pterion","Left Pterion","Bregma","Coronal","Sagittal","Right Asterion","Left Asterion","Right Parietal Notch","Left Parietal Notch")),
                                     h4("Description of ossicles:"),
                                     h5("Inca = Large bone at lambda resulting from failure of fusion the mendosal suture, extending from asterion to asterion)"),
                                     h5("Lamdba= Other ossicle at lambda(use if any condition not met for true inca bone)"),
@@ -421,7 +421,8 @@ SK_S09_UI<-tagList(fixedPage(h3("ID:SK_S09"),
                                     h5("Pterion= ossicle at pterion"),
                                     h5("Bregma= ossicle at bregma"),
                                     h5("Coronal=any ossicle in the coronal suture not at bregma or pterion"),
-                                    h5("Sagittal=any ossicle in the sagittal suture not at bregma or lambda")),
+                                    h5("Sagittal=any ossicle in the sagittal suture not at bregma or lambda"),
+                                    h5("Asterion=ossicle at asterion")),
                              column(width=3,
                                     conditionalPanel("input.SK_S09_1.indexOf('Lambdoidal')>=0",numericInput("SK_S09_2a","Number of right lambdoidal ossicles",value=0),
                                                      numericInput("SK_S09_2b","Number of left lambdoidal ossicles",value=0)),
@@ -434,8 +435,16 @@ SK_S09_UI<-tagList(fixedPage(h3("ID:SK_S09"),
                                     textInput("SK_S09_Link1","ID of linked lesion(s)",value="None"),
                                     selectizeInput("SK_S09_Link2","Connection type",multiple=TRUE,choice=c("Continuation","Symetrical","Overlapping","Similar appearance","Potential systemic condition","Shared joint","Additional description")))))
 SK_S09_RC<-function(input=input){   
-  Table<-data.frame(ID=NA,In=NA,D=NA,ID2="SK_S09",Type="Shape",Des="Supernummery bones",Loc="Skull:Snum:NA",Feat=NA,Size=NA,Shape=NA,Nature=NA,Add=NA,Link=NA)
+  Table<-data.frame(ID=NA,In=NA,D=NA,ID2="SK_S09",Type="Shape",Des="Supernummery bones",Loc="Skull:Snum:NA",Feat=NA,Size="NA:NA",Shape="NA:NA",Nature=NA,Add=NA,Link=NA)
   Table$Loc<-paste("Skull:Snum",paste(input$SK_S09_1,collapse=","),sep=":")
+  Suture<-NA
+  if(sum(input$SK_S09_1=='Lambdoidal')>0|sum(input$SK_S09_1=='Lambda')>0|sum(input$SK_S09_1=='Inca')>0|sum(input$SK_S09_1=='Right Asterion')>0|sum(input$SK_S09_1=='Left Asterion')>0){Suture<-c(Suture,"Lambdoidal")}
+  if(sum(input$SK_S09_1=='Sagittal')>0|sum(input$SK_S09_1=='Lambda')>0|sum(input$SK_S09_1=='Bregma')>0){Suture<-c(Suture,"Sagittal")}
+  if(sum(input$SK_S09_1=='Coronal')>0|sum(input$SK_S09_1=='Bregma')>0|sum(input$SK_S09_1=='Right Pterion')>0|sum(input$SK_S09_1=='Left Pterion')>0){Suture<-c(Suture,"Coronal")}
+  if(sum(input$SK_S09_1=='Right Pterion')>0|sum(input$SK_S09_1=='Right Parietal Notch')>0){Suture<-c(Suture,"squamosal_r")}
+  if(sum(input$SK_S09_1=='Left Pterion')>0|sum(input$SK_S09_1=='Leftt Parietal Notch')>0){Suture<-c(Suture,"squamosal_l")}
+  Suture<-Suture[-1]
+  Table$Feat<-paste0("NA:",paste(Suture,collapse=","))
   if(sum(input$SK_S09_1=='Lambdoidal')>0){L<-paste(input$SK_S09_2a,input$SK_S09_2b,sep="/")}else{L<-"NA"}
   if(sum(input$SK_S09_1=='Coronal')>0){C<-paste(input$SK_S09_3a,input$SK_S09_3b,sep="/")}else{C<-"NA"}
   if(sum(input$SK_S09_1=='Sagittal')>0){S<-paste(input$SK_S09_4a,input$SK_S09_4b,sep="/")}else{S<-"NA"}

@@ -1,0 +1,30 @@
+#Osteological data:Pathology
+#Pop ID=T01:Pop Name=TestPop:Investigator=AJNicholson
+#Date Created= 2017-06-12 13:31:20 :Program=PaleoPathV1.0
+#Fields:Individual ID,InvestigatorInitials,Date,Lesion ID,Type,Description,Location,Features,Size,Shape,Nature,Additional,Linked lesions
+#Type:Type of abnormality:Formation/Loss/Shape/Complex
+#Des:headline description:prescribed
+#Loc:Region,Bone(s),Additional:prescribed,prescribed,free
+#Feat:features affected, sutures (skull only):prescribed
+#Size:names,values:free/prescribed,num(mm)
+#Shape:names,values:prescribed, free/prescribed
+#Nature:names,values:prescribed,free/prescribed
+#Add:Addtional information:free
+#Link:IDS,connection:alphanumeric,prescribed
+"ID" "In" "D" "ID2" "Type" "Des" "Loc" "Feat" "Size" "Shape" "Nature" "Add" "Link" "photo"
+"SK001" "AJN" "2017-06-12_22:26:44" "C_1" "Formation" "Custom lesion" "Arm:Humerus_r:" "shaft:NA" "Total Area,% bone:72.3/12.1,1/3-2/3" "Overall:Long thin slight increase in width distally" "Type,Reaction:Periosteal,Mixed" "Superior section contains more sclerotic bone" NA "P001_1"
+"SK001" "AJN" "2017-06-12_22:26:44" "SK_L01_P" "Loss" "Ectocranial porosis" "Skull:Parietal_r,Parietal_l:NA" "emin_l:saggital" "Right area,Left area,hole size,hole variability:34.2/10.2,18.9/14.2,<0.5mm/0.5-<1mm,There is some variabilty that is randomly distrubuted across the lesion" "Symetric,Right,Left:FALSE,extends across eminence up to the saggtial suture posteriorly,across whole fragment" "Surface,Thickening,coalescing,activity:outer table/diploe,TRUE,FALSE,Healed" "Left parietal fragmented so spread/ shape unknown" NA "P001_2"
+"SK002" "AJN" "2017-06-12_22:37:09" "SK_L01_Ob" "Loss" "Ectocranial porosis" "Skull:Frontal:Orbit" "pars_orbitalia_l:" "Right area,Left area,hole size,hole variability:NA/NA,2.3/1.8,<0.5mm,The size is roughly consitant across the whole lesion" "Symetric,Right,Left:FALSE,NA,Roughly oval" "Surface,Thickening,coalescing,activity:outer table,FALSE,FALSE,Healed" "None" NA "P002_3"
+"SK002" "AJN" "2017-06-12_22:37:09" "SK_L02" "Loss" "Supraorbital groove(s)" "Skull:Frontal:NA" NA NA NA NA NA NA "P002_1"
+"SK002" "AJN" "2017-06-12_23:53:01" "P_L01" "Loss" "Enlarged nutrient foramina" "Pelvis:OsCoxa_l:NA" "nutrient_for:NA" "relativeSize:1.5-2" "NA:NA" "NA:NA" NA NA "P002_3"
+"SK005" "AJN" "2017-06-13_10:57:29" "F_C02" "Complex" "Tufting and resorption of distal phalanges" "Foot:Phalanx_d2_r,Phalanx_d3_r,Phalanx_d2_l:NA" "Head,Shaft,Base:NA" "Distal,Proximal,Mid:12.9/12.4/12,NA,NA" "2_r,3_r,2_l:Spade-shaped tufting extends further down medial side,Spade-shaped less pronounced than R2&L2,Spade-shaped" NA NA "H_C01:Similar appearance,Potential systemic condition" "P005_6"
+"SK005" "AJN" "2017-06-13_10:57:29" "F_S05" "Shape" "Fusion of interphalangeal joints" "Foot:Phalanx_p4_l,Phalanx_i4_l:NA" "Head,Base:NA" "Angulation:180-170" "NA" "FusionExtent,AngulationDirection:Complete,Lateral" NA NA "P005_4/P005_5"
+"SK005" "AJN" "2017-06-13_10:57:29" "H_C01" "Complex" "Tufting and resorption of distal phalanges" "Hand:Phalanx_d3_r,Phalanx_d4_l,Phalanx_d2_r:NA" "Head,Shaft,Base:NA" "Distal,Proximal,Mid:11.5/12.7/11.7,NA,NA" "3_r,4_l,2_r:slight tufting,irregular Spade-shaped tufting mostly medial,Slight tufting" "NA:NA" NA "F_C02:Similar appearance,Potential systemic condition" "P005_2/P005_3"
+"SK005" "AJN" "2017-06-13_10:57:29" "P_L03" "Loss" "Dorsal depression(s) on pubic symphyses" "Pelvis:OsCoxa_l:NA" "Pubis,pubic_symphysis:NA" "SupInf,MedLat,AntPos(in),AntPos(out):21.2,22.3,13.4,15.4" "Overall:Circular" "Edges,Pitting:Rounded,FALSE" NA NA "P005_1"
+"SK007" "AJN" "2017-06-13_11:18:05" "SK_L01_Ob" "Loss" "Ectocranial porosis" "Skull:Zygomatic_r,Frontal,Sphenoid:Orbit" "great_wing_r,pars_orbitalia_r:sphenofrontal_r,zygomaticofrontal_r" "Right area,Left area,hole size,hole variability:37.5/28.6,NA/NA,1mm-<2mm/>2mm,The size is roughly consitant across the whole lesion" "Symetric,Right,Left:FALSE,roughly oval.Mostly on frontal and sphenoid slight extension onto zygomatic,NA" "Surface,Thickening,coalescing,activity:diploe/outer table,TRUE,TRUE,Active lesion" "None" NA "P007_1"
+"SK008" "AJN" "2017-06-13_11:28:01" "SK_S10" "Shape" "Unfused metopic suture" "Skull:Frontal:NA" "NA:Metopic" "n_b,percent unfused:131.2,15.2439024390244" NA "Extent:Small area of unfusion from extending 1-2 cm superior to nasion" "Zigzag appearance" NA "P008_1"
+"SK009" "AJN" "2017-06-13_13:47:32" "C_1" "Loss" "Custom lesion" "Vertebrae:T6,T7:Left side, Superior T7 Inferior T6" "body:NA" "Total Area,% bone,no. Foci,Foci size:48.7/26.1,<1/3,1,>5cm" "Overall:Continous rounded shape across both vertebrae" "Organisation,Involvement,Response,collapse:Focal,Periosteal/subchondral/external table/Cortex/trabeculae/diploe,Circumscription/sclerotic reaction,FALSE" "erosion of  Cortical bone exposing trabecular" NA "P009_2/P009_3"
+"SK009" "AJN" "2017-06-13_13:47:32" "F_S01" "Shape" "Supernummery bones" "Foot:Snum:NA,os calcaneus secundarius_r" "NA:NA" "NA:NA" "NA:NA" "NA:NA" NA NA "NA"
+"SK009" "AJN" "2017-06-13_13:47:32" "SK_S09" "Shape" "Supernummery bones" "Skull:Snum:Right Asterion,Left Asterion,Right Parietal Notch" "NA:Lambdoidal,squamosal_r" "NA:NA" "NA:NA" "no.Lambdoidal,no.Cornal,no.Sagittal,Pterion side:NA,NA,NA,NA" NA NA "NA"
+"SK009" "AJN" "2017-06-13_13:47:32" "SK_S10" "Shape" "Unfused metopic suture" "Skull:Frontal:NA" "NA:Metopic" "n_b,percent unfused:127,100" NA "Extent:Completely unfused from bregma to nasion" "None" NA "P009_1"
+"x01" "NA" "2017-07-12_14:34:01" "F_C02" "Complex" "Tufting and resorption of distal phalanges" "Foot:Phalanx_d1_r,Phalanx_d2_r,Phalanx_d3_r:NA" "Head,Shaft,Base:NA" "Distal,Proximal,Mid:1/2/3,1/2/3,1/2/3" "1_r,2_r,3_r:Spade-shaped,Spade-shaped_roughly,Spade-shaped_kindof_notreally" NA NA NA "Foot"

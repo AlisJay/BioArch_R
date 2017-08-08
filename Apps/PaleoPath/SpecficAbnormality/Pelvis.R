@@ -23,7 +23,7 @@ P_L01_UI<-tagList(fixedPage(h3("ID:P_L01"),
                                    textInput("P_L01_Link1","ID of linked lesion(s)",value="None"),
                                    selectizeInput("P_L01_Link2","Connection type",multiple=TRUE,choice=c("Continuation","Symetrical","Overlapping","Similar appearance","Potential systemic condition","Shared joint","Additional description")))))
 P_L01_RC<-function(input=input){   
-  Table<-data.frame(ID=NA,In=NA,D=NA,ID2="P_l01",Type="Loss",Des="Enlarged nutrient foramina",Loc=NA,Feat="nutrient_for:NA",Size=NA,Shape="NA:NA",Nature="NA:NA",Add=NA,Link=NA)
+  Table<-data.frame(ID=NA,In=NA,D=NA,ID2="P_L01",Type="Loss",Des="Enlarged nutrient foramina",Loc=NA,Feat="nutrient_for:NA",Size=NA,Shape="NA:NA",Nature="NA:NA",Add=NA,Link=NA)
   Table$Loc<-paste0("Pelvis:",paste(input$P_L01_1,collapse=","),":NA")
   for(i in 1:length(input$P_L01_1)){
     if(i==1){Size<-input[[as.character(paste0("P_L01_1_",input$P_L01_1[i]))]]
@@ -64,15 +64,15 @@ P_L03_UI<-tagList(fixedPage(h3("ID:P_L03"),
                                    textInput("P_L03_Link1","ID of linked lesion(s)",value="None"),
                                    selectizeInput("P_L03_Link2","Connection type",multiple=TRUE,choice=c("Continuation","Symetrical","Overlapping","Similar appearance","Potential systemic condition","Shared joint","Additional description")))))
 P_L03_RC<-function(input=input){   
-  Table<-data.frame(ID=NA,In=NA,D=NA,ID2="P_L03",Type="Loss",Des="Dorsal depression(s) on pubic symphyses",Loc=NA,Feat=NA,Size=NA,Shape=NA,Nature=NA,Add=NA,Link=NA)
+  Table<-data.frame(ID=NA,In=NA,D=NA,ID2="P_L03",Type="Loss",Des="Dorsal depression(s) on pubic symphyses",Loc=NA,Feat="Pubis,pubic_symphysis:NA",Size=NA,Shape=NA,Nature=NA,Add=NA,Link=NA)
   Table$Loc<-paste0("Pelvis:",paste(paste0("OsCoxa",input$P_L03_1),collapse=","),":NA")
   if(length(input$P_L03_1)==2){
     Table$Size<-paste0("SupInf,MedLat,AntPos(in),AntPos(out):",paste(paste(input$P_L03_3_r,input$P_L03_3_l,sep="/"),paste(input$P_L03_4_r,input$P_L03_4_l,sep="/"),paste(input$P_L03_5_r,input$P_L03_5_l,sep="/"),paste(input$P_L03_6_r,input$P_L03_6_l,sep="/"),sep=","))
-    Table$Shape<-paste0("General:",paste(input$P_L03_2_r,input$P_L03_2_l,sep="/"))
+    Table$Shape<-paste0("Overall:",paste(input$P_L03_2_r,input$P_L03_2_l,sep="/"))
     Table$Nature<-paste0("Edges,Pitting:",paste(paste(paste(input$P_L03_7_r,collapse="_"),paste(input$P_L03_7_l,collapse="_"),sep="/"),paste(input$P_L03_8_r,input$P_L03_8_l,sep="/"),sep=","))
   }else{
     Table$Size<-paste0("SupInf,MedLat,AntPos(in),AntPos(out):",paste(input[[as.character(paste0("P_L03_3",input$P_L03_1))]],input[[as.character(paste0("P_L03_4",input$P_L03_1))]],input[[as.character(paste0("P_L03_5",input$P_L03_1))]],input[[as.character(paste0("P_L03_6",input$P_L03_1))]],sep=","))
-    Table$Shape<-paste0("General:",input[[as.character(paste0("P_L03_2",input$P_L03_1))]])
+    Table$Shape<-paste0("Overall:",input[[as.character(paste0("P_L03_2",input$P_L03_1))]])
     Table$Nature<-paste0("Edges,Pitting:",paste(paste(input[[as.character(paste0("P_L03_7",input$P_L03_1))]],collapse="_"),input[[as.character(paste0("P_L03_8",input$P_L03_1))]],sep=","))
   }
   if(input$P_L03_Link1 != "None"){Table$Link<-paste(paste(input$P_L03_Link1,collapse=","),paste(input$P_L03_Link2,collapse=","),sep=":")}
@@ -129,6 +129,6 @@ P_C02_RC<-function(input=input){
   Table }
 #data table#################################################################################################
 library(data.table)
-Pelvis_DT<-data.table(ref=c("P_S01","P_S02","P_L01","P_L02","P_L03","P_F01","P_F03","P_F04","P_F05","P_C01","P_C02"),
-                    uioptions=c(P_S01_UI,P_S02_UI,P_L01_UI,P_L02_UI,P_L03_UI,P_F01_UI,P_F03_UI,P_F04_UI,P_F05_UI,P_C01_UI,P_C02_UI),
-                    RecordCreator=c(P_S01_RC,P_S02_RC,P_L01_RC,P_L02_RC,P_L03_RC,P_F01_RC,P_F03_RC,P_F04_RC,P_F05_RC,P_C01_RC,P_C02_RC))
+Pelvis_DT<-data.table(ref=c("P_S01","P_S02","P_L01","P_L02","P_L03","P_F01","P_F02","P_F03","P_F04","P_F05","P_C01","P_C02"),
+                    uioptions=c(P_S01_UI,P_S02_UI,P_L01_UI,P_L02_UI,P_L03_UI,P_F01_UI,P_F02_UI,P_F03_UI,P_F04_UI,P_F05_UI,P_C01_UI,P_C02_UI),
+                    RecordCreator=c(P_S01_RC,P_S02_RC,P_L01_RC,P_L02_RC,P_L03_RC,P_F01_RC,P_F02_RC,P_F03_RC,P_F04_RC,P_F05_RC,P_C01_RC,P_C02_RC))

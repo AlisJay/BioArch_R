@@ -6,7 +6,7 @@ H_S01_RC<-function(input=input){
   Table }
 
 #Supernummery bones##############################################################################################
-<-tagList(fixedPage(h3("ID:H_S02"),
+H_S02_UI<-tagList(fixedPage(h3("ID:H_S02"),
                             h4("Description:Supernumery bones"),
                             column(width=4,selectInput("H_S02_1","Left",multiple=TRUE,choice=c("other/unknown","os centrale","os vesalianum carpi","os gruberi","os radiale externum","os epitrapezium","os epilunatum","os radiostyloideum","os hypolunatum","os hypotriquetrum","os epitriquestum","os triangulare","metacarpalphalangeal sesmoid","interphalangeal sesmoid",
                                                                                                "pisiforme secundarium","os hamuli proprium","os hamulare basale","os ulnare externum","os capitatum secundarium","os subcapitatum","os subcapitatum","os styloideum","os parastyloideum","os metastyloideum","os trapezium secundarium","os praetrapezium","os paratrapezium","os trapezoideum secundarium"))),
@@ -99,7 +99,7 @@ H_C01_UI<-tagList(fixedPage(h3("ID:H_C01"),
                                   selectizeInput("H_C01_Link2","Connection type",multiple=TRUE,choice=c("Continuation","Symetrical","Overlapping","Similar appearance","Potential systemic condition","Shared joint","Additional description")))
                             ))
 H_C01_RC<-function(input=input){   
-  Table<-data.frame(ID=NA,In=NA,D=NA,ID2="H_C01",Type="Complex",Des="Tufting and resorption of distal phalanges",Loc=NA,Feat="NA:NA",Size=NA,Shape=NA,Nature="NA:NA",Add=NA,Link=NA)
+  Table<-data.frame(ID=NA,In=NA,D=NA,ID2="H_C01",Type="Complex",Des="Tufting and resorption of distal phalanges",Loc=NA,Feat="Head,Shaft,Base:NA",Size=NA,Shape=NA,Nature="NA:NA",Add=NA,Link=NA)
   Table$Loc<-paste("Hand",paste(input$H_C01_1,collapse=","),"NA",sep=":")
   x<-data.frame("Phalanx"=substr(input$H_C01_1, nchar(input$H_C01_1)-3+1, nchar(input$H_C01_1)),DW=NA,PW=NA,MW=NA,Shape=NA)
   for(i in 1:length(input$H_C01_1)){

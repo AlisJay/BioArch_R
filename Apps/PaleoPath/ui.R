@@ -191,8 +191,11 @@ shinyUI(navbarPage("PaleoPath",
                                       tableOutput("SYTable")
                                       )),
                    tabPanel("Write",
-                            sidebarPanel(width=3,uiOutput("Photo")),
+                            sidebarPanel(width=3,uiOutput("Photo")
+                                         #tableOutput("Phototable")
+                                         ),
                             mainPanel(textInput("dir","Data Folder",value="../../data/"),
+                                      tableOutput("ResultsTable"),
                                       column(width=4,
                                              h3("Population Info"),
                                              textInput("POPID","Population ID",value="NA"),
