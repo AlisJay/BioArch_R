@@ -1,5 +1,6 @@
 source("Functions/Basics.R")
 source("Functions/Decode.R")
+source("Functions/Compare.R")
 source("Functions/Map.R")
 source("Functions/ProfileMetric.R")
 source("Functions/PPBasics.R")
