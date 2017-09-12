@@ -1,3 +1,4 @@
+#Inventory###############################################################
 DecodeSI1<-function(Table,HeadLine){#standard
   library("BMS")
   Heads<-strsplit(HeadLine,split=":")[[1]][2]
@@ -26,7 +27,7 @@ DecodeSI1<-function(Table,HeadLine){#standard
   dfComplete$percent<-round(dfComplete$total/length(IDS),3)
   list(Present=dfPresent,Complete=dfComplete)
 }
-###########################################################################################
+
 DecodeSI2<-function(Table,HeadLine){#custom field
   library("BMS")
   if(HeadLine=="#C:NA,NA,NA,NA,NA,NA,NA,NA"){output<-"NA"
@@ -59,7 +60,7 @@ DecodeSI2<-function(Table,HeadLine){#custom field
   }
   output
 }
-###########################################################################################
+
 DecodeSI3<-function(Table,HeadLines){#NonMetric traits
   library("BMS")
   Heads1<-strsplit(HeadLines[1],split=":")[[1]][2]
@@ -88,7 +89,7 @@ DecodeSI3<-function(Table,HeadLines){#NonMetric traits
   dfPresent
   
 }
-##########################################################
+
 DecodeSI4<-function(Table,HeadLine){#unidentified fragments 
   library("BMS")
   Heads<-strsplit(HeadLine,split=":")[[1]][2]
@@ -105,7 +106,7 @@ DecodeSI4<-function(Table,HeadLine){#unidentified fragments
   dfnumber$average<-round(dfnumber$total/length(IDS),3)
   dfnumber
 }
-###########################################################
+
 
 DecodeSI<-function(SI){
   Skull<-DecodeSI1(SI[[2]][,c(1,4)],grep("#Sk:",SI[[1]],value=TRUE))
@@ -123,7 +124,7 @@ DecodeSI<-function(SI){
   list(Skull=Skull,Vertebrae=Vert,Thorax=Thorax,Shoulder=Shoulder,Pelvis=Pelvis,Arm=Arm,Hand=Hand,Leg=Leg,Foot=Foot,Custom=Custom,NonMetric=NonMetric,UF=UF)
 }
 
-#######################################################################
+#Profile######################################################################
 DecodeAge<-function(Table){
   age<-data.frame(ID=Table$ID,Age=NA,min=NA,max=NA,minA=NA,maxA=NA,AAge=NA)
   for(i in 1:length(age$ID)){
@@ -138,10 +139,11 @@ DecodeAge<-function(Table){
   }
   age
 }
-##########################################################################
+#Abbreviations#########################################################################
 Abbrev_Library<-function(FileType="Inventory",Bone=NA,Abbreviation=NA,Region=NA,Field=NA,Profile=NA){
-  Filetypes<-c("Inventory","Profile")
-  if(!(FileType %in% Filetypes)){output<-"Unrecognized file type, valid FileTypes are Inventory and Profile"}
+  Filetypes<-c("Inventory","Profile","Metrics","JMetrics")
+  if(!(FileType %in% Filetypes)){output<-"Unrecognized file type, valid FileTypes are Inventory,Profile,Metrics and JMetrics"}
+  
   if(FileType=="Inventory"){
     Library<-read.table("Help/InventoryAbbrevs",header=TRUE,sep=",")
     if(!(is.na(Bone))){
@@ -163,6 +165,7 @@ Abbrev_Library<-function(FileType="Inventory",Bone=NA,Abbreviation=NA,Region=NA,
       }else{output<-"Unrecognised Region use Region='All' to see valid bone names"}}
         }else{output<-"Please enter either Bone, Abbreviation or Region "}}}
   }
+  
   if(FileType=="Profile"){
     Library<-read.table("Help/ProfileAbbrevs",header=TRUE,sep=",")
     if(!(is.na(Abbreviation))){
@@ -181,10 +184,39 @@ Abbrev_Library<-function(FileType="Inventory",Bone=NA,Abbreviation=NA,Region=NA,
       }else{output<-"Unrecognised Profile use Profile='All' to see valid profile names"}}
         }else{output<-"Please enter either Field, Profile or Abbreviation"}}}
   }
+  
+  if(FileType=="Metrics"){
+    Library<-read.table("Apps/TotalMetrics/Help",header=TRUE,sep=",")
+    if(!(is.na(Abbreviation))){
+      if(Abbreviation %in% Library$Abbrev){
+        output<-Library[Library$Abbrev==Abbreviation,]
+      }else{output<-"Unrecognised Abbreviation"}
+    }else{if(!(is.na(Region))){
+      if(Region %in% Library$Region){
+        output<-Library[Library$Region==Region,]
+      }else{if(Region=="All"){output<-unique(Library$Region)
+      }else{output<-"Unrecognised Region use Region='All' to see valid bone names"}}
+      }else{output<-"Please enter either Region or Abbreviation"}}
+  }
+  
+  if(FileType=="JMetrics"){
+    Library<-read.table("Apps/JMetrics/Help",header=TRUE,sep=",")
+    if(!(is.na(Abbreviation))){
+      if(Abbreviation %in% Library$Abbrev){
+        output<-Library[Library$Abbrev==Abbreviation,]
+      }else{output<-"Unrecognised Abbreviation"}
+    }else{if(!(is.na(Region))){
+      if(Region %in% Library$Region){
+        output<-Library[Library$Region==Region,]
+      }else{if(Region=="All"){output<-unique(Library$Region)
+      }else{output<-"Unrecognised Region use Region='All' to see valid bone names"}}
+    }else{output<-"Please enter either Region or Abbreviation"}}
+  }
   output
 }
-##########################################################################
+#Metrics#########################################################################
 DecodeM<-function(Metrics,x,ID_Table=FALSE){
+  IDTable<-NA
   HeadLine<-Metrics$Head[grep(paste0("#",x,":"),Metrics$Head)]
   Heads<-strsplit(HeadLine,split=":")[[1]][2]
   Heads<-strsplit(Heads,split=",")[[1]]
@@ -196,24 +228,35 @@ DecodeM<-function(Metrics,x,ID_Table=FALSE){
       dup<-grep(I[i],IDs)
       for(j in 1:length(dup)){IDs[dup[j]]<-paste(IDs[dup[j]],letters[j],sep="_")}
     }
+    if(ID_Table){
+      IDTable<-Metrics$Table[,1:2]
+      Dates<-strsplit(Metrics$Table$D,split="_")
+      for(i in 1:length(Dates)){
+        IDTable$Date[i]<-Dates[[i]][1]
+        IDTable$Time[i]<-Dates[[i]][2]
+      }
+      IDTable$NewID<-IDs
+    }
     Metrics$Table$ID<-IDs
-    if(ID_Table){IDTable<-Metrics$Table[,1:3]}
   }
-
-  DF<-data.frame(Measurement=Heads,Average=NA,Absent=NA)
   
+  DF<-data.frame(Measurement=Heads,Average=NA,Absent=NA)
   for(i in 1:length(IDs)){DF[,as.character(IDs[i])]<-strsplit(Metrics$Table[i,x],split=":")[[1]]}
   DF2<-DF[grepl("/",DF[,4])==TRUE,]
-  DF<-DF[grepl("/",DF[,4])==FALSE,]
-  M2<-NULL
-  for(i in 1:length(DF2$Measurement)){M2<-c(M2,paste0(as.character(DF2$Measurement[i]),"_r"),paste0(as.character(DF2$Measurement[i]),"_l"))}
-  DF3<-data.frame(Measurement=M2,Average=NA,Absent=NA)
   
-  for(i in 1:length(IDs)){
-    DF3[,as.character(IDs[i])]<-as.numeric(unlist(strsplit(DF2[,i+3],split="/")))
-    DF[,as.character(IDs[i])]<-as.numeric(DF[,as.character(IDs[i])])}
+  if(length(DF2[,1])!=0){
+    DF<-DF[grepl("/",DF[,4])==FALSE,]
+    M2<-NULL
+    for(i in 1:length(DF2$Measurement)){M2<-c(M2,paste0(as.character(DF2$Measurement[i]),"_r"),paste0(as.character(DF2$Measurement[i]),"_l"))}
+    DF3<-data.frame(Measurement=M2,Average=NA,Absent=NA)
+    
+    for(i in 1:length(IDs)){
+      DF3[,as.character(IDs[i])]<-as.numeric(unlist(strsplit(DF2[,i+3],split="/")))
+      DF[,as.character(IDs[i])]<-as.numeric(DF[,as.character(IDs[i])])}
+    
+    DF<-rbind(DF,DF3)}else{
+      for(i in 1:length(IDs)){DF[,as.character(IDs[i])]<-as.numeric(DF[,as.character(IDs[i])])}}
   
-  DF<-rbind(DF,DF3)
   DF$Average<-round(rowMeans(as.data.frame(DF[,-1]),na.rm=TRUE),3)
   for (i in 1: length(DF[,1])){
     DF$Absent[i]<-sum(is.na(DF[i,4:length(DF[1,])]))/length(IDs)
@@ -221,23 +264,36 @@ DecodeM<-function(Metrics,x,ID_Table=FALSE){
   if(ID_Table){DF<-list(DF,IDTable)}
   DF
 }
-##########################################################################
-DecodeTotalM<-function(Metrics){
-  Cranial<-DecodeM(Metrics,"C",TRUE)
-  Mandible<-DecodeM(Metrics,"M")
-  Shoulder<-DecodeM(Metrics,"Sh")
-  Pelvis<-DecodeM(Metrics,"P")
-  UpperLimb<-DecodeM(Metrics,"UL")
-  LowerLimb<-DecodeM(Metrics,"LL")
-  FragmentedLongBone<-DecodeM(Metrics,"FLB")
-  Articulated<-DecodeM(Metrics,"A")
-  Vertebrae<-DecodeM(Metrics,"V")
-  Metatarsal<-DecodeM(Metrics,"MT")
-  Other<-DecodeM(Metrics,"C")
-  
-  list("ID"=Cranial[[2]],"Cranial"=Cranial[[1]],"Mandible"=Mandible,"Shoulder"=Shoulder,"Pelvis"=Pelvis,"UpperLimb"=UpperLimb,"LowerLimb"=LowerLimb,"FragmentedLongBone"=FragmentedLongBone,"Articulated"=Articulated,"Vertebrae"=Vertebrae,"Metatarsal"=Metatarsal,"Other"=Other)
+
+DecodeTotalM<-function(Metrics,AJ="A"){
+  out<-"Incompatable AJ entry for Adult remains use A and for Juvenille use J"
+  if(AJ=="A"){
+    Cranial<-DecodeM(Metrics,"C",TRUE)
+    Mandible<-DecodeM(Metrics,"M")
+    Shoulder<-DecodeM(Metrics,"Sh")
+    Pelvis<-DecodeM(Metrics,"P")
+    UpperLimb<-DecodeM(Metrics,"UL")
+    LowerLimb<-DecodeM(Metrics,"LL")
+    FragmentedLongBone<-DecodeM(Metrics,"FLB")
+    Articulated<-DecodeM(Metrics,"A")
+    Vertebrae<-DecodeM(Metrics,"V")
+    Metatarsal<-DecodeM(Metrics,"MT")
+    Other<-DecodeM(Metrics,"O")
+    out<-list("ID"=Cranial[[2]],"Cranial"=Cranial[[1]],"Mandible"=Mandible,"Shoulder"=Shoulder,"Pelvis"=Pelvis,"UpperLimb"=UpperLimb,"LowerLimb"=LowerLimb,"FragmentedLongBone"=FragmentedLongBone,"Articulated"=Articulated,"Vertebrae"=Vertebrae,"Metatarsal"=Metatarsal,"Other"=Other)
+  }
+  if(AJ=="J"){
+    Cranial1<-DecodeM(Metrics,"C",TRUE)
+    Cranial2<-DecodeM(Metrics,"C2")
+    Shoulder<-DecodeM(Metrics,"Sh")
+    UpperLimb<-DecodeM(Metrics,"UL")
+    Pelvis<-DecodeM(Metrics,"P")
+    LowerLimb<-DecodeM(Metrics,"LL")
+    Other<-DecodeM(Metrics,"O")
+    out<-list("ID"=Cranial1[[2]],"Cranial1"=Cranial1[[1]],"Cranial2"=Cranial2,"Shoulder"=Shoulder,"UpperLimb"=UpperLimb,"Pelvis"=Pelvis,"LowerLimb"=LowerLimb,"Other"=Other)
+  }
+  out
 }
-##########################################################################
+#Dental#########################################################################
 DecodeDen<-function(Dental){
   library(BMS)
   Teeth<-strsplit(Dental$Head[5],split=":")[[1]][2];Teeth<-strsplit(Teeth,split=",")[[1]]
@@ -290,7 +346,7 @@ DecodeDen<-function(Dental){
   names(Out)<-c("Population",Ids)
   Out
 }
-##########################################################################
+#Paleopathology#########################################################################
 DecodePP<-function(PP){
   Shape<-PPTablize(Paleopath$Table$Shape,paste(Paleopath$Table$ID,Paleopath$Table$ID2,sep=":"),"Shape skipped, names and data different lengths (Check Commas)")
   Size<-PPTablize(Paleopath$Table$Size,paste(Paleopath$Table$ID,Paleopath$Table$ID2,sep=":"),"Size skipped, names and data different lengths (Check Commas)")
