@@ -17,7 +17,7 @@ CreateMetric<-function(ID,name,Investigator,dir,equipment){
           "#P:och,ib,pl,pl2,pl3,il,il2,il3,psh,midpw,minpw,iprw,pa,snw,snd,ad,sl,sb,s1b:numeric",
           "#UL:mhl,heb,vhhd,mxhd,minhd,mrl,srd,trd,rhd,mul,pul,sud,tud,muc:numeric",
           "#LL:mfl,bfl,efb,mfhd,sfsd,tfsd,sfmd,tfmd,mfc,lfcd,mfcd,lfcw,mfcw,icw,icd,stl,mtl,ptl,mptb,mdtb,std,ttd,tc,mfbl,mfbd:numeric",
-          "#FLB:fhhl,fhsl,fhol,fhtl,frhl,frpl,frsl,frdl,ffscl,ffdl,ftpl,fttl,ftsl,ftdl,ftml:numeric",
+          "#FLB:fhhl,fhsl,fhol,fhtl,frhl,frpl,frsl,frdl,ffpl,ffsl,ffscl,ffdl,ftpl,fttl,ftsl,ftdl,ftml:numeric",
           "#A:AH,bid,cv,tpd,n_gn:numeric",
           "#V:c1,c2,c3,c4,c5,c6,c7,t1,t2,t3,t4,t5,t6,t7,t8,t9,t10,t11,t12,l1,l2,l3,l4,l5:numeric",
           "#MT:m1,m2,m3,m4,m5:numeric",
