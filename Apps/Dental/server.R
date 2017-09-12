@@ -1,6 +1,15 @@
 source("functions.R",local=TRUE)
 source("write.R",local=TRUE)
 shinyServer(function(input,output){
+  #Ui creation####
+  output$CC_UI<-renderUI({CreateDentalUI(input,tab="CC")})
+  output$ED_UI<-renderUI({CreateDentalUI(input,tab="ED")})
+  output$PM_UI<-renderUI({CreateDentalUI(input,tab="PM")})
+  output$MW_UI<-renderUI({CreateDentalUI(input,tab="MW")})
+  output$OW_UI<-renderUI({CreateDentalUI(input,tab="OW")})
+  output$M_UI<-renderUI({CreateDentalUI(input,tab="M")})
+  
+  #Create fields####
   present<-reactive({Present(input)})
   output$pScore<-pScore<-reactive({InventoryScore(input)$Pscore})
   output$dScore<-dScore<-reactive({InventoryScore(input)$Dscore})
@@ -15,6 +24,7 @@ shinyServer(function(input,output){
   G<-reactive({Growth(c(present()[[1]],present()[[2]]),input)})
   Morph<-reactive({Mtraits(c(present()[[1]],present()[[2]]),input)})
   
+  #File/Writeout####
   PMessage<-eventReactive(input$Create,{
     CreateDEN(input$POPID,input$POPName,input$Person1,input$dir)
   })

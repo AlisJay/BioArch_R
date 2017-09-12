@@ -1,3 +1,4 @@
+#Scores####
 InventoryScore<-function(input){
   #Perminant score
   Perminant<-data.frame("Teeth"=c("uRM3","uRM2","uRM1","uRP4","uRP3","uRC1","uRI2","uRI1","uLI1","uLI2","uLC1","uLP3","uLP4","uLM1","uLM2","uLM3",
@@ -66,7 +67,7 @@ InventoryScore<-function(input){
  
   list("Pscore"=PerminantScore,"Dscore"=DecidousScore)
 }
-######################################################################################################
+#Field creation#############################################################
 #Present
 Present<-function(input){
   present_p<-c(paste("u",input$u_present,sep=""),paste("l",input$L_present,sep=""))
@@ -76,11 +77,11 @@ Present<-function(input){
   present_d<-present_d[!(present_d %in% remove)]
   list(present_p,present_d)
 }
-######################################################################################################
+
 Contains<-function(x,y){#returns true/false if x contains the value y
   sum(x==y)>0
 }
-######################################################################################################
+
 Mtraits<-function(present,input){
   Teeth<-c("uRI1","uRI2","uLI2","uLI1","uRdI1","uRId2","uLId2","uLId1","uRP4","uRP3","uLP4","uLP3","lRP3","lLP3",
            "uRM3","uRM2","uRM1","uLM1","uLM2","uLM3","lRM3","lRM2","lRM1","lLM1","lLM2","lLM3")
@@ -111,7 +112,7 @@ Mtraits<-function(present,input){
   }
   out
 }
-######################################################################################################
+
 Ablation<-function(input){
   Premortem<-c(paste("u",input$u_premortem,sep=""),paste("l",input$L_premortem,sep=""),paste("u",input$ud_premortem,sep=""),paste("l",input$Ld_premortem,sep=""))
   remove<-c("l","u");Premortem<-Premortem[!(Premortem %in% remove)]
@@ -124,7 +125,7 @@ Ablation<-function(input){
   }else{out<-NA}
   out
 }
-######################################################################################################
+
 Caries<-function(present,input){
   if(length(present)==0){out<-NA
   }else{
@@ -137,7 +138,7 @@ Caries<-function(present,input){
   }
   out
 }
-#####################################################################################################
+
 Calculus<-function(present,input){
   if(length(present)==0){out<-NA
   }else{
@@ -149,7 +150,7 @@ Calculus<-function(present,input){
     out<-paste(out$x,collapse=":")
   }
 }
-#####################################################################################################
+
 Hypoplasia<-function(present,input){
   if(length(present)==0){out<-NA
   }else{
@@ -170,7 +171,7 @@ Hypoplasia<-function(present,input){
   }
   out
 }
-######################################################################################################
+
 Hypercalcification<-function(present,input){
   if(length(present)==0){out<-NA
   }else{
@@ -194,7 +195,7 @@ Hypercalcification<-function(present,input){
   }
   out
 }
-#####################################################################################################
+
 Wear<-function(present,input){
   if(length(present)==0){out<-NA
   }else{
@@ -215,7 +216,7 @@ Wear<-function(present,input){
   }
   out
 }
-#####################################################################################################
+
 Measurments<-function(present,input){
   if(length(present)==0){out<-NA
   }else{
@@ -230,7 +231,7 @@ Measurments<-function(present,input){
   }
   out
 }
-#####################################################################################################
+
 Growth<-function(present,input){
   if(length(present)==0){
     out<-NA
@@ -246,7 +247,7 @@ Growth<-function(present,input){
     }}
   out<-paste(input$eruption,out,sep=":")
 }
-#####################################################################################################
+
 Moderfication<-function(present,input){
   if(length(present)==0){out<-list(NA,NA)
   }else{
@@ -292,6 +293,213 @@ Moderfication<-function(present,input){
     out1<-paste(out1$x,collapse=":")
     if(length(out2$ID)==1){out2<-NA}else{out2<-out2[-1,]}
     out<-list(out1,out2)
+  }
+  out
+}
+#Create UI#################
+CreateDentalUI<-function(input,tab){
+  out<-NA
+  MaxPerm<-input$u_present
+  ManPerm<-input$L_present
+  MaxDec<-input$ud_present
+  ManDec<-input$Ld_present
+  if(tab=="CC"){#Caries and calculus
+    Car<-function(Teeth,tList,ul){
+      if(length(Teeth)>0){for(i in 1:length(Teeth)){
+        tList<-tagList(tList,checkboxGroupInput(inputId=paste0("Caries",ul,Teeth[i]),label=Teeth[i],choices=c("Occulusal"="O","Interproximal"="I","Lingual"="L","Buccal"="B","Cevical"="C","Root"="R","Too large to assign"="XL","Noncarious pulp exposure"="NC")))}}
+      tList}
+    MaxPermCar<-Car(MaxPerm,tagList(h3("Caries"),h4("Maxillary")),"_u")
+    ManPermCar<-Car(ManPerm,tagList(h3(br()),h4("Mandibular")),"_l")
+    MaxDecCar<-Car(MaxDec,tagList(h3(br()),h4("Decidous"),strong("Maxillary")),"_u")
+    ManDecCar<-Car(ManDec,strong("Mandibular"),"_l")
+    
+    Cal<-function(Teeth,tList,ul){
+      if(length(Teeth)>0){for(i in 1:length(Teeth)){
+        tList<-tagList(tList,selectInput(inputId=paste0("Calculus",ul,Teeth[i]),label=Teeth[i],c("None"=NA,"Small"=1,"Moderate"=2,"Large"=3)))
+        tList<-tagList(tList,
+                       conditionalPanel(condition=paste0("input.Calculus",ul,Teeth[i]," > 0"),
+                                        checkboxGroupInput(paste0("Cal",ul,Teeth[i],"_side"),"Location",c("Buccal"="B","Lingual"="L"))))}}
+      tList}
+    MaxPermCal<-Cal(MaxPerm,tagList(h3("Calculus"),h4("Maxillary")),"_u")
+    ManPermCal<-Cal(ManPerm,tagList(h3(br()),h4("Mandibular")),"_l")
+    MaxDecCal<-Cal(MaxDec,tagList(h3(br()),h4("Decidous"),strong("Maxillary")),"_u")
+    ManDecCal<-Cal(ManDec,strong("Mandibular"),"_l")
+    
+    out<-tagList(column(width=2,MaxPermCar,h1(br()),h1(br()),h1(br()),h1(br())),
+                 column(width=2,ManPermCar,h1(br()),h1(br()),h1(br()),h1(br())),
+                 column(width=2,MaxDecCar,ManDecCar,h1(br()),h1(br()),h1(br()),h1(br())),
+                 column(width=2,MaxPermCal,h1(br()),h1(br()),h1(br()),h1(br())),
+                 column(width=2,ManPermCal,h1(br()),h1(br()),h1(br()),h1(br())),
+                 column(width=2,MaxDecCal,ManDecCal,h1(br()),h1(br()),h1(br()),h1(br())))}
+  if(tab=="ED"){
+    Hypo<-function(Teeth,tList,ul){
+      if(length(Teeth)>0){for(i in 1:length(Teeth)){
+        tList<-tagList(tList,checkboxGroupInput(paste0("Hypo",ul,Teeth[i]),Teeth[i],c("Linear horizontal grooves"="lhg","Linear vertical grooves"="lvg","Linear horizontal pits"="lhp","Nonlinear arrays of pits"="nap","Single pits"="sp")))
+        tList<-tagList(tList,
+                         conditionalPanel(condition=paste0("input.Hypo",ul,Teeth[i],".indexOf('lhg') >=0"),
+                                          textInput(paste0("Hypo_lhg",ul,Teeth[i]),"Location of linear horizontal groove(s)")),
+                         conditionalPanel(condition=paste0("input.Hypo",ul,Teeth[i],".indexOf('lvg') >=0"),
+                                          textInput(paste0("Hypo_lvg",ul,Teeth[i]),"Location of linear vertical groove(s)")),
+                         conditionalPanel(condition=paste0("input.Hypo",ul,Teeth[i],".indexOf('lhp') >=0"),
+                                          textInput(paste0("Hypo_lhp",ul,Teeth[i]),"Location of linear horizontal pits(s)")),
+                         conditionalPanel(condition=paste0("input.Hypo",ul,Teeth[i],".indexOf('nap') >=0"),
+                                          textInput(paste0("Hypo_nap",ul,Teeth[i]),"Location of pit arrays(s)")),
+                         conditionalPanel(condition=paste0("input.Hypo",ul,Teeth[i],".indexOf('sp') >=0"),
+                                          textInput(paste0("Hypo_sp",ul,Teeth[i]),"Location of single pit(s)")))}}
+      tList}
+    MaxPermHypo<-Hypo(MaxPerm,tagList(h3("Hypoplasia"),h4("Maxillary")),"_u")
+    ManPermHypo<-Hypo(ManPerm,tagList(h3(br()),h4("Mandibular")),"_l")
+    MaxDecHypo<-Hypo(MaxDec,tagList(h3(br()),h4("Decidous"),strong("Maxillary")),"_u")
+    ManDecHypo<-Hypo(ManDec,strong("Mandibular"),"_l")
+    
+    Hyper<-function(Teeth,tList,ul){
+      if(length(Teeth)>0){for(i in 1:length(Teeth)){
+        tList<-tagList(tList,strong(Teeth[i]),checkboxGroupInput(paste0("Hyper_dis",ul,Teeth[i]),"Discrete boundary opacity",c("Yellow"="Y","Cream/white"="C","Orange"="O","Brown"="B")))
+        tList<-tagList(tList,
+                       conditionalPanel(condition=paste0("input.Hyper_dis",ul,Teeth[i],".indexOf('Y') >=0"),
+                                        textInput(paste0("Hyper_ydis",ul,Teeth[i]),"Location of yellow hypercalcification")),
+                       conditionalPanel(condition=paste0("input.Hyper_dis",ul,Teeth[i],".indexOf('C') >=0"),
+                                        textInput(paste0("Hyper_cdis",ul,Teeth[i]),"Location of cream hypercalcification")),
+                       conditionalPanel(condition=paste0("input.Hyper_dis",ul,Teeth[i],".indexOf('O') >=0"),
+                                        textInput(paste0("Hyper_odis",ul,Teeth[i]),"Location of orange hypercalcification")),
+                       conditionalPanel(condition=paste0("input.Hyper_dis",ul,Teeth[i],".indexOf('B') >=0"),
+                                        textInput(paste0("Hyper_bdis",ul,Teeth[i]),"Location of Brown hypercalcification")))
+        tList<-tagList(tList,checkboxGroupInput(paste0("Hyper_dif",ul,Teeth[i]),"Diffuse boundary opacity",c("Yellow"="Y","Cream/white"="C","Orange"="O","Brown"="B")))
+        tList<-tagList(tList,
+                       conditionalPanel(condition=paste0("input.Hyper_dif",ul,Teeth[i],".indexOf('Y') >=0"),
+                                        textInput(paste0("Hyper_ydif",ul,Teeth[i]),"Location of yellow hypercalcification")),
+                       conditionalPanel(condition=paste0("input.Hyper_dif",ul,Teeth[i],".indexOf('C') >=0"),
+                                        textInput(paste0("Hyper_cdif",ul,Teeth[i]),"Location of cream hypercalcification")),
+                       conditionalPanel(condition=paste0("input.Hyper_dif",ul,Teeth[i],".indexOf('O') >=0"),
+                                        textInput(paste0("Hyper_odif",ul,Teeth[i]),"Location of orange hypercalcification")),
+                       conditionalPanel(condition=paste0("input.Hyper_dif",ul,Teeth[i],".indexOf('B') >=0"),
+                                        textInput(paste0("Hyper_bdif",ul,Teeth[i]),"Location of Brown hypercalcification")))}}
+      tList}
+    MaxPermHyper<-Hyper(MaxPerm,tagList(h3("Hypercalcification"),h4("Maxillary")),"_u")
+    ManPermHyper<-Hyper(ManPerm,tagList(h3(br()),h4("Mandibular")),"_l")
+    MaxDecHyper<-Hyper(MaxDec,tagList(h3(br()),h4("Decidous"),strong("Maxillary")),"_u")
+    ManDecHyper<-Hyper(ManDec,strong("Mandibular"),"_u")
+    
+    out<-tagList(column(width=2,MaxPermHypo,h1(br()),h1(br()),h1(br()),h1(br())),
+                 column(width=2,ManPermHypo,h1(br()),h1(br()),h1(br()),h1(br())),
+                 column(width=2,MaxDecHypo,ManDecHypo,h1(br()),h1(br()),h1(br()),h1(br())),
+                 column(width=2,MaxPermHyper,h1(br()),h1(br()),h1(br()),h1(br())),
+                 column(width=2,ManPermHyper,h1(br()),h1(br()),h1(br()),h1(br())),
+                 column(width=2,MaxDecHyper,ManDecHyper,h1(br()),h1(br()),h1(br()),h1(br())))
+  }
+  if(tab=="PM"){
+    Ab<-function(Teeth,tList,ul){
+      if(length(Teeth)>0){for(i in 1:length(Teeth)){tList<-tagList(tList,checkboxInput(paste0("Ablation",ul,Teeth[i]),Teeth[i]))}}
+      tList}
+    AbMaxPerm<-Ab(input$u_premortem,tagList(h3("Ablation"),h4("Maxillary")),"_u")
+    AbManPerm<-Ab(input$L_premortem,h4("Mandibular"),"_l")
+    AbMaxDec<-Ab(input$ud_premortem,tagList(h4("Decidous"),strong("Maxillary")),"_u")
+    AbManDec<-Ab(input$Ld_premortem,strong("Mandibular"),"_l")
+    
+    PMod<-function(Teeth,tList,ul){
+      if(length(Teeth)>0){for(i in 1:length(Teeth)){
+        tList<-tagList(tList,checkboxGroupInput(paste0("Mods",ul,Teeth[i]),Teeth[i],c("Filing"="F","Drilling with inlays"="I","Drilling without inlays"="D","Dental restoration"="R","Wear associated with artifact use"="A")))
+        tList<-tagList(tList,
+                       conditionalPanel(condition=paste0("input.Mods",ul,Teeth[i],".indexOf('F') >=0||input.Mods",ul,Teeth[i],".indexOf('I') >=0||input.Mods",ul,Teeth[i],".indexOf('D') >=0"),
+                                        selectInput(paste0("File",ul,Teeth[i]),"Classification",c("Figure 30a B&U,94"="fig30","Other")),
+                                        conditionalPanel(condition=paste0("input.File",ul,Teeth[i]," == 'fig30'"),
+                                                         selectInput(paste0("gfig30",ul,Teeth[i]),"Group",c("I","II","III","IV","V","VI","VII")),
+                                                         selectInput(paste0("nfig30",ul,Teeth[i]),"Number",c(1,2,3,4,5,6,7,8,9,10))),
+                                        conditionalPanel(condition=paste0("input.File",ul,Teeth[i]," == 'Other'"),
+                                                         checkboxGroupInput(paste0("cFile1",ul,Teeth[i]),"Surface",c("Edge/Occulusal"="O","Interproximal"="I","outer/Buccal"="B")),
+                                                         textInput(paste0("cFile2",ul,Teeth[i]),"Description"))),
+                       conditionalPanel(condition=paste0("input.Mods",ul,Teeth[i],".indexOf('I') >=0"),
+                                        textInput(paste0("inlay",ul,Teeth[i]),"Inlay description"),
+                                        textInput(paste0("adhesive",ul,Teeth[i]),"Adhesive description")),
+                       conditionalPanel(condition=paste0("input.Mods",ul,Teeth[i],".indexOf('R') >=0"),
+                                        h4("Dental restoration"),
+                                        textInput(paste0("restoration1",ul,Teeth[i]),"Material"),
+                                        textInput(paste0("restoration2",ul,Teeth[i]),"Location and spread"),
+                                        textInput(paste0("restoration3",ul,Teeth[i]),"Further description")),
+                       conditionalPanel(condition=paste0("input.Mods",ul,Teeth[i],".indexOf('A') >=0"),
+                                        h4("Artifact use"),
+                                        checkboxGroupInput(paste0("Artifact1",ul,Teeth[i]),"Surface",c("Occulusal"="O","Interproximal"="I","Lingual"="L","Buccal"="B")),
+                                        textInput(paste0("Artifact2",ul,Teeth[i]),"Foreign material inclusions",value="None"),
+                                        textInput(paste0("Artifact3",ul,Teeth[i]),"Description"),
+                                        checkboxGroupInput(paste0("Artifact4",ul,Teeth[i]),"Evidence of--in surrounding tissue",c("Carious lesions","Perdontal disease"))))}}
+      tList}
+    MaxPermPM<-PMod(MaxPerm,h3("Maxillary"),"_u")
+    ManPermPM<-PMod(ManPerm,h3("Mandibular"),"_l")
+    MaxDecPM<-PMod(MaxDec,tagList(h3("Decidous"),h4("Maxillary")),"_u")
+    ManDecPM<-PMod(ManDec,h4("Mandibular"),"_l")
+    
+    out<-tagList(column(width=1,AbMaxPerm,AbManPerm,AbMaxDec,AbManDec),
+                column(width=4,MaxPermPM,h1(br()),h1(br()),h1(br()),h1(br())),
+                column(width=4,ManPermPM,h1(br()),h1(br()),h1(br()),h1(br())),
+                column(width=3,MaxDecPM,ManDecPM,h1(br()),h1(br()),h1(br()),h1(br())))
+  }
+  if(tab=="MW"){
+    MWear<-function(Teeth,tList,ul){
+      Teeth<-grep("M",Teeth,value=TRUE)
+      if(length(Teeth)>0){for(i in 1:length(Teeth)){
+        tList<-tagList(tList,checkboxGroupInput(paste0("wear",ul,Teeth[i]),Teeth[i],c("Quadrant1"="Q1","Quadrant2"="Q2","Quadrant3"="Q3","Quadrant4"="Q4")))
+        tList<-tagList(tList,
+                       conditionalPanel(condition=paste0("input.wear",ul,Teeth[i],".indexOf('Q1') >=0"),
+                                        selectInput(paste0("Q1",ul,Teeth[i]),"Quadrant1",c("None"=NA,"Invisble or very small facets"=1,"Facets visible but cusps and surface features very evident"=2,"Some rounding/obliteration of cusps,but not flat"=3,"Quadrant flat but limited detine exposure"=4,"Flat quadrant 1/4 or less dentine exposure"=5,">1/4 dentine exposure,ring of enamel on three sides"=6,"Enamel only on 2 sides of quadrant"=7,"Enamel only on 1 sides of quadrant,thick/medium"=8,"Thin enamel only on 1 sides of quadrant"=9,"No enamel complete dentine exposure"=10))),
+                       conditionalPanel(condition=paste0("input.wear",ul,Teeth[i],".indexOf('Q2') >=0"),
+                                        selectInput(paste0("Q2",ul,Teeth[i]),"Quadrant2",c("None"=NA,"Invisble or very small facets"=1,"Facets visible but cusps and surface features very evident"=2,"Some rounding/obliteration of cusps,but not flat"=3,"Quadrant flat but limited detine exposure"=4,"Flat quadrant 1/4 or less dentine exposure"=5,">1/4 dentine exposure,ring of enamel on three sides"=6,"Enamel only on 2 sides of quadrant"=7,"Enamel only on 1 sides of quadrant,thick/medium"=8,"Thin enamel only on 1 sides of quadrant"=9,"No enamel complete dentine exposure"=10))),
+                       conditionalPanel(condition=paste0("input.wear",ul,Teeth[i],".indexOf('Q3') >=0"),
+                                        selectInput(paste0("Q3",ul,Teeth[i]),"Quadrant3",c("None"=NA,"Invisble or very small facets"=1,"Facets visible but cusps and surface features very evident"=2,"Some rounding/obliteration of cusps,but not flat"=3,"Quadrant flat but limited detine exposure"=4,"Flat quadrant 1/4 or less dentine exposure"=5,">1/4 dentine exposure,ring of enamel on three sides"=6,"Enamel only on 2 sides of quadrant"=7,"Enamel only on 1 sides of quadrant,thick/medium"=8,"Thin enamel only on 1 sides of quadrant"=9,"No enamel complete dentine exposure"=10))),
+                       conditionalPanel(condition=paste0("input.wear",ul,Teeth[i],".indexOf('Q4') >=0"),
+                                        selectInput(paste0("Q4",ul,Teeth[i]),"Quadrant4",c("None"=NA,"Invisble or very small facets"=1,"Facets visible but cusps and surface features very evident"=2,"Some rounding/obliteration of cusps,but not flat"=3,"Quadrant flat but limited detine exposure"=4,"Flat quadrant 1/4 or less dentine exposure"=5,">1/4 dentine exposure,ring of enamel on three sides"=6,"Enamel only on 2 sides of quadrant"=7,"Enamel only on 1 sides of quadrant,thick/medium"=8,"Thin enamel only on 1 sides of quadrant"=9,"No enamel complete dentine exposure"=10))))
+      }}
+      tList}
+    MaxPermMW<-MWear(MaxPerm,h3("Maxillary"),"_u")
+    ManPermMW<-MWear(ManPerm,h3("Mandibular"),"_l")
+    MaxDecMW<-MWear(MaxDec,tagList(h3("Decidous"),h4("Maxillary")),"_u")
+    ManDecMW<-MWear(ManDec,tagList(h3(br()),h4("Mandibular")),"_l")
+    
+    out<-tagList(column(width=3,MaxPermMW,h1(br()),h1(br()),h1(br()),h1(br())),
+                 column(width=3,ManPermMW,h1(br()),h1(br()),h1(br()),h1(br())),
+                 column(width=3,MaxDecMW,h1(br()),h1(br()),h1(br()),h1(br())),
+                 column(width=3,ManDecMW,h1(br()),h1(br()),h1(br())),h1(br()))
+    
+  }
+  if(tab=="OW"){
+    OWear<-function(Teeth,tList,ul){
+      Teeth<-grep("M",Teeth,value=TRUE,invert=TRUE)
+      if(length(Teeth)>0){for(i in 1:length(Teeth)){
+        if(grepl("P",Teeth[i])){tList<-tagList(tList,selectInput(paste0("wear",ul,Teeth[i]),Teeth[i],c("None"=NA,"Unworn to polished or small facets"=1,"Moderate cusp removal"=2,"Full cusp removal and/or dentine patches"=3,"at least 1 large dentine exposure"=4,"Two large dentine area,only slight coalescence"=5,"Dentinal areas coalesced,enamel rim complete"=6,"Loss of enamel on atleast 1 side of rim"=7,"Severe loss of crown height"=8)))
+        }else{tList<-tagList(tList,selectInput(paste0("wear",ul,Teeth[i]),Teeth[i],c("None"=NA,"Unworn to polished or small facets"=1,"Point or hairline dentine exposure"=2,"Dentine line of distinct thickness"=3,"Moderate dentine exposure no longer linear"=4,"large dentine area,enamel rim complete"=5,"Loss of enamel rim on one side or very thin"=6,"Enamel rim lost on 2 sides or samll remanants"=7,"Complete crown loss, no enamel"=8)))}
+      }}
+      tList}
+    MaxPermOW<-OWear(MaxPerm,h3("Maxillary"),"_u")
+    ManPermOW<-OWear(ManPerm,h3("Mandibular"),"_l")
+    MaxDecOW<-OWear(MaxDec,tagList(h3("Decidous"),h4("Maxillary")),"_u")
+    ManDecOW<-OWear(ManDec,tagList(h3(br()),h4("Mandibular")),"_l")
+    out<-tagList(column(width=3,MaxPermOW,h1(br()),h1(br()),h1(br()),h1(br())),
+                 column(width=3,ManPermOW,h1(br()),h1(br()),h1(br()),h1(br())),
+                 column(width=3,MaxDecOW,h1(br()),h1(br()),h1(br()),h1(br())),
+                 column(width=3,ManDecOW,h1(br()),h1(br()),h1(br()),h1(br())))
+  }
+  if(tab=="M"){
+    Measure<-function(Teeth,tList,ul,loose){
+      if(length(Teeth)>0){for(i in 1:length(Teeth)){
+        if(Contains(loose,Teeth[i])){
+          tList<-tagList(tList,h4(Teeth[i]),
+                         numericInput(paste0("mmd",ul,Teeth[i]),"Maximum mesiodistal diameter",value=NA),
+                         numericInput(paste0("bl",ul,Teeth[i]),"Maximum buccolingual diameter",value=NA),
+                         numericInput(paste0("ch",ul,Teeth[i]),"Crown Height",value=NA))
+        }else{tList<-tagList(tList,h4(Teeth[i]),
+                             numericInput(paste0("mmd",ul,Teeth[i]),"Maximum mesiodistal diameter",value=NA),
+                             numericInput(paste0("cmd",ul,Teeth[i]),"Mesiodistal diameter between interproximal points",value=NA),
+                             numericInput(paste0("bl",ul,Teeth[i]),"Maximum buccolingual diameter",value=NA),
+                             numericInput(paste0("ch",ul,Teeth[i]),"Crown Height",value=NA))}
+      }}
+      tList}
+    MaxPermMeas<-Measure(MaxPerm,h3("Maxillary"),"_u",input$u_loose)
+    ManPermMeas<-Measure(ManPerm,h3("Mandibular"),"_l",input$L_loose)
+    MaxDecMeas<-Measure(MaxDec,tagList(h3("Decidous"),h4("Maxillary")),"_u",input$ud_loose)
+    ManDecMeas<-Measure(ManDec,tagList(h3(br()),h4("Mandibular")),"_l",input$Ld_loose)
+    out<-tagList(column(width=3,MaxPermMeas,h1(br()),h1(br()),h1(br()),h1(br())),
+                 column(width=3,ManPermMeas,h1(br()),h1(br()),h1(br()),h1(br())),
+                 column(width=3,MaxDecMeas,h1(br()),h1(br()),h1(br()),h1(br())),
+                 column(width=3,ManDecMeas,h1(br()),h1(br()),h1(br()),h1(br())))
   }
   out
 }
