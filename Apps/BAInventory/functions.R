@@ -68,7 +68,7 @@ CreateSI<-function(ID,name,Investigator,custom,dir){
 }
 AppendSI<-function(PopID,ID,In,Sk,V,T,Sh,P,A,H,L,F,UF,NMT,C,O_S,Photo,dir){
   #adds row to existing file with individual data in
-  Table<-data.frame(ID,In,D=gsub(" ","_",as.character(Sys.time())),Sk,V,T,Sh,P,A,H,L,F,UF,NMT,C,O_S,Photo)
+  Table<-data.frame(ID,In,D=format(Sys.time(),"%d/%m/%y_%H:%M:%S"),Sk,V,T,Sh,P,A,H,L,F,UF,NMT,C,O_S,Photo)
   filepath<-paste(dir,PopID,".SI.txt",sep="")
   if(!(file.exists(filepath))){
     stop("File ",filepath," Does not exist please check the Population ID")

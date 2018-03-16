@@ -1,0 +1,18 @@
+#Osteological data:Abnormalities
+#Pop ID=001:Pop Name=Test:Investigator=AJN
+#Date Created= 2017-10-03 17:07:03 :Program=SkeltalAbV1.0
+#Fields:Skeletal ID,InvestigatorInitials,Date,Lesion ID,Type,Description 1,Description 2,Location,Features,Size,Nature,Healing,Linked lesions,Photographic
+#Type:Type of abnormality,Category:Trauma/Pathology,(Fracture/Hole/Chip/Depression/Amputation/Deformation)/(Formation/Loss/Shape/Complex)
+#Des1:headline description:prescribed
+#Des2:user inputed description:free
+#Loc:Region,Bone(s),Additional:prescribed,prescribed,free
+#Feat:Features affected, sutures (skull only):prescribed
+#Size:names,values:headings,num(mm)
+#Nature:names,values:headings,prescribed/free
+#Healing:Stage,Evidence:(Active/Healing/Healed/unknown/NA)/(Post/Peri/Ante_Healing/Ante_Healed/unknown/NA),free
+#Link:IDS,connection,Additional:alphanumeric,prescribed,free
+#Photo:photographic reference info:filepath/ID
+"SID" "In" "D" "LID" "Type" "Des1" "Des2" "Loc" "Feat" "Size" "Nature" "Heal" "Link" "photo"
+"001" "AJN" "03/10/17_17:08:56" "SK_L01" "Pathology:Loss" "NA" "NA" "NA" "NA" "NA" "NA" "NA" "NA" "NA"
+"001" "AJN" "03/10/17_17:12:50" "V_L01" "Pathology:Loss" "NA" "NA" "NA" "NA" "NA" "NA" "NA" "NA" "NA"
+"002" "AJN" "03/10/17_17:14:06" "SK_L01" "Pathology:Loss" "NA" "NA" "NA" "NA" "NA" "NA" "NA" "NA" "NA"

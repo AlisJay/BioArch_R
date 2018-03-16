@@ -48,7 +48,7 @@ AppendDEN<-function(PopID,ID,In,dir,pScore,dScore,Car,Cal,Hypo,Hyper,W,Measure,G
   if(!(file.exists(filepath))){
     stop("File ",filepath," Does not exist please check the Population ID")
   }else{
-    Table<-data.frame(ID=ID,In=In,D=gsub(" ","_",as.character(Sys.time())),pScore=pScore,dScore=dScore,Car=Car,Cal=Cal,Hypo=Hypo,Hyper=Hyper,W=W,Measure=Measure,G=G,Morph=Morph,Mod=Mod[[1]],Ab=Ab)
+    Table<-data.frame(ID=ID,In=In,D=format(Sys.time(),"%d/%m/%y_%H:%M:%S"),pScore=pScore,dScore=dScore,Car=Car,Cal=Cal,Hypo=Hypo,Hyper=Hyper,W=W,Measure=Measure,G=G,Morph=Morph,Mod=Mod[[1]],Ab=Ab)
     write.table(Table,filepath,append=TRUE,row.names=FALSE,col.names=FALSE)
     if(!(is.na(Mod[[2]]))){write.table(Mod[[2]],filepath2,append=TRUE,row.names=FALSE,col.names=FALSE)}
     paste("Added Individual",ID,sep=" ")

@@ -30,7 +30,7 @@ AppendJMetric<-function(PopID,ID,In,dir,C,C2,Sh,UL,P,LL,O){
   if(!(file.exists(filepath))){
     stop("File ",filepath," Does not exist please check the Population ID")
   }else{
-    Table<-data.frame(ID=rep(ID,3),In=rep(In,3),D=rep(gsub(" ","_",as.character(Sys.time())),3),C=C,C2=C2,Sh=Sh,UL=UL,P=P,LL=LL,O=O)
+    Table<-data.frame(ID=rep(ID,3),In=rep(In,3),D=rep(format(Sys.time(),"%d/%m/%y_%H:%M:%S"),3),C=C,C2=C2,Sh=Sh,UL=UL,P=P,LL=LL,O=O)
     write.table(Table,filepath,append=TRUE,row.names=FALSE,col.names=FALSE)
     paste("Added Individual",ID,"to",filepath)
   }

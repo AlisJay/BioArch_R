@@ -1,0 +1,136 @@
+Loss:
+Lesion1:
+	if(Type=="Loss"){out<-tagList(textInput(paste0("size_",Add),"Size of lesion (give atleast 2 dimensions separate with /)"),
+                                h5("n.b if made up of multiple foci then give the size of the overall area affected not individual foci"),
+                                selectInput(paste0("extent_",Add),"% of bone effected",c("<1/3","1/3-2/3",">2/3")),
+                                selectizeInput(paste0("involement_",Add),"Part(s) of bone involved",multiple=TRUE,choice=c("Periosteal/subchondral/external table","Cortex/trabeculae/diploe","Endosteal/internal table")),
+                                textInput(paste0("shape_",Add),"Overall shape description"),
+                                selectInput(paste0("organisation_",Add),"Organisation",c("Well organised/Focal"="Focal","Irregular/Osteoporotic/Diffuse"="Diffuse")),
+                                renderUI(lesion2(Add,Type=input[[paste0("organisation_",Add)]],input)),
+                                selectInput(paste0("collapse_",Add),"Associated structural collapse?",c("Yes"=TRUE,"No"=FALSE)))}
+Lesion2:
+  if(Type=="Focal"){
+    out<-tagList(selectInput("Path_Focal1","Number of Foci",c("Unifocal"="1","2 foci"="2","3-5 foci"="3-5","6-10 foci"="6-10","10+ foci"="10")),
+                 selectizeInput("Path_Focal2","Foci size(select all applicable)",multiple=TRUE,choice=c("<1cm","1-5cm",">5cm")),
+                 selectizeInput("Path_Focal3","Bony response",choice=c("Circumscription/sclerotic reaction","Boundaries Well defined but no sclerosis","Margins not sharply defined")))}
+  if(Type =="Diffuse"){
+    out<-tagList(selectInput("Path_Diffuse1","Cortical thinning?",c("Yes"=TRUE,"No"=FALSE)),
+                 selectInput("Path_Diffuse2","Number of separate sites",c("1","2","3-5","6-10","10+")),
+                 h5("nb sites can vary in size and extent,record the number of distinct sites of resorption"),
+                 selectInput("Path_Diffuse3","Overlapping(select the best description)",c("One irregular site with no deserable separation"="single","multiple irregular sites with no overlap"="separate","Overlapping sites with original separation still visible"="overlapping","Mixture of overlapping and separate sites"="mixed"))
+    )}
+	
+Formation:
+Lesion1:
+	if(Type=="Formation"){out<-tagList(textInput(paste0("size_",Add),"Size of lesion (give atleast 2 dimensions separate with /)"),
+                                     h5("n.b if made up of multiple foci then give the size of the overall area affected"),
+                                     selectInput(paste0("extent_",Add),"% of bone effected",c("<1/3","1/3-2/3",">2/3")),
+                                     textInput(paste0("shape_",Add),"Overall shape description"),
+                                     selectInput(paste0("formation_",Add),"Type of formation(select most applicable)",c("Periostal/lamellar reaction"="Periosteal","Spicules formed perpendicular to surface (intact cortex)"="Spicules","Ossified connective tissue"="Connective","Cortex perforation"="Cortex","Endosteal reaction"="Endosteal","Matrix"="Matrix")),
+                                     renderUI(lesion2(Add,Type=input[[paste0("formation_",Add)]],input)),
+                                     renderUI(lesion2(Add,Type=input[[paste0("type2_",Add)]],input))
+  )}
+Lesion2:
+  if(Type=="Periosteal"){
+    out<-selectInput("Path_Periosteal1","Type of reaction",c("reactive woven bone"="Woven","sclerotic reaction"="Sclerotic","Mixture of sclerotic and woven"="Mixed"))}
+  if(Type=="Spicules"){
+    out<-selectInput("Path_Spicules1","Pattern",c("Sunburst","Cauliflower","Other"))}
+  if(Type=="Connective"){
+    out<-selectInput("Path_Connective1","Type",c("Myostis ossificans (without fracture)"="Myostis Ossificans","Myostis ossificans (with fracture)"="Myostis Ossificans_fracture","Enthesopathy","Joint fussion"))}
+  if(Type=="Cortex"){
+    out<-selectInput("Path_Cortex1","cause of perforation",c("Expansion shell type reaction","Cloacae/sinus tracks","Other"))}
+  if(Type=="Endosteal"){
+    out<-selectInput("Path_Endosteal1","Lamellae visibility",c("Lamellae visible","Medullary cavity narrowed no visible lamellae"))}
+  if(Type=="Matrix"){
+    out<-selectInput("Path_Matrix1","Type of abnormal matrix",c("Deposition of woven bone","Cancellous expansion","Trabecular coarsening"))}
+  if(Type=="Other"){
+    out<-textInput("Path_Other1","Define other")}
+  if(Type=="Joint fussion"){
+    out<-selectInput("Path_Joint1","Extent of fusion",c("Single small/narrow bony connection across the joint"="single small","2-3 small separate connections"="2-3 small",">3 small connections"=">3 small","Single large connection (not covering entire the joint)"="single large","Multiple large connections"="Multiple large","Multiple connections of various sizes"="Multiple various","Complete fusion/ very little or no gaps"="Complete"))}
+  if(Type=="Enthesopathy"){
+    out<-textInput("Path_Enthesopathy1","Tendon/Ligament name",value="Unknown")}
+  if(Type=="Myostis Ossificans_fracture"){
+    out<-selectizeInput("Path_Fracture1","Type of fracture",multiple=TRUE,choice=c("Complete","Partial","Greenstick","Simple","Comminuted","Spiral","Compression","Depressed","Pathological","Unknown"))}
+  if(Type=="Expansion shell type reaction"){
+    out<-selectizeInput("Path_Shell1","Type shell(select all applicable)",multiple=TRUE,choice=c("continuous","interrupted","expanded cortex","lobulated","ridged/trabeculated soap bubble","single","lamellated","lamellated onion skin","butress","common angle","spiculated","parallel spiculated/hair on end","spiculated sunburst"))}
+  if(Type=="Cloacae/sinus tracks"){
+    out<-numericInput("Path_Cloacae1","Number of cloacae",value=NA)}
+	
+Size and Shape:
+Lesion1:
+	if(Type=="Shape"){out<-tagList(selectInput(paste0("extent_",Add),"Degree of abnormality",c("Barely discernable","Clearly discernable")),
+                                 selectInput(paste0("shape_",Add),"Type of abnormality",c("Reduced size","Increased size","Bowing/Abnormal curvature","Angulation","Premature fusion","Failure of normal fusion","Abnormal width","Other")),
+                                 renderUI(lesion2(Add,Type=input[[paste0("shape_",Add)]],input,bone=input[[paste0("bone_",Add)]])))}
+Lesion2:
+  if(Type=="Reduced size"){
+    out<-tagList(selectInput("Path_Reduced1","Localised?",c("Yes,this is the only bone affected"="yes_only","yes,only a small number of articulated bones are effected"="yes_regional","no,multiple bones acrosss the skeleton are of reduced size"="no")),
+                 selectInput("Path_Reduced2","Shape in relation to a 'normal' sized example",c("The bones features are all present and in proportion"="proportional reduction","The bones features are all present but not proportional"="non-proportional reduction","There are features missing/ significantly destored"="destored shape reduction","unknown/undeterminable")),
+                 textInput("Path_Reduced3","further description of relative shape",value="none"),
+                 textInput("Path_Reduced4","Measurements(mm)",value="1,2"),
+                 textInput("Path_Reduced5","Measurments given",value="Measurment1,Measurment2"),
+                 h5("nb the measurements and measurments given should be in the same order with multiple entries separated with a comma.You should include enough measurments to give a reliable impression of the abnormality"))}
+  if(Type=="Increased size"){
+    out<-tagList(selectInput("Path_Increased1","Localised?",c("Yes,this is the only bone affected"="yes_only","yes,a small number of articulated bones are effected"="yes_regional","no,multiple bones acrosss the skeleton are of increased size"="no")),
+                 selectInput("Path_Increased2","Shape in relation to a 'normal' sized example",c("The bones features are all present and in proportion"="proportional increase","The bones features are all present but not proportional"="non-proportional increase","There are features missing/ significantly destored"="destored shape increase","unknown/undeterminable")),
+                 textInput("Path_Increased3","further description of relative shape",value="none"),
+                 textInput("Path_Increased4","Measurements(mm)",value="1,2"),
+                 textInput("Path_Increased5","Measurments given",value="Measurment1,measurment2"),
+                 h5("nb the measurements and measurments given should be in the same order with multiple entries separated with a ,.You should include enough measurments to give a reliable impression of the abnormality"))}
+  if(Type=="Abnormal width"){
+    if(bone %in% c("Femur","Tibia","Fibula","Phalanx","Humerus","Radius","Ulna","Metacarpal","Metatarsal")){
+      out<-tagList(selectInput("Path_Width1","Form",c("Flaring proximal metaphysis","Flaring distal metaphysis","Flaring of both metaphyses","Uniform abnormal width","Spindle shaped","Other")),
+                   h4("Measurments"),
+                   h5("you should record enough of the measurments below to give a reliable impression of the abnormality"),
+                   numericInput("Path_Width2","mid shaft diameter",value=NA),
+                   numericInput("Path_Width3","distal shaft diameter",value=NA),
+                   numericInput("Path_Width4","proximal shaft diameter",value=NA),
+                   numericInput("Path_Width5","max shaft diamter",value=NA),
+                   numericInput("Path_Width6","min shaft diameter",value=NA),
+                   numericInput("Path_Width7","distal metaphysis width",value=NA),
+                   numericInput("Path_Width8","proximal metaphysis width",value=NA))}
+    else{out<-tagList(selectInput(paste0("Path_Width1",Add),"Form",c("uniformally wide","uniformally narrow","centeral widening","centeral narrowing","peripheral widening","peripheral narrowing","Other/Unknown")),
+                      textInput("Path_Width2","Widths(mm)",value="1,2"),
+                      textInput("Path_Width3","Measurments given",value="Measurment1,measurment2"),
+                      h5("nb the 'Widths' and 'Measurments given' should be in the same order with multiple entries separated with a ,.You should include enough measurments to give a reliable impression of the abnormality."))}
+  }
+  if(Type=="Bowing/Abnormal curvature"){
+    if(bone %in% c("Atlas","Axis","Cervical","Thoracic","Lumbar","Sacrum")){
+      out<-tagList(selectInput("Path_Curve1","Type",c("Kyphosis","Scoliosis,left","Scoliosis,right")),
+                   selectInput("Path_Curve2","Form",c("Angular","Gradual change in body height")),
+                   selectInput("Path_Curve3","Ankylosis present",c("yes"=TRUE,"no"=FALSE)))}
+    else{out<-tagList(selectInput("Path_Curve1","Direction of bowing",c("Medial","Lateral","Anterior","Posterior","Unknown")),
+                      selectInput("Path_Curve2","% of bone effected",c("<1/3","1/3-2/3",">2/3")),
+                      numericInput("Path_Curve3","length of long axis(mm)",value=NA),
+                      numericInput("Path_Curve4","anatomical length(mm)",value=NA),
+                      h5("nb the anatomical length is the shortest distance from most superior to the most inferior points, in an unbowed bone this would be approximate to the length of the long axis"))}
+  }
+  if(Type=="Angulation"){
+    out<-tagList(selectInput("Path_Angulation1","Direction of angulation",c("Medial","Lateral","anterior","posterior","superior","inferior")),
+                 selectInput("Path_Angulation1","Degree of angulation",c(">170","150-170","125-150","100-125","<100")),
+                 h5("nb the degree of angulation refers to the smallest angle between the long axis of the bone and the angulated portion. Therefore 180 would indicate no angulation (straight)"),
+                 selectInput("Path_Angulation1","relate to healed fracture?",c("Yes","No","Unknown")))}
+  if(Type=="Premature fusion"){}
+  if(Type=="Failure of normal fusion"){}
+  out
+}
+
+
+Complex:
+Lesion1:
+	if(Type=="Complex"){out<-tagList(textInput(paste0("size_",Add),"Size of lesion (give atleast 2 dimensions separate with /)"),
+                                   h5("n.b if made up of multiple foci then give the size of the overall area affected not individual foci"),
+                                   selectInput(paste0("extent_",Add),"% of bone effected",c("<1/3","1/3-2/3",">2/3")),
+                                   selectizeInput(paste0("involement_",Add),"Part(s) of bone involved",multiple=TRUE,choice=c("Periosteal/subchondral/external table","Cortex/trabeculae/diploe","Endosteal/internal table")),
+                                   h4("Formation"),
+                                   selectInput(paste0("formation_",Add),"Type of formation(select most applicable)",c("Periostal/lamellar reaction"="Periosteal","Spicules formed perpendicular to surface (intact cortex)"="Spicules","Ossified connective tissue"="Connective","Cortex perforation"="Cortex","Endosteal reaction"="Endosteal","Matrix"="Matrix")),
+                                   renderUI(lesion2(Add,Type=input[[paste0("formation_",Add)]],input)),
+                                   renderUI(lesion2(Add,Type=input[[paste0("type2_",Add)]],input)),
+                                   h4("Loss"),
+                                   selectInput(paste0("organisation_",Add),"Type of bone loss",c("Well organised/Focal"="Focal","Irregular/Osteoporotic/Diffuse"="Diffuse")),
+                                   renderUI(lesion2(Add,Type=input[[paste0("organisation_",Add)]],input)),
+                                   selectInput(paste0("collapse_",Add),"Associated structural collapse?",c("Yes"=TRUE,"No"=FALSE)),
+                                   h4("Connection between loss and formation"),
+                                   selectInput(paste0("connection_",Add),"Type of connection",c("healing (single stage of process)","healing(multi-stage,healing and active portions)","overlapping lesions","unknown")),
+                                   textInput(paste0("shape_",Add),"Overall shape description"))}
+   
+

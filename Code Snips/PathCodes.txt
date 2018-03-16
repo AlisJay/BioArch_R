@@ -1,0 +1,130 @@
+Pathology  codes: (With and without compeleted functions) 
+
+
+Skull:
+	Loss:
+		"Custom"="SK_CL","Ectocranial porosis: of the Parietal/Occipital or Frontal Squama/ Zygomatic"="SK_L01a","Orbital Ectocranial Porosis"="SK_L01b", "Supraorbital frontal groove(s)"="SK_L02", "Enlarged parietal foramina"="SK_L09",
+		"Erosion of Nasal apeture or spine"="SK_L03", "Periapical perforations in mandible or maxilla"="SK_L04", "Endocranial depressions in the neurocranium"="SK_L05", "Perforation(s) or resorption of the mastoid region"="SK_L06", "Thinning of parietal bone"="SK_L07", "Circular/ Oval concavity on lingual surface of the mandible inferior to the mylohyoid line"="SK_L08",  "Perforation of tympanic plate of temporal bone"="SK_L10"
+	Formation:
+		"Custom"="SK_CF",
+		"Roughly circlar raised area(s) of dense bone on ectocranial surface"="SK_F01", "Bone growth at the External occipital protuberance"="SK_F02", "Bone growth in or around the external auditory meatus"="SK_F03", "Elongation of the styloid process"="SK_F04", "Rounded bone growth(s) along the lingual border of the mandible"="SK_F05", "Irregular thick bone growth(s) on endocranial surface vault"="SK_F06"
+	Size Shape:
+		"Custom"="SK_CS","Abnormally small circumference (Microscephly)"="SK_S01", "Abnormally large/wide cranium (Macrocephly)"="SK_S02", "Anterior Posterior elongation (Scaphocephaly)"="SK_S03", "Superior-Inferior elongation (Oxycephaly)"="SK_S04", "Flattening of the posterior skull(Brachycephaly)"="SK_S05", "Asymmetrical distortion(Plagiocephaly)"="SK_S06", "Anteriorly Pointed forehead (Trigonocephaly)"="SK_S07", "Asymmetry of the cranial base"="SK_S08", "Supernummery bones/sutural ossicles"="SK_S09", "Unfused Metopic Suture"="SK_S10", "Deviation from midline of nasal septum"="SK_S11", "Cleft palate"="SK_S12", "Suprainion depression"="SK_S13", "Absence/ complete closure of the external auditory meatus"="SK_S14"
+	
+	Complex:
+		"Custom"="SK_CC",
+		"Tempro-mandibular joint porocity/erosion/osteophytes"="SK_C01", "Extensive destruction of the outer table and diploe with radiating grooves and smooth raised nodules"="SK_C02", "Area of disorganized/abnormal bone remodeling, With one or more of: resorptive lesions/patches of sclerotic bone/bone softening/cortical thickening/prominent menigeal grooves/gross enlargement/increased weight, thickness or density/general deformity"="SK_C03","Lesion(s) displaying erosion, remodelling and scarring"="SK_C04"
+
+Vert:
+	Loss:
+		"Custom"="V_CL",
+		"Severe erosive degradation/Cavitation of the vertebral body with little or no effect on the posterior vertebral elements"="V_L01", "Loss of body height"="V_L02", "Circular and/linear depressed lesion(s) in centra endplate"="V_L03", "Large scooped out lesions(s) on left anterior lateral  surface of the vertebral body "="V_L04", "Erosion of the odontoid process"="V_L05"
+	Formation:
+	
+		"Custom"="V_CF","Rounded or radiating fingerlike bony projections (osteophytes) from the rim of the vertebral body"="V_F01", "Fusion of rib(s) to vertebra(e)"="V_F02", "Fusion of 2 vertebrae (not L5 and S1)"="V_F03", "Fusion of 3 or more vertebrae"="V_F04"
+	Size Shape:
+		"Supernummery vertebrae"="V_S10"
+		"Custom"="V_CS","Abnormal  anterior posterior curvature (when vertebrae are in approximate anatomical position)"="V_S01 ", "Abnormal  lateral curvature (when vertebrae are in approximate anatomical position)"="V_S02",  "Malformed/ cleft centra"="V_S03", "Final lumbar vertebra partially or completely fused to the sacrum or displays features of the sacral vertebrae (Sacralisation)"="V_S04", "1st Sacral vertebra displays features of the lumbar vertebrae (Lumbarisation)"="V_S05", "Incomplete closure of sacral neural arch"="V_S06", "Incomplete closure of  lumbar neural arch"="V_S07","Incomplete closure of thoracic or cervical neural arch"="V_S08", "Separation of vertebral  body from the posterior portion of the neural arch"="V_S09",
+	Complex:
+	
+		"Custom"="V_CC","At least 2 of: Osteophytes on the rim of the vertebral body/irregular margins of the articular facets/ Surface porosity or eburnation of articular facets or odontoid process "="V_C01","Pitting on the superior surface of the vertebral bodies and marginal osteophyte(s)"="V_C02","Bridging of L5 and S1 with unusually large asymmetric inferior articular facets and fissures below the superior articular facet, possibly with callus formation"="V_C03"
+
+Shoulder:
+	Loss:
+		"Custom"="SH_CL",
+		"Irregularly shaped crater, groove, depression or pit in the anterior surface of the clavicle"="SH_L01"
+	Formation:
+	
+		"Custom"="SH_CF","Raised plateau like bony extension on the superior edge of the lateral end of the clavicle"="SH_F01", "Raised circular plateau of bone on the coracoid process"="SH_F02"
+	Size Shape:
+		"Custom"="SH_CS",
+		"Separated acromion process"="SH_S01"
+	Complex:
+	
+		"Custom"="SH_CC","Raised sharp margins and pitting on the articular surface of the glenoid fossa"="SH_C01", "Flattening or extension of the glenoid fossa accompanied by erosion or pitting"="SH_C02","Pitting on the insertion of rotator cuff muscle and new bone around the insertion or alteration in the contour of the insertion"="SH_C03","Eburnation on the undersurface of the acromion"="SH_C04"
+
+Pelvis:
+	Loss:
+		"Custom"="P_CL","Enlarged nutrient foramina"="P_L01", "Circular or linear depression(s) on the dorsal surface of the pubic symphyses"="P_L03"
+		"A concavity or perforation on the inner surface of the illium/Illiac fossa"="P_L02", 
+	Formation:
+	
+		"Custom"="P_CF","Accessory sacral facets adjacent to the auricular surface"="P_F01", "Fusion of the sacroiliac joint"="P_F02", "Spike-like projections/spur/ridges/irregular ossification on the iliac crest/Ishial crest, tuberosity or spine/the margin of the obturator foramen"="P_F03", "Bridging of the cotyloid (acetabular) notch"="P_F04", "Long bony projection from the superior region of the ishial tuberocity"="P_F05"
+	Size Shape:
+		"Custom"="P_CS",
+		"Acetabular ossicles"="P_S01", "Wide gap between pubic symphyses when pelvis is articulated"="P_S02"
+	Complex:
+	
+		"Custom"="P_CC","Flattening of the superior rim of the acetabulum creating a 2-3cm long eroded area with exposed trabeculae or flattened depression"="P_C01", "Destruction of the acetabulum with surrounding reactive bone growth"="P_C02"
+
+Thorax:
+	Loss:
+		"Custom"="T_CL",
+		"Oval or circular defect in Sternum"="T_L01"
+	Formation:
+	
+		"Custom"="T_CF","Raised irregular bony growth on rib around vertebral articulation"="T_F01", "Enlarged and thickened periosteal bone on cortical surfaces of rib, particularly at ends, producing clubbed appearance"="T_F02"
+	Size Shape:
+		"Accessory/supernummery ribs"="T_S03"
+		"Custom"="T_CL","Straightening of ribs, producing shepherd's crook appearance"="T_S01", "Bifid or bicipital(two headed) rib"="T_S02", 
+	Complex:
+	
+		"Custom"="T_CC"
+	
+
+Leg:
+	Loss:
+		"Custom"="L_CL",
+		"Large Pit/depression superior to the fovea capitis"="L_L01", "Scooped out lesion in medial condyle of femur"="L_L02", "Depression along the margin of the distal articular surface of the femur"="L_L03","Porous/sieve-like depression in the femoral neck"="L_L04",">2cm defect/ abnormality superior to the medial condyle"="L_L05", "Elongated groove/shallow depression inferior to the lesser trochanter"="L_L06","Break in the continuity of the straight line forming the anterior margin of the distal tibia, extension of the articular surface over this line"="L_L07"
+	Formation:
+	
+		"Custom"="L_CF","Irregular raised area(s)/roughened attachments site/ bony spurs/ whisker like projection on the greater trochanter,lesser trochanter, trochanteric fossa and/or linea aspera"="L_F01","raised plaque-like area/extension of articular surface of the femoral head"="L_F02" ,"Exuberant bone formation on the femoral shaft"="L_F03", "Thickened line(s) extending across the diaphysis/metaphysis of the femur, Tibia or fibula"="L_F04", "Extensive/ exuberant  new bone formation  on the distal femur ,proximal tibia (and patella) coupled with a misalignment of the femur and tibia"="L_F05","Sheave/ envelope of disorganized new bone formation on shaft of femur/ tibia or fibula"="L_F06","Area of new bone growth on the outer cortex, with defined raise margins, pitting and striations, that is discolored compared to the underlying bone and has a tree-bark appearance"="L_F07","Smooth (healed) bone growth attached to the outer cortex which appears to sit on top of the underlying bone"="L_F08", "Irregular raise margins and/or raised islands of bone on the articular surface  of the tibial plateau"="L_F09","Rounded, smooth or irregular bony projection(s) from the tibial shaft running roughly perpendicular to the long axis"="L_F10","Bone spurs emanating from the tibial tuberocity"="L_F11","Elongation and projection of the inferior border of the patella"="L_F12","Bone spur on the lateral to midline articular rim of the distal tibia"="L_F13"
+	Size Shape:
+		"Custom"="L_CS",
+		"Narrowed and elongated lateral condyle of femur"="L_S01", "Deep trochlear fossa"="L_S02", "Wide intercondylar fossa"="L_S03","Large raised and widely spaced lateral articular facet"="L_S04", "Small raised widely spaced medial articular facet"="L_S05","Bowing of the femur"="L_S06", "Bowing of the Tibia"="L_S07","Elongated sharpened tibial spines"="L_S08","Fusion of the Tibia and femur"="L_S09","Patella appears to have a large notch taken out of the superolateral corner"="L_S10","Small notch or depression on the superolateral or superomedial corner of the patella"="L_S11"
+	Complex:
+	
+		"Custom"="L_CC","Marginal osteophytes, mushrooming, eburnation and/or pitting on the femoral head"="L_C01","Marginal osteophytes,osteophytes on the articular surface, eburnation and/or porosity on distal end of the femur"="L_C02", "Sheave/ envelope of disorganized new bone formation on shaft of femur/ tibia or fibula with large hole/depression(s) which may contain a isolated fragment of bone"="L_C03","On the Patella atleast 2 of :Raise rim around articular surface, surface osteophytes, eburnation, surface porosity and pitting, grooved articular surface"="L_C04"
+
+Arm:
+	Loss:
+		"Custom"="A_CL",
+		"A Porous groove on the upper humeral shaft"="A_L01", "Round/oval perforation in the olecranon fossa"="A_L02", "Erosion of the radial styloid process"="A_L03"
+	Formation:
+	
+		"Custom"="A_CF","Small roughly triangular hook-shaped bone spur 5-7cm above the medial epicondyle"="A_F01" , "Thickened line(s) extending across the diaphysis/metaphysis of the Humerus, Ulna or Radius"="A_F02", "Area of new bone growth on the outer cortex, with defined raise margins, pitting and striations, that is discolored compared to the underlying bone and has a tree-bark appearance"="A_F03","Smooth (healed) bone growth attached to the outer cortex which appears to sit on top of the underlying bone"="A_F04"
+	Size Shape:
+		"Custom"="A_CS",
+		"Supernumery bones of the elbow"="A_S01"
+	Complex:
+	
+		"Custom"="A_CC","On Distal Humerus at last 2 of:Osteophytes along the articular surface, Mushrooming of the medial margin, extension into the olecranon fossa, Eburnation, Pitting, distortion of the articular surface"="A_C01", "Pitting within and Spike-like projections/spur/ridges/irregular ossification along the radial tuberocity"="A_C02","Margin osteophytes and areas of pitting or eburnation on the radial head"="A_C03", "Margin osteophytes and areas of pitting or eburnation on the trochlea notch/olecranon and/or coronoid process"="A_C04","Eburnation on the superior pole of head of humerus"="A_C05"
+		
+
+Hand:
+	Loss:
+		"Custom"="H_CL",
+		"Increased nutrient foramen in phalanx"="H_L01","Symmetrical erosion of metacarpophalangeal or proximal interphalangeal joint(s)"="H_L02"
+	Formation:
+	
+		"Custom"="H_CF"
+	Size Shape:
+		"Custom"="H_CS","Fusion of the proximal interphalangeal joint, resulting in a swan-neck deformity"="H_S01","Acessory/Supernummery bones"="H_S02"
+		
+	Complex:
+		"Tufting and resorption of distal phalanges"="H_C01",
+		"Custom"="H_CC","Eburnation in any hand joint"="H_C02"
+
+Foot:
+	Loss:
+		"Custom"="F_CL","Enlarged nutrient foramen"="F_L02",
+		"Destruction of metatarsal and phalanges producing penciled cupped and pegged shapes with destruction beginning distally"="F_L01","Symmetrical erosion of metatarsophalangeal or proximal interphalangeal joint(s)"="F_L03","Asymetric erosion of metatarsophalangeal or interphalangeal joint(s)"="F_L04"
+	Formation:
+	
+		"Custom"="F_CF","Bone spur(s) on the superior posterior portion of the calcaneal tuber"="F_F01","Bone spur(s) on the inferor calcaneal tuber"="F_F02","Bone spur on medial aspect of the talar neck"="F_F03"
+	Size Shape:
+		"Custom"="F_CS","Accessory/supernummery bones"="F_S01","Fusion of interphalangeal joints"="F_S05","Fusion of  phalangeal metatarsal joints"="F_S06",
+		"Malformation of the talus and medial rotation of the clacaneus leading to medial rotation of the foot so that the outside of the foot becomes the walking surface"="F_S02","Fusion of the calcaneous and talus"="F_S03","Fusion of the Tibia and Talus (and calcaneous)"="F_S04","Fusion of intertarsal joint(s)"="F_S07"
+	Complex:
+		"Tufting and resorption of distal phalanges"="F_C02"
+		"Custom"="F_CC","Severe loss of bone across multiple foot bones accompanied by deformity bending the forefoot towards to hind foot creating a very high arch"="F_C01",

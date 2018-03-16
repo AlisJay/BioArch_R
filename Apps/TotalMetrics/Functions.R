@@ -34,7 +34,7 @@ AppendMetric<-function(PopID,ID,In,dir,C,M,Sh,P,UL,LL,FLB,A,V,MT,O){
   if(!(file.exists(filepath))){
     stop("File ",filepath," Does not exist please check the Population ID")
   }else{
-    Table<-data.frame(ID=rep(ID,3),In=rep(In,3),D=rep(gsub(" ","_",as.character(Sys.time())),3),C=C,M=M,Sh=Sh,P=P,UL=UL,LL=LL,FLB=FLB,A=A,V=V,MT=MT,O=O)
+    Table<-data.frame(ID=rep(ID,3),In=rep(In,3),D=format(Sys.time(),"%d/%m/%y_%H:%M:%S"),C=C,M=M,Sh=Sh,P=P,UL=UL,LL=LL,FLB=FLB,A=A,V=V,MT=MT,O=O)
     write.table(Table,filepath,append=TRUE,row.names=FALSE,col.names=FALSE)
     paste("Added Individual",ID,"to",filepath)
   }

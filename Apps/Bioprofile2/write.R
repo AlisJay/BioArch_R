@@ -49,7 +49,7 @@ AppendBP<-function(PopID,ID,In,k,an,s,ag,r,ans,ss,t,sb,l,v,la,r4,sd,dir){
   if(!(file.exists(filepath))){
     stop("File ",filepath," Does not exist please check the Population ID")
   }else{
-    Table<-data.frame(ID=ID,In=In,D=gsub(" ","_",as.character(Sys.time())),K=k,An=an,S=s,Ag=ag,R=r,AnS=ans,SP=paste(ss[1:6],collapse=":"),SO=paste(ss[7:12],collapse=":"),SD=paste(sd,collapse=":"),T=t,SB=sb,L=l,V=v,LA=la,R4=r4)
+    Table<-data.frame(ID=ID,In=In,D=format(Sys.time(),"%d/%m/%y_%H:%M:%S"),K=k,An=an,S=s,Ag=ag,R=r,AnS=ans,SP=paste(ss[1:6],collapse=":"),SO=paste(ss[7:12],collapse=":"),SD=paste(sd,collapse=":"),T=t,SB=sb,L=l,V=v,LA=la,R4=r4)
     write.table(Table,filepath,append=TRUE,row.names=FALSE,col.names=FALSE)
     paste("Added Individual",ID,"to",filepath)
   }
